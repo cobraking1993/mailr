@@ -56,7 +56,6 @@ class Folder < ActiveRecord::Base
         end
 
         user.folders.create(
-            :msgs_updated_at => DateTime.now-1,
             :name => name,
             :parent => parent,
             :haschildren => has_children,

@@ -54,6 +54,8 @@ class MessagesController < ApplicationController
 		flash[:notice] = 'Not impelented yet'
 	end
 
+# TODO error when no folders are shown
+
 	def refresh
         @folders_shown.each do |f|
             @mailbox.set_folder(f.full_name)

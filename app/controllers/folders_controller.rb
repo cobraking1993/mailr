@@ -1,3 +1,6 @@
+require 'imap_mailbox'
+require 'imap_session'
+
 class FoldersController < ApplicationController
 
     include ImapMailboxModule

@@ -12,6 +12,8 @@ class UserController < ApplicationController
 		redirect_to :action => "login"
 	end
 
+# TODO make login possible to use only one username
+
 	def authenticate
 		user = User.find_by_email(params[:user][:email])
 		if user.nil?

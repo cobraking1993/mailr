@@ -108,7 +108,7 @@ pl:
   save: Zapisz
   imap_error: Błąd protokołu IMAP
   unspecified_error: Nieoczekiwany błąd
-  page_not_found: Nie znaleziono żadanej strony
+  page_not_found: Nie znaleziono żądanej strony
   copy: Skopiuj
   move: Przenieś
   to: do

@@ -35,3 +35,4 @@ mailbox_trash: INBOX.Trash
 mailbox_sent: INBOX.sent
 mailbox_drafts: INBOX.drafts
 
+only_can_logins: [login]

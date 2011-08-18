@@ -4,18 +4,16 @@ def form_field(object,field,flabel,example,val)
     model_name = eval(object.class.model_name)
 	html = ""
 	html << "<div class=\"group\">"
-	if object.errors[field.to_sym]
+	if not object.errors[field.to_sym].empty?
 		html << "<div class=\"fieldWithErrors\">"
 
 	end
+
 	html << "<label class=\"label\">"
-	if flabel.nil?
-		html << model_name.human_attribute_name(field)
-	else
-		html << t(flabel.to_sym)
-	end
+	flabel.nil? ? html << model_name.human_attribute_name(field) : html << t(flabel.to_sym)
 	html << "</label>"
-	if object.errors[field.to_sym]
+
+	if not object.errors[field.to_sym].empty?
 		html << "<span class=\"error\"> "
 		html << object.errors[field.to_sym].to_s
 		html << "</span>"
@@ -25,8 +23,8 @@ def form_field(object,field,flabel,example,val)
 	html << object.class.name.downcase+"_"+field
 	html << "\""
 	html << " name=\"#{object.class.name.downcase}[#{field}]\""
-	html << " size=50 type=\"text\" class=\"text_field\" value=\""
-	value = object.instance_eval(field) || val || ""
+	html << " type=\"text\" class=\"text_field\" value=\""
+    value = object.instance_eval(field) || val || ""
 	html << value
 	html << "\"/>"
 	html << "<span class=\"description\">"
@@ -36,6 +34,47 @@ def form_field(object,field,flabel,example,val)
 	html << "</span>"
 	html << "</div>"
 
+end
+
+def mail_param_view(object,field,value)
+    model_name = eval(object.class.model_name)
+    html = ""
+    html << "<div class=\"group\">"
+    html << "<label class=\"label\">#{model_name.human_attribute_name(field)}: </label>"
+    html << value
+    html << "</div>"
+    html
+end
+
+def area_field(object,field,flabel,example,val,cols,rows)
+    model_name = eval(object.class.model_name)
+    html = ""
+    html << "<div class=\"group\">"
+
+    if not object.errors[field.to_sym].empty?
+        html << "<div class=\"fieldWithErrors\">"
+    end
+
+    html << "<label class=\"label\">"
+    flabel.nil? ? html << model_name.human_attribute_name(field) : html << t(flabel.to_sym)
+    html << "</label>"
+
+    if not object.errors[field.to_sym].empty?
+        html << "<span class=\"error\">"
+        html << object.errors[field.to_sym].to_s
+        html << "</span>"
+        html << "</div>"
+    end
+
+    name = object.class.name.downcase + '[' + field + ']'
+    id = object.class.name.downcase+"_"+field
+    value = object.instance_eval(field) || val || ""
+    html << "<textarea id=\"#{id}\" name=\"#{name}\" class=\"text_area\" cols=\"#{cols}\" rows=\"#{rows}\" value=\"#{value}\"></textarea>"
+
+    desc = t(:example) + ": " + example
+    html << "<span class=\"description\">#{desc}</span>"
+
+    html << "</div>"
 end
 
 def form_button(text,image)

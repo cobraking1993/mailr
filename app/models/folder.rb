@@ -40,6 +40,9 @@ class Folder < ActiveRecord::Base
     def check_fill_params
         self.total.nil? ? self.total = 0 : self.total
         self.unseen.nil? ? self.unseen = 0 : self.unseen
+        self.parent.nil? ? self.parent = "" : self.parent
+        self.haschildren.nil? ? self.haschildren = false : self.haschildren
+        self.delim.nil? ? self.delim = "." : self.delim
     end
 
     def self.createBulk(user,imapFolders)

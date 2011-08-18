@@ -57,7 +57,6 @@ class IMAPMessage
         envelope = message.attr['ENVELOPE']
         m.envelope = envelope
         m.message_id = envelope.message_id
-        m.to = envelope.to
         m.date = envelope.date
         m.subject = envelope.subject
         m.uid = message.attr['UID']
@@ -66,6 +65,7 @@ class IMAPMessage
         m.size = message.attr['RFC822.SIZE']
         m.unseen = !(message.attr['FLAGS'].member? :Seen)
         m.from = IMAPAddress.from_address(envelope.from[0])
+        m.to = IMAPAddress.from_address(envelope.to[0])
         m
     end
 
@@ -75,6 +75,10 @@ class IMAPMessage
 
     def from_to_db
         from.to_db
+    end
+
+    def to_to_db
+        to.to_db
     end
 
 end

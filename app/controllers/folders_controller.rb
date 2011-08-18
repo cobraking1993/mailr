@@ -8,8 +8,8 @@ class FoldersController < ApplicationController
 
 	before_filter :check_current_user ,:selected_folder
 
-	before_filter :open_imap_session, :except => [:index,:refresh_status,:show_hide]
-	after_filter :close_imap_session, :except => [:index,:refresh_status,:show_hide]
+	before_filter :open_imap_session, :except => [:index,:show_hide]
+	after_filter :close_imap_session, :except => [:index,:show_hide]
 
 	before_filter :get_folders
 
@@ -25,6 +25,7 @@ class FoldersController < ApplicationController
             render "index"
         else
             begin
+                #TODO recreate local copy of folders
                 if params["parent_folder"].empty?
                     @mailbox.create_folder(params[:folder])
                 else
@@ -39,10 +40,11 @@ class FoldersController < ApplicationController
                 render 'index'
                 return
             end
-            redirect_to :action => 'refresh', :flash => t(:was_created,:scope=>:folder), :type => :notice
+            flash[:notice] = t(:was_created,:scope=>:folder)
+            redirect_to :action => 'index'
         end
     end
-    # FIXME if you delete folder you should change current folder because if you go to messages/index you got nil
+
     def delete
         if params["folder"].empty?
             flash[:warning] = t(:to_delete_empty,:scope=>:folder)
@@ -59,25 +61,33 @@ class FoldersController < ApplicationController
                     raise Exception, t(:system_folder)
                 end
                 @mailbox.delete_folder(folder.full_name)
+                logger.custom('c',@current_folder.inspect)
+                logger.custom('f',folder.inspect)
+                if @current_folder.eql? folder
+                    session[:selected_folder] = $defaults['mailbox_inbox']
+                end
+                folder.destroy
             rescue Exception => e
                 flash[:error] = t(:can_not_delete,:scope=>:folder) + ' (' + e.to_s + ')'
                 render 'index'
                 return
             end
-            redirect_to :action => 'refresh', :flash => t(:was_deleted,:scope=>:folder), :type => :notice
+            flash[:notice] = t(:was_deleted,:scope=>:folder)
+            redirect_to :action => 'index'
         end
     end
 
     def show_hide
-		@folders.each do |f|
-		logger.info f.inspect,"\n"
-			if params["folders_to_show"].include?(f.id.to_s)
-				f.shown = true
-				f.save
-			else
-				f.shown = false
-				f.save
-			end
+        if !params["folders_to_show"].nil?
+            @folders.each do |f|
+                if params["folders_to_show"].include?(f.id.to_s)
+                    f.shown = true
+                    f.save
+                else
+                    f.shown = false
+                    f.save
+                end
+            end
 		end
         redirect_to :action => 'index'
     end
@@ -87,6 +97,39 @@ class FoldersController < ApplicationController
 		flash.keep
 		redirect_to :action => 'index'
 	end
+
+	def select
+        session[:selected_folder] = params[:id]
+        redirect_to :controller => 'messages', :action => 'index'
+	end
+
+	def refresh_status
+        @folders_shown.each do |f|
+            @mailbox.set_folder(f.full_name)
+            folder_status = @mailbox.status
+            f.update_attributes(:total => folder_status['MESSAGES'], :unseen => folder_status['UNSEEN'])
+        end
+        redirect_to :controller=> 'messages', :action => 'index'
+	end
+
+	def emptybin
+        begin
+            trash_folder = @current_user.folders.find_by_full_name($defaults["mailbox_trash"])
+            @mailbox.set_folder(trash_folder.full_name)
+            trash_folder.messages.each do |m|
+                @mailbox.delete_message(m.uid)
+            end
+            @mailbox.expunge
+            trash_folder.messages.destroy_all
+            trash_folder.update_attributes(:unseen => 0, :total => 0)
+        rescue Exception => e
+            flash[:error] = "#{t(:imap_error)} (#{e.to_s})"
+        end
+        redirect_to :controller => 'messages', :action => 'index'
+	end
+
+
+	############################################# protected section #######################################
 
     protected
 

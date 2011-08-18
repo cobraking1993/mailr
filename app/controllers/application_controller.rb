@@ -2,14 +2,15 @@ require 'yaml'
 
 class ApplicationController < ActionController::Base
 
-    #unless config.consider_all_requests_local
-    #    #rescue_from ActionController::RoutingError, :with => :route_not_found
-    #    rescue_from ActiveRecord::RecordNotFound, :with => :route_not_found
-    #end
-
 	protect_from_forgery
 	before_filter :load_defaults,:current_user,:set_locale
 	before_filter :plugins_configuration
+
+    rescue_from ActiveRecord::RecordNotFound do
+        logger.custom('record_not_found','exc')
+        reset_session
+        redirect_to :controller=>'user', :action => 'login'
+    end
 
     ################################# protected section ###########################################
 
@@ -42,7 +43,7 @@ class ApplicationController < ActionController::Base
 	def check_current_user
 		if @current_user.nil?
 			session["return_to"] = request.fullpath
-			redirect_to :controller=>"user", :action => "login"
+            redirect_to :controller => 'user', :action => 'login'
 			return false
 		end
 	end
@@ -64,10 +65,6 @@ class ApplicationController < ActionController::Base
         WillPaginate::ViewHelpers.pagination_options[:previous_label] = t(:previous_page)
         WillPaginate::ViewHelpers.pagination_options[:next_label] = t(:next_page)
     end
-
-    #def route_not_found
-    #    render :text => 'What the fuck are you looking for ?', :status => :not_found
-    #end
 
 end
 

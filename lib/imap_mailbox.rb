@@ -12,11 +12,12 @@ class IMAPMailbox
 	attr_accessor :sfolder
 	attr_accessor :logger
 
-	def initialize(logger)
+	def initialize(logger,debug)
 		@sfolder = ''
 		@folders = {}
 		@connected = false
 		@logger = logger
+		Net::IMAP.debug = debug
 	end
 
 	def connect(server,username,password)

@@ -28,6 +28,7 @@ pl:
         subject: Temat
         size: Rozmiar
         date: Data
+        body: Treść
       user:
         email: E-mail
         password: Hasło
@@ -40,7 +41,7 @@ pl:
     compose_to_selected: Napisz do wybranych
     delete_selected: Usuń wybrane
     modifying: Modyfikacja kontaktu
-    creating_new: Tworzenie nowego kontaktu
+    creating_new: Nowy kontakt
     create_new: Utwórz nowy kontakt
     contacts: Kontakty
     contact: Kontakt
@@ -55,7 +56,7 @@ pl:
 
   folder:
     folders: Foldery
-    no_shown: Żadnych pokazanych folderów
+    no_shown: Nie prezentowany jest żaden folder. Skonfiguruj widok folderów w zakładce
     parent: Folder nadrzędny
     to_create: Folder do utworzenia
     to_delete: Folder do usunięcia
@@ -84,6 +85,16 @@ pl:
 
   compose:
     compose: Nowa wiadomość
+    new_message: Nowa wiadomość
+    not_contain_at: ",jeżeli nie zawiera znaku @, adres będzie szukany w kontaktach"
+    subject_of_the_message: Temat wiadomości
+    write_your_message_here: Tu wpisz swoją wiadomość
+
+  sendout:
+    was_sent: Wiadomość została wysłana
+
+  show:
+    replay_to: Odpowiedz
 
   user:
     login_failure: Nieudane logowanie. Podano błędny e-mail lub hasło.
@@ -96,6 +107,7 @@ pl:
     unknown_setup: Idź do strony konfiguracyjnej i skonfiguruj swój dostęp
     setup: Konfiguracja
     login: Logowanie
+    only_can_logins: Podany identyfikator użytkownika nie uprawnia do korzystania z aplikacji
 
   must_be_unique: musi być unikalny
   some_add_info: jakieś dodatkowe informacje

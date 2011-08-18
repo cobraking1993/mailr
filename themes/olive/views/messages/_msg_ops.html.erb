@@ -1,0 +1,8 @@
+<div id="ops" class="ops">
+    <%= submit_tag(t(:copy), :name=> 'copy')%>
+    <%= submit_tag(t(:move), :name=>'move')%>
+    <%= t(:to_folder,:scope=>:folder) %>
+    <%= raw simple_select_for_folders("","dest_folder",@folders_shown,true) %><br/>
+    <%= submit_tag(t(:delete), :name=>'trash')%>
+    <%= submit_tag(t(:replay_to,:scope => :show), :name=>'reply')%>
+</div>

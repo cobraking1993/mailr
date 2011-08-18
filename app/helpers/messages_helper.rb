@@ -18,6 +18,13 @@ module MessagesHelper
         ImapMessageModule::IMAPAddress.parse(addr).friendly
     end
 
+    def show_address_formatter(addr)
+        html = ""
+        fs = addr.split(/#/)
+        fs[0].size.zero? ? html << h("<")+fs[1]+h("@")+fs[2]+h(">") : html << fs[0]+h(" <")+fs[1]+h("@")+fs[2]+h(">")
+        html
+    end
+
     def subject_formatter(message)
         if message.subject.size.zero?
             s = t(:no_subject,:scope=>:message)

@@ -11,8 +11,11 @@
         <%= raw main_navigation(:show) %>
     </div>
     <div class="content">
-    <p><%= @message.inspect %></p>
-    <p><%= @body.inspect %></p>
+        <%= form_tag(messages_msgops_path)%>
+        <%= render :partial => 'header' %>
+        <%= render :partial => 'msg_ops' %>
+        <%= render :partial => 'body' %>
+        </form>
     </div>
 </div>
 

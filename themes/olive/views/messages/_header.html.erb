@@ -1,0 +1,9 @@
+<div class="msg_header">
+    <%= raw mail_param_view(@message,"from_addr",show_address_formatter(@message.from_addr)) %>
+    <%= raw mail_param_view(@message,"to_addr",show_address_formatter(@message.to_addr)) %>
+    <%= raw mail_param_view(@message,"subject",@message.subject) %>
+    <%= raw mail_param_view(@message,"date",date_formatter(@message.date)) %>
+    <%= hidden_field_tag 'uids[]', @message.uid %>
+    <%= hidden_field_tag 'id', @message.id %>
+    <%= hidden_field_tag 'source', 'show' %>
+</div>

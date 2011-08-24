@@ -1,0 +1,15 @@
+<td>
+<%= link_to attachment.title, messages_attachment_download_path(attachment.message_id,attachment.idx) %>
+</td>
+<td>
+<%= attachment.type %>
+</td>
+<td>
+<%= attachment.charset %>
+</td>
+<td>
+<%= attachment.encoding %>
+</td>
+<td>
+<%= link_to t(:download), messages_attachment_download_path(attachment.message_id,attachment.idx) %>
+</td>

@@ -36,3 +36,13 @@ rake db:clear_data
 ```
 
 * Use it.
+
+### Specific configuration
+
+For themes: if server sends files with no content in production mode comment out
+
+```ruby
+config.action_dispatch.x_sendfile_header = "X-Sendfile"
+```
+
+from _config/environments/production.rb_ file.

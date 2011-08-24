@@ -3,12 +3,12 @@ module FolderHelper
     def folder_link(folder)
 
         folder.parent.empty? ? name = folder.name : name = folder.parent.gsub(/\./,'#') + "#" + folder.name
-        s = link_to folder.name.capitalize, messages_folder_path(:id => name)
+        s = link_to folder.name.capitalize, folders_select_path(:id => name)
 
         if folder.full_name.downcase == $defaults["mailbox_trash"].downcase
             if not folder.total.zero?
                 s <<' ('
-                s << link_to(t(:emptybin,:scope=>:folder),messages_emptybin_path)
+                s << link_to(t(:emptybin,:scope=>:folder),folders_emptybin_path)
                 s << ')'
             end
         else

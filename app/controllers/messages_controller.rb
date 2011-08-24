@@ -1,6 +1,7 @@
 require 'imap_session'
 require 'imap_mailbox'
 require 'imap_message'
+require 'mail'
 
 class MessagesController < ApplicationController
 
@@ -9,17 +10,19 @@ class MessagesController < ApplicationController
 	include ImapMessageModule
     include MessagesHelper
 
-	before_filter :check_current_user ,:selected_folder
-
-	before_filter :get_current_folders
+	before_filter :check_current_user ,:selected_folder,:get_current_folders
 
 	before_filter :open_imap_session, :select_imap_folder
 	after_filter :close_imap_session
 
 	theme :theme_resolver
 
-
 	def index
+
+        if @current_folder.nil?
+            redirect_to :controller => 'folders', :action => 'index'
+            return
+        end
 
         @messages = []
 
@@ -45,53 +48,38 @@ class MessagesController < ApplicationController
 
 	end
 
-	def folder
-        session[:selected_folder] = params[:id]
-        redirect_to :action => 'index'
-	end
-
 	def compose
-		flash[:notice] = 'Not impelented yet'
+        @message = Message.new
 	end
 
-# TODO error when no folders are shown
+	def reply
+        @message = Message.new
+        render 'compose'
+	end
 
-	def refresh
-        @folders_shown.each do |f|
-            @mailbox.set_folder(f.full_name)
-            folder_status = @mailbox.status
-            f.update_attributes(:total => folder_status['MESSAGES'], :unseen => folder_status['UNSEEN'])
-        end
+	def sendout
+        flash[:notice] = t(:was_sent,:scope => :sendout)
         redirect_to :action => 'index'
-	end
+    end
 
-	def emptybin
+    def msgops
         begin
-            trash_folder = @current_user.folders.find_by_full_name($defaults["mailbox_trash"])
-            @mailbox.set_folder(trash_folder.full_name)
-            trash_folder.messages.each do |m|
-                logger.custom('id',m.inspect)
-                @mailbox.delete_message(m.uid)
+            if !params["uids"]
+                flash[:warning] = t(:no_selected,:scope=>:message)
+            elsif params["reply"]
+                redirect_to :action => 'reply', :id => params[:id]
+                return
             end
-            @mailbox.expunge
-            trash_folder.messages.destroy_all
-            trash_folder.update_attributes(:unseen => 0, :total => 0)
         rescue Exception => e
             flash[:error] = "#{t(:imap_error)} (#{e.to_s})"
         end
-        redirect_to :action => 'index'
-	end
+        redirect_to :action => 'show', :id => params[:id]
+    end
 
 	def ops
         begin
         if !params["uids"]
             flash[:warning] = t(:no_selected,:scope=>:message)
-        elsif params["delete"]
-            params["uids"].each do |uid|
-                @mailbox.delete_message(uid)
-                @current_user.messages.find_by_uid(uid).destroy
-            end
-            @current_folder.update_stats
         elsif params["set_unread"]
             params["uids"].each do |uid|
                 @mailbox.set_unread(uid)
@@ -116,7 +104,7 @@ class MessagesController < ApplicationController
             if params["dest_folder"].empty?
                 flash[:warning] = t(:no_selected,:scope=>:folder)
             else
-                dest_folder = find(params["dest_folder"])
+                dest_folder = @current_user.folders.find(params["dest_folder"])
                 params["uids"].each do |uid|
                     @mailbox.copy_message(uid,dest_folder.full_name)
                     message = @current_folder.messages.find_by_uid(uid)
@@ -149,10 +137,86 @@ class MessagesController < ApplicationController
     end
 
     def show
+
+        @attachments = []
+        @render_as_text = []
+
         @message = @current_user.messages.find(params[:id])
         @message.update_attributes(:unseen => false)
-        flash[:notice] = 'Not implemented yet'
-        @body = @mailbox.fetch_body(@message.uid)
+        imap_message = @mailbox.fetch_body(@message.uid)
+        parts = imap_message.split(/\r\n\r\n/)
+        @message_header = parts[0]
+        mail = Mail.new(imap_message)
+        @title = mail.subject
+        if mail.multipart?
+            idx = 0
+            mail.parts.each do |part|
+                case part.content_type
+                    when /^text\/plain/ then
+                        @render_as_text << part.body.raw_source
+                    else
+                        a = Attachment.new( :message_id => @message.id,
+                                            :description => part.content_description,
+                                            :type => part.content_type,
+                                            :content => part.body.raw_source,
+                                            :idx => idx
+                                            )
+                        @attachments << a
+                end
+                idx += 1
+            end
+        else
+            if mail.content_type.nil?
+                @render_as_text << mail.body.raw_source
+            else
+                a = Attachment.new( :message_id => @message.id,
+                                    :type => mail.content_type,
+                                    :encoding => mail.body.encoding,
+                                    :charset => mail.body.charset,
+                                    :content => mail.body.raw_source,
+                                    :idx => 0
+                                    )
+                @attachments << a
+            end
+        end
+    end
+
+    def body
+        message = @mailbox.fetch_body(params[:id].to_i)
+        mail = Mail.new(message)
+        @title = ''
+        @body = ''
+        #
+        #header = parts[0]
+        #body = parts[1]
+        #@body = "<html><head><title>ala</title><body><pre>#{header}</pre>#{mail.inspect}</body></html>"
+        render 'mail_view',:layout => 'mail_view'
+    end
+
+    def attachment
+        @message = @current_user.messages.find(params[:id])
+        mail = Mail.new(@mailbox.fetch_body(@message.uid))
+
+        if mail.multipart?
+            part = mail.parts[params[:idx].to_i]
+            a = Attachment.new( :message_id => @message.id,
+                                :description => part.content_description,
+                                :type => part.content_type,
+                                :content => part.body.raw_source,
+                                :idx => params[:idx]
+                            )
+        else
+            a = Attachment.new( :message_id => @message.id,
+                                    :type => mail.content_type,
+                                    :encoding => mail.body.encoding,
+                                    :charset => mail.body.charset,
+                                    :content => mail.body.raw_source,
+                                    :idx => 0
+                                    )
+        end
+        headers['Content-type'] = a.type
+        headers['Content-Disposition'] = %(attachment; filename="#{a.name}")
+        render :text => a.content_decoded
     end
 
 end

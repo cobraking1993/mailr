@@ -11,11 +11,18 @@ module MessagesHelper
     end
 
     def date_formatter(date)
-        date.strftime("%Y-%m-%d %H:%M")
+        date.nil? ? t(:no_data) : date.strftime("%Y-%m-%d %H:%M")
     end
 
     def address_formatter(addr)
         ImapMessageModule::IMAPAddress.parse(addr).friendly
+    end
+
+    def show_address_formatter(addr)
+        html = ""
+        fs = addr.split(/#/)
+        fs[0].size.zero? ? html << h("<")+fs[1]+h("@")+fs[2]+h(">") : html << fs[0]+h(" <")+fs[1]+h("@")+fs[2]+h(">")
+        html
     end
 
     def subject_formatter(message)
@@ -25,7 +32,7 @@ module MessagesHelper
             length = $defaults["msg_subject_length"].to_i
             message.subject.length >= length ? s = message.subject[0,length]+"..." : s = message.subject
         end
-        link_to s,:controller => 'messages', :action => 'show', :id => message.id
+        link_to s,{:controller => 'messages', :action => 'show', :id => message.id} , :title => message.subject
     end
 
     def attachment_formatter(message)
@@ -50,6 +57,12 @@ module MessagesHelper
             html << link_to(Message.human_attribute_name(f), {:controller => 'messages',:action => 'index',:sort_field => f,:sort_dir => dir}, {:class=>"header"})
             html << "</th>"
         end
+        html
+    end
+
+    def content_text_plain_for_render(text)
+        html = h(text)
+        html.gsub!(/\r\n/,"<br/>")
         html
     end
 

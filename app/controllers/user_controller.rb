@@ -12,9 +12,11 @@ class UserController < ApplicationController
 		redirect_to :action => "login"
 	end
 
-# TODO make login possible to use only one username
-
 	def authenticate
+        if !$defaults["only_can_logins"].include?(params[:user][:email])
+            redirect_to :controller => 'internal', :action => 'onlycanlogins'
+            return false
+        end
 		user = User.find_by_email(params[:user][:email])
 		if user.nil?
 			redirect_to :action => 'unknown' ,:email=> params[:user][:email]
@@ -26,7 +28,7 @@ class UserController < ApplicationController
                 redirect_to(session["return_to"])
 				session["return_to"] = nil
 			else
-				redirect_to :controller=> 'messages', :action=> 'refresh'
+				redirect_to :controller=> 'messages', :action=> 'index'
 			end
 
 		end

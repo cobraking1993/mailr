@@ -11,9 +11,13 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 
 	<%=stylesheet_link_tag current_theme_stylesheet_path('base') %>
 	<%=stylesheet_link_tag current_theme_stylesheet_path('style') %>
+	<%=stylesheet_link_tag current_theme_stylesheet_path('jquery-ui-dialog') %>
+	<%=stylesheet_link_tag current_theme_stylesheet_path('jquery-ui-custom') %>
 
-    <%=javascript_include_tag :defaults %>
-    <%=javascript_include_tag current_theme_javascript_path('mailr') %>
+    <%=javascript_include_tag current_theme_javascript_path('jquery') %>
+    <%=javascript_include_tag current_theme_javascript_path('jquery-ui') %>
+    <%=javascript_include_tag current_theme_javascript_path('rails') %>
+    <%=javascript_include_tag current_theme_javascript_path('application') %>
 
 </head>
 	<body>

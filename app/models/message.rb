@@ -2,6 +2,8 @@ class Message < ActiveRecord::Base
     belongs_to :user
     belongs_to :folder
 
+    attr_accessor :body
+
     def self.getPageForUser(user,folder,page,sort_field,sort_dir)
 
         order = 'date desc'
@@ -22,7 +24,7 @@ class Message < ActiveRecord::Base
                 :msg_id => mess.message_id,
                 :uid => mess.uid,
                 :from_addr => mess.from_to_db,
-                :to_addr => mess.to,
+                :to_addr => mess.to_to_db,
                 :subject => mess.subject,
                 :content_type => mess.content_type,
                 :date => mess.date,

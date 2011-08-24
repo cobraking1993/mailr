@@ -19,7 +19,7 @@ msgs_sent_view_fields: [to_addr, subject, date, size]
 msg_subject_length: 45
 msg_search_fields: [subject, from, to]
 
-imap_debug: true
+imap_debug: false
 imap_use_ssl: 'false'
 imap_port: 143
 imap_ssl_port: 993
@@ -35,3 +35,4 @@ mailbox_trash: INBOX.Trash
 mailbox_sent: INBOX.sent
 mailbox_drafts: INBOX.drafts
 
+only_can_logins: [wtodryk]

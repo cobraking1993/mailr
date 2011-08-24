@@ -11,8 +11,34 @@
         <%= raw main_navigation(:show) %>
     </div>
     <div class="content">
-    <p><%= @message.inspect %></p>
-    <p><%= @body.inspect %></p>
+        <%= form_tag(messages_msgops_path)%>
+        <%= render :partial => 'header' %>
+        <%= render :partial => 'msg_ops' %>
+
+        <% if not @attachments.size.zero? %>
+            <%= render :partial => 'attachments' %>
+        <% end %>
+
+        <% if not @render_rich.nil? %>
+            <%= render :partial => 'body' ,:object => @render_body %>
+        <% else %>
+            <div class="render_text">
+            <span><%= t(:content,:scope=>:message) %></span>
+            <% if @render_as_text.size.zero? %>
+                <p>
+                    <%= t(:no_content,:scope => :message) %>
+                </p>
+            <% else %>
+                <% @render_as_text.each do |r| %>
+                <pre>
+                 <%= raw content_text_plain_for_render(r) %>
+                 </pre>
+                <% end %>
+            <% end %>
+            </div>
+        <% end %>
+
+        </form>
     </div>
 </div>
 

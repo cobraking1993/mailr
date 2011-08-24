@@ -8,26 +8,35 @@ Mailr::Application.routes.draw do
 
 
   #resources :folders
-  get "folders/index"
+  match "folders/index" => 'folders#index', :as => :folders
   post "folders/create"
   post "folders/delete"
   post "folders/show_hide"
   get "folders/refresh"
+  get "folders/refresh_status"
   post "folders/refresh"
+  match "folders/select/:id" => 'folders#select', :as => :folders_select
+  get "folders/emptybin"
 
     get "internal/error"
     get "internal/imaperror"
     get "internal/loginfailure"
+    get "internal/onlycanlogins"
 
 	root :to => "messages#index"
+	#get "messages/refresh_status"
+	#get "messages/emptybin"
+	#match "messages/select/:id" => 'messages#select', :as => :messages_select
 	get "messages/index"
-	get "messages/refresh"
-	match 'messages/folder/:id' => 'messages#folder', :as => :messages_folder
+	#match 'messages/folder/:id' => 'messages#folder', :as => :messages_folder
 	post "messages/ops"
-	get "messages/compose"
-	get "messages/refresh"
+	post "messages/msgops"
+	match "messages/compose" => 'messages#compose'
+	match "messages/reply/:id" => 'messages#reply'
+	post "messages/sendout"
 	match "messages/show/:id" => 'messages#show'
-	get "messages/emptybin"
+	match "messages/body/:id" => 'messages#body' , :as => :messages_body
+	match "messages/attachment/:id/:idx" => 'messages#attachment', :as => :messages_attachment_download
 
 	get "user/logout"
 	post "user/authenticate"

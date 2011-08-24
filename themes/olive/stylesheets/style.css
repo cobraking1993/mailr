@@ -356,11 +356,11 @@ tr.notseen td.subject {
      font-weight: bold;
 }
 
-input,select {
+input,select,textarea {
     background-color: #EFF3E4;
     border: 1px solid #5E634E;
     color: #black;
-    margin: 5px 0 0;
+    margin: 3px 0;
 }
 
 #footer {
@@ -422,10 +422,33 @@ div.params {
 }
 
 div.params div.group {
-    margin-bottom:5px;
+    margin-bottom: 10px;
 }
 
-div.params div.group div.fieldWithErrors label.label {
+div.msg_header label {
+    display: inline;
+    float: left;
+    text-align: right;
+    width: 100px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+div.msg_header div.group {
+    margin: 10px 0;
+}
+
+div.msg_header {
+    font-size: 14px;
+}
+
+iframe {
+    width: 937px;
+    height: 600px;
+    margin-top: 10px;
+}
+
+div.params div.group div.fieldWithErrors label.label, div.params div.group label.label{
     font-weight: bold;
     font-size: 14px;
 }
@@ -444,3 +467,49 @@ div.params div.group .description {
 div.params div.group .fieldWithErrors .error {
   color: red;
 }
+
+div.attachments {
+    margin: 15px 0 5px;
+}
+
+div.attachments span.title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+div.attachments table {
+    margin-top: 10px;
+}
+
+div.attachments table td{
+    padding: 8px;
+}
+div.render_text{
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+
+div.render_text span{
+    font-weight: bold;
+    display: block;
+}
+
+div.render_text pre {
+    background-color: #EFF3E4;
+    padding: 5px;
+    border: 1px solid #5E634E;
+    margin: 10px 0 0 0;
+}
+
+span.attachment {
+    font-size: 12px;
+}
+
+span.attachment pre {
+    padding: 5px;
+}
+
+span.attachment span.title {
+    font-weight: bold;
+}
+

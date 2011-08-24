@@ -28,4 +28,11 @@ class InternalController < ApplicationController
         redirect_to :controller=>'user', :action => 'login'
 	end
 
+	def onlycanlogins
+        reset_session
+        flash[:error] = t(:only_can_logins,:scope=>:user)
+        @current_user = nil
+        redirect_to :controller=>'user', :action => 'login'
+	end
+
 end

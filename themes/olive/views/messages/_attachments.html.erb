@@ -1,0 +1,13 @@
+<div class="attachments">
+<span class="title"><%= t(:attachments,:scope=>:message) %></span>
+<table class="table">
+
+<% trclass = :even %>
+<% @attachments.each do |a| %>
+<tr class="<%= trclass.to_s %>">
+        <%= render :partial => 'attachment', :object => a %>
+</tr>
+<% trclass == :even ? trclass = :odd : trclass = :even %>
+<% end %>
+</table>
+</div>

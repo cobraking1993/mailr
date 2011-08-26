@@ -147,46 +147,14 @@ class MessagesController < ApplicationController
         @message_header = parts[0]
         @mail = Mail.new(imap_message)
         if @mail.multipart?
-#            idx = 0
-#            @mail.parts.each do |part|
-#                a = Attachment.new( :message_id => @message.id,
-#                                    :description => part.content_description,
-#                                    :type => part.content_type,
-#                                    :content => part.body.raw_source,
-#                                    :encoding => part.content_transfer_encoding,
-#                                    :idx => idx,
-#                                    :multipart => part.multipart?
-#                                    )
-#                logger.custom('a',a.to_s)
-#                if a.isText?
-#                    @render_as_text << a.content_normalized
-#                else
-#                    @attachments << a
-#                end
-#
-#                idx += 1
-#            end
-            Attachment.fromPart(@attachments,@message.id,@mail.parts,0)
-            @attachments.each do |a|
-                a.isText? ? @render_as_text << a.content_normalized : @render_as_text
-            end
-
+            Attachment.fromMultiParts(@attachments,@message.id,@mail.parts)
         else
-            a = Attachment.new( :message_id => @message.id,
-                                    :description => @mail.content_description,
-                                    :type => @mail.content_type,
-                                    :encoding => @mail.body.encoding,
-                                    :charset => @mail.body.charset,
-                                    :content => @mail.body.raw_source,
-                                    :idx => 0
-                                    )
-            logger.custom('a',a.to_s)
-            if a.isText?
-                @render_as_text << a.content_normalized
-            else
-                @attachments << a
-            end
-        end
+			Attachment.fromSinglePart(@attachments,@message.id,@mail)
+		end
+
+        @attachments.each do |a|
+			a.isText? ? @render_as_text << a.content_normalized : @render_as_text
+		end
     end
 
     def body
@@ -202,27 +170,15 @@ class MessagesController < ApplicationController
     end
 
     def attachment
-        @message = @current_user.messages.find(params[:id])
-        mail = Mail.new(@mailbox.fetch_body(@message.uid))
-
-        if mail.multipart?
-            part = mail.parts[params[:idx].to_i]
-            a = Attachment.new( :message_id => @message.id,
-                                :description => part.content_description,
-                                :type => part.content_type,
-                                :content => part.body.raw_source,
-                                :encoding => part.content_transfer_encoding,
-                                :idx => params[:idx]
-                            )
+		attachments = []
+        message = @current_user.messages.find(params[:id])
+        mail = Mail.new(@mailbox.fetch_body(message.uid))
+		if mail.multipart?
+            Attachment.fromMultiParts(attachments,message.id,mail.parts)
         else
-            a = Attachment.new( :message_id => @message.id,
-                                    :type => mail.content_type,
-                                    :encoding => mail.body.encoding,
-                                    :charset => mail.body.charset,
-                                    :content => mail.body.raw_source,
-                                    :idx => 0
-                                    )
-        end
+			Attachment.fromSinglePart(attachments,message.id,mail)
+		end
+		a = attachments[params[:idx].to_i]
         headers['Content-type'] = a.type
         headers['Content-Disposition'] = %(attachment; filename="#{a.name}")
         render :text => a.decode

@@ -40,4 +40,4 @@ mailbox_sent: INBOX.sent
 mailbox_drafts: INBOX.drafts
 
 # array of logins which only can login to application, comment it to allow everyone to login
-only_can_logins: [wtodryk]
+only_can_logins: [wojciech@todryk.pl]

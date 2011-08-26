@@ -32,7 +32,7 @@ class Attachment
         multipart
     end
 
-    def self.fromPart(attachments,id,parts,idx)
+    def self.fromMultiParts(attachments,id,parts,idx=0)
         parts.each do |part|
             a = Attachment.new( :message_id => id,
                             :description => part.content_description,
@@ -43,19 +43,32 @@ class Attachment
                             :multipart => part.multipart?
                             )
             if a.multipart?
-                fromPart(attachments,id,part.parts,idx)
+				idx += 1
+                fromMultiParts(attachments,id,part.parts,idx)
             else
                 attachments << a
+                idx += 1
             end
-            idx += 1
+ #FIXME problem with enueration of attachemnts
         end
     end
+
+    def self.fromSinglePart(attachments,id,part,idx=0)
+		a = Attachment.new( :message_id => id,
+							:description => part.content_description,
+							:type => part.content_type,
+							:encoding => part.body.encoding,
+							:charset => part.body.charset,
+							:content => part.body.raw_source,
+							:idx => idx
+							)
+		attachments << a
+    end
+
 
     def persisted?
         false
     end
-
-
 
     def name
         if @name.nil?
@@ -151,33 +164,6 @@ class Attachment
     end
 
 end
-#    def to_html
-#        html = "<span class=\"attachment\">"
-#        html << "<span class=\"title\">"
-#        html << "<a href=\"/messages/attachment/#{@message_id}/#{@idx}\">#{@description.nil? ? @name : @description}</a>"
-#        html << "</span> #{@type}"
-#        @charset.nil? ? html : html << " #{@charset}"
-#        @encoding.nil? ? html : html << " #{@encoding}"
-#        case @type
-#            when /^message\/delivery-status/
-#                html << "<pre>"
-#                html << @content
-#                html << "</pre>"
-#            #when /^message\/rfc822/
-#            #    html << "<pre>"
-#            #    html << @content
-#            #    html << "</pre>"
-#        end
-#        html << "</span>"
-#    end
 
-#    def to_table
-#        html = ""
-##        @type.nil? ? html << "<td></td>" : html << "<td>#{@type}</td>"
-#        @charset.nil? ? html << "<td></td>" : html << "<td>#{@charset}</td>"
-#        @encoding.nil? ? html << "<td></td>" : html << "<td>#{@encoding}</td>"
-
-#        html
-#    end
 
 

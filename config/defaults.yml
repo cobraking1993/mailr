@@ -17,7 +17,11 @@ msgs_inbox_view_fields: [from_addr, subject, date, size]
 msgs_sent_view_fields: [to_addr, subject, date, size]
 
 msg_subject_length: 45
+msg_address_length: 35
 msg_search_fields: [subject, from, to]
+
+# if encoding can not be get from data
+msg_unknown_encoding: ISO-8859-2
 
 imap_debug: false
 imap_use_ssl: 'false'
@@ -35,4 +39,5 @@ mailbox_trash: INBOX.Trash
 mailbox_sent: INBOX.sent
 mailbox_drafts: INBOX.drafts
 
+# array of logins which only can login to application, comment it to allow everyone to login
 only_can_logins: [wtodryk]

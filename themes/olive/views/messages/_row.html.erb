@@ -1,6 +1,12 @@
 <td><%= check_box_tag "uids[]", row.uid %></td>
 <td><%= attachment_formatter(row) %></td>
-<td nowrap="nowrap"><%= address_formatter(row.from_addr) %></td>
+
+<% if @current_folder.hasFullName?($defaults["mailbox_sent"]) %>
+    <td nowrap="nowrap"><%= address_formatter(row.to_addr,:index) %></td>
+<% else %>
+    <td nowrap="nowrap"><%= address_formatter(row.from_addr,:index) %></td>
+<% end %>
+
 <td nowrap="nowrap"><%= subject_formatter(row) %></td>
 <td nowrap="nowrap"><%= date_formatter(row.date) %></td>
 </td><td nowrap="nowrap"><%= size_formatter(row.size) %></td><td><%= raw('&nbsp;') %>

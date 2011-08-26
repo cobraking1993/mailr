@@ -13,10 +13,14 @@ class UserController < ApplicationController
 	end
 
 	def authenticate
-        if !$defaults["only_can_logins"].include?(params[:user][:email])
-            redirect_to :controller => 'internal', :action => 'onlycanlogins'
-            return false
+
+        if not $defaults["only_can_logins"].nil?
+            if not $defaults["only_can_logins"].include?(params[:user][:email])
+                redirect_to :controller => 'internal', :action => 'onlycanlogins'
+                return false
+            end
         end
+
 		user = User.find_by_email(params[:user][:email])
 		if user.nil?
 			redirect_to :action => 'unknown' ,:email=> params[:user][:email]

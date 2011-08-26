@@ -1,6 +1,6 @@
 class CreateMessages < ActiveRecord::Migration
   def self.up
-    create_table :messages do |t|
+    create_table :messages ,:id => false do |t|
       t.integer :folder_id
       t.integer :user_id
       t.string :msg_id

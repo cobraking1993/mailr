@@ -14,15 +14,24 @@ module MessagesHelper
         date.nil? ? t(:no_data) : date.strftime("%Y-%m-%d %H:%M")
     end
 
-    def address_formatter(addr)
-        ImapMessageModule::IMAPAddress.parse(addr).friendly
-    end
+#    def address_formatter(addr)
+#        ImapMessageModule::IMAPAddress.parse(addr).friendly
+#    end
 
-    def show_address_formatter(addr)
-        html = ""
-        fs = addr.split(/#/)
-        fs[0].size.zero? ? html << h("<")+fs[1]+h("@")+fs[2]+h(">") : html << fs[0]+h(" <")+fs[1]+h("@")+fs[2]+h(">")
-        html
+    def address_formatter(addr,mode)
+        s = ""
+        length = $defaults["msg_address_length"].to_i
+        fs = addr.split(/</)
+
+        if mode == :index
+            fs[0].size.zero? ? s = fs[1] : s = fs[0]
+            s.length >= length ? s = s[0,length]+"..." : s
+        else
+            fs[0].size.zero? ? s = "<" + fs[1] + ">" : s << fs[0] + " <" + fs[1] + ">"
+        end
+
+        return h(s)
+
     end
 
     def subject_formatter(message)
@@ -32,7 +41,7 @@ module MessagesHelper
             length = $defaults["msg_subject_length"].to_i
             message.subject.length >= length ? s = message.subject[0,length]+"..." : s = message.subject
         end
-        link_to s,{:controller => 'messages', :action => 'show', :id => message.id} , :title => message.subject
+        link_to s,{:controller => 'messages', :action => 'show', :id => message.uid} , :title => message.subject
     end
 
     def attachment_formatter(message)
@@ -61,8 +70,9 @@ module MessagesHelper
     end
 
     def content_text_plain_for_render(text)
-        html = h(text)
-        html.gsub!(/\r\n/,"<br/>")
+        html = "<pre>"
+        html << h(text)
+        html << "</pre>"
         html
     end
 

@@ -30,9 +30,7 @@
                 </p>
             <% else %>
                 <% @render_as_text.each do |r| %>
-                <pre>
                  <%= raw content_text_plain_for_render(r) %>
-                 </pre>
                 <% end %>
             <% end %>
             </div>

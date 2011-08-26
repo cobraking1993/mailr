@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110816120258) do
     t.string   "alter_name"
   end
 
-  create_table "messages", :force => true do |t|
+  create_table "messages", :id => false, :force => true do |t|
     t.integer  "folder_id"
     t.integer  "user_id"
     t.string   "msg_id"

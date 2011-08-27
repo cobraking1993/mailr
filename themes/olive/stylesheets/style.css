@@ -444,7 +444,7 @@ div.msg_header {
 
 iframe {
     width: 937px;
-    height: 600px;
+    height: 800px;
     margin-top: 10px;
 }
 
@@ -495,6 +495,7 @@ div.render_text span{
 }
 
 div.render_text pre {
+	font-size: 12px;
     background-color: #EFF3E4;
     padding: 5px;
     border: 1px solid #5E634E;

@@ -139,6 +139,7 @@ class MessagesController < ApplicationController
 
         @attachments = []
         @render_as_text = []
+        @render_as_html_idx = nil
 
         @message = @current_user.messages.find_by_uid(params[:id])
         @message.update_attributes(:unseen => false)
@@ -152,21 +153,29 @@ class MessagesController < ApplicationController
 			Attachment.fromSinglePart(@attachments,@message.id,@mail)
 		end
 
-        @attachments.each do |a|
-			a.isText? ? @render_as_text << a.content_normalized : @render_as_text
+		for idx in 0..@attachments.size-1
+			@attachments[idx].isText? ? @render_as_text << @attachments[idx].decode_and_charset : @render_as_text
+			@attachments[idx].isHtml? ? @render_as_html_idx ||= idx : @render_as_html_idx
 		end
     end
 
     def body
-        message = @mailbox.fetch_body(params[:id].to_i)
-        mail = Mail.new(message)
-        @title = ''
-        @body = ''
+		attachments = []
+		message = @current_user.messages.find(params[:id])
+        mail = Mail.new(@mailbox.fetch_body(message.uid))
+		if mail.multipart?
+            Attachment.fromMultiParts(attachments,message.id,mail.parts)
+        else
+			Attachment.fromSinglePart(attachments,message.id,mail)
+		end
+		a = attachments[params[:idx].to_i]
+        @title = 'aaaaa'
+        @body = a.decode_and_charset
         #
         #header = parts[0]
         #body = parts[1]
         #@body = "<html><head><title>ala</title><body><pre>#{header}</pre>#{mail.inspect}</body></html>"
-        render 'mail_view',:layout => 'mail_view'
+        render 'html_view',:layout => 'html_view'
     end
 
     def attachment

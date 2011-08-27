@@ -32,35 +32,31 @@ class Attachment
         multipart
     end
 
-    def self.fromMultiParts(attachments,id,parts,idx=0)
+    def self.fromMultiParts(attachments,id,parts)
         parts.each do |part|
             a = Attachment.new( :message_id => id,
                             :description => part.content_description,
                             :type => part.content_type,
                             :content => part.body.raw_source,
                             :encoding => part.content_transfer_encoding,
-                            :idx => idx,
                             :multipart => part.multipart?
                             )
             if a.multipart?
-				idx += 1
-                fromMultiParts(attachments,id,part.parts,idx)
+                fromMultiParts(attachments,id,part.parts)
             else
                 attachments << a
-                idx += 1
             end
- #FIXME problem with enueration of attachemnts
         end
     end
 
-    def self.fromSinglePart(attachments,id,part,idx=0)
+    def self.fromSinglePart(attachments,id,part)
 		a = Attachment.new( :message_id => id,
 							:description => part.content_description,
 							:type => part.content_type,
 							:encoding => part.body.encoding,
 							:charset => part.body.charset,
-							:content => part.body.raw_source,
-							:idx => idx
+							:content => part.body.raw_source
+
 							)
 		attachments << a
     end
@@ -103,6 +99,10 @@ class Attachment
         @type.nil? or @type =~ /^text\/plain/
     end
 
+    def isHtml?
+		@type =~ /^text\/html/
+	end
+
     def title
         @description.nil? ? name : @description
     end
@@ -128,9 +128,11 @@ class Attachment
     end
 
     def decode
+
         case @encoding
             when /quoted-printable/
-                decoded = @content.gsub(/_/," ").unpack("M").first
+                #decoded = @content.gsub(/_/," ").unpack("M").first
+                decoded = @content.unpack("M").first
             when /base64/
                 decoded = @content.unpack("m").first
             when /uuencode/
@@ -148,7 +150,7 @@ class Attachment
         end
     end
 
-    def content_normalized
+    def decode_and_charset
 
         decoded = decode
 

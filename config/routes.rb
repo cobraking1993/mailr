@@ -35,7 +35,7 @@ Mailr::Application.routes.draw do
 	match "messages/reply/:id" => 'messages#reply'
 	post "messages/sendout"
 	match "messages/show/:id" => 'messages#show'
-	match "messages/body/:id" => 'messages#body' , :as => :messages_body
+	match "messages/body/:id/:idx" => 'messages#body' , :as => :messages_part_body
 	match "messages/attachment/:id/:idx" => 'messages#attachment', :as => :messages_attachment_download
 
 	get "user/logout"

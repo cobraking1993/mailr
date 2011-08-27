@@ -3,9 +3,10 @@
 <table class="table">
 
 <% trclass = :even %>
-<% @attachments.each do |a| %>
+<% for idx in 0..@attachments.size-1 %>
+<% @attachments[idx].idx = idx %>
 <tr class="<%= trclass.to_s %>">
-        <%= render :partial => 'attachment', :object => a %>
+        <%= render :partial => 'attachment', :object => @attachments[idx] %>
 </tr>
 <% trclass == :even ? trclass = :odd : trclass = :even %>
 <% end %>

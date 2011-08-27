@@ -19,8 +19,8 @@
             <%= render :partial => 'attachments' %>
         <% end %>
 
-        <% if not @render_rich.nil? %>
-            <%= render :partial => 'body' ,:object => @render_body %>
+		<% if not @render_as_html_idx.nil? %>
+            <%= render :partial => 'html_part' %>
         <% else %>
             <div class="render_text">
             <span><%= t(:content,:scope=>:message) %></span>

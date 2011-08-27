@@ -10,18 +10,29 @@ class Message < ActiveRecord::Base
 
     def self.decode(text,unknown_encoding = $defaults["msg_unknown_encoding"])
         begin
-            if text.=~(/^=\?/).nil?
+            if text.=~(/=\?/).nil?
                 after = Iconv.conv('UTF-8',unknown_encoding,text)
             else
-                f = text.split(/\?/)
-                case f[2].downcase
-                    when 'q':
-                        after = f[3].gsub(/_/," ").unpack("M").first
-                    when 'b':
-                        after = f[3].gsub(/_/," ").unpack("m").first
-                    else
-                        return text
-                end
+# TODO support multiple showing of =?xxx?=
+					text =~ /(=\?\S+\?=)/
+					after = text
+					match = $1
+					logger.custom('match',match)
+					f = match.split(/\?/)
+					case f[2].downcase
+						when 'q':
+							replace = f[3].gsub(/_/," ").unpack("M").first
+						when 'b':
+							replace = f[3].gsub(/_/," ").unpack("m").first
+						else
+							replace = match
+					end
+					logger.custom('replace',replace)
+					match.gsub!(/\?/,'\?')
+					match.gsub!(/\)/,'\)')
+					after = text.gsub(/#{match}/,replace)
+
+					logger.custom('after',after)
 
                 if f[1].downcase != 'utf-8'
                     after = Iconv.conv('UTF-8',f[1],after)

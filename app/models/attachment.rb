@@ -3,7 +3,7 @@ class Attachment
     include ActiveModel::Conversion
     extend ActiveModel::Naming
 
-    attr_accessor :type, :charset, :encoding, :name, :description, :content, :message_id, :idx, :boundary, :format, :multipart
+    attr_accessor :type, :charset, :encoding, :name, :description, :content, :message_id, :idx, :boundary, :format, :multipart,:size,:cid
     attr_reader :link
 
     def initialize(attributes = {})
@@ -33,13 +33,22 @@ class Attachment
     end
 
     def self.fromMultiParts(attachments,id,parts)
+		cid = ''
         parts.each do |part|
+			if not part.content_id.nil?
+				part.content_id =~ /\<(\S+)\>/
+				cid = $1
+			else
+				cid = ''
+			end
             a = Attachment.new( :message_id => id,
                             :description => part.content_description,
                             :type => part.content_type,
                             :content => part.body.raw_source,
                             :encoding => part.content_transfer_encoding,
-                            :multipart => part.multipart?
+                            :size => part.body.raw_source.size,
+                            :multipart => part.multipart?,
+                            :cid => cid
                             )
             if a.multipart?
                 fromMultiParts(attachments,id,part.parts)
@@ -54,9 +63,9 @@ class Attachment
 							:description => part.content_description,
 							:type => part.content_type,
 							:encoding => part.body.encoding,
-							:charset => part.body.charset,
-							:content => part.body.raw_source
-
+							:content => part.body.raw_source,
+							:size => part.body.raw_source.size,
+							:charset => part.body.charset
 							)
 		attachments << a
     end
@@ -156,7 +165,7 @@ class Attachment
 
         if not @charset == 'UTF-8'
             @charset.nil? ? charset = $defaults["msg_unknown_encoding"] : charset = @charset
-            charseted = Iconv.iconv("UTF-8",charset,decoded)
+            charseted = Iconv.iconv("UTF-8",charset,decoded).first
         else
             charseted = decoded
         end

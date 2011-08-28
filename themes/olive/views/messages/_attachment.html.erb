@@ -11,6 +11,9 @@
 <%= attachment.encoding %>
 </td>
 <td>
+<%= size_formatter(attachment.size) %>
+</td>
+<td>
 <%= link_to t(:download), messages_attachment_download_path(attachment.message_id,attachment.idx) %>
 </td>
 <td>

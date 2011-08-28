@@ -136,45 +136,56 @@ class MessagesController < ApplicationController
     end
 
     def show
-
+		logger.custom('start',Time.now)
         @attachments = []
         @render_as_text = []
         @render_as_html_idx = nil
 
         @message = @current_user.messages.find_by_uid(params[:id])
         @message.update_attributes(:unseen => false)
+        logger.custom('start_fetch',Time.now)
         imap_message = @mailbox.fetch_body(@message.uid)
+        logger.custom('stop_fetch',Time.now)
         parts = imap_message.split(/\r\n\r\n/)
         @message_header = parts[0]
+        logger.custom('before_parse',Time.now)
         @mail = Mail.new(imap_message)
+        logger.custom('after_parse',Time.now)
         if @mail.multipart?
             Attachment.fromMultiParts(@attachments,@message.id,@mail.parts)
         else
 			Attachment.fromSinglePart(@attachments,@message.id,@mail)
 		end
+		logger.custom('attach',Time.now)
 
 		for idx in 0..@attachments.size-1
 			@attachments[idx].isText? ? @render_as_text << @attachments[idx].decode_and_charset : @render_as_text
 			@attachments[idx].isHtml? ? @render_as_html_idx ||= idx : @render_as_html_idx
 		end
+		logger.custom('done',Time.now)
     end
 
     def body
 		attachments = []
+		cids = []
 		message = @current_user.messages.find(params[:id])
         mail = Mail.new(@mailbox.fetch_body(message.uid))
+
 		if mail.multipart?
             Attachment.fromMultiParts(attachments,message.id,mail.parts)
         else
 			Attachment.fromSinglePart(attachments,message.id,mail)
 		end
-		a = attachments[params[:idx].to_i]
-        @title = 'aaaaa'
-        @body = a.decode_and_charset
-        #
-        #header = parts[0]
-        #body = parts[1]
-        #@body = "<html><head><title>ala</title><body><pre>#{header}</pre>#{mail.inspect}</body></html>"
+		html = attachments[params[:idx].to_i]
+
+		@body = html.decode_and_charset
+
+		for idx in 0..attachments.size-1
+			if not attachments[idx].cid.size.zero?
+			@body.gsub!(/cid:#{attachments[idx].cid}/,messages_attachment_download_path(message.uid,idx))
+			end
+		end
+
         render 'html_view',:layout => 'html_view'
     end
 

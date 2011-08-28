@@ -57,6 +57,41 @@ class ApplicationController < ActionController::Base
 		@current_folder = @current_user.folders.find_by_full_name(@selected_folder)
 	end
 
+	def self.decode_quoted(text,unknown_charset = $defaults["msg_unknown_charset"])
+        begin
+            if text.=~(/=\?/).nil?
+                after = Iconv.conv('UTF-8',unknown_charset,text)
+                #after = text
+            else
+# TODO support multiple showing of =?xxx?=
+					text =~ /(=\?.+\?=)/
+					after = text
+					match = $1
+					f = match.split(/\?/)
+					case f[2].downcase
+						when 'q':
+							replace = f[3].gsub(/_/," ").unpack("M").first
+						when 'b':
+							replace = f[3].gsub(/_/," ").unpack("m").first
+						else
+							replace = match
+					end
+					match.gsub!(/\?/,'\?')
+					match.gsub!(/\)/,'\)')
+					after = text.gsub(/#{match}/,replace)
+
+                if f[1].downcase != 'utf-8'
+                    after = Iconv.conv('UTF-8',f[1],after)
+                end
+
+            end
+            return after
+        rescue Exception => e
+            logger.error("Class Message: #{e.to_s}: T: #{text} M: #{match} R: #{replace} A: #{after}")
+            return text
+        end
+    end
+
     ##################################### private section ##########################################
 
     private

@@ -21,7 +21,7 @@ class Attachment
                     key = fields[0]
                     value = fields[1]
                     if Attachment.attribute_method?(key) == true
-                        send("#{key}=", value)
+                        send("#{key}=", ApplicationController.decode_quoted(value))
                     end
                 end
             end
@@ -33,23 +33,8 @@ class Attachment
     end
 
     def self.fromMultiParts(attachments,id,parts)
-		cid = ''
         parts.each do |part|
-			if not part.content_id.nil?
-				part.content_id =~ /\<(\S+)\>/
-				cid = $1
-			else
-				cid = ''
-			end
-            a = Attachment.new( :message_id => id,
-                            :description => part.content_description,
-                            :type => part.content_type,
-                            :content => part.body.raw_source,
-                            :encoding => part.content_transfer_encoding,
-                            :size => part.body.raw_source.size,
-                            :multipart => part.multipart?,
-                            :cid => cid
-                            )
+			a = build(id,part)
             if a.multipart?
                 fromMultiParts(attachments,id,part.parts)
             else
@@ -59,15 +44,29 @@ class Attachment
     end
 
     def self.fromSinglePart(attachments,id,part)
+		a = build(id,part)
+		attachments << a
+    end
+
+    def self.build(id,part)
+		cid = ''
+		if not part.content_id.nil?
+			part.content_id =~ /\<(\S+)\>/
+			cid = $1
+		else
+			cid = ''
+		end
 		a = Attachment.new( :message_id => id,
 							:description => part.content_description,
 							:type => part.content_type,
-							:encoding => part.body.encoding,
 							:content => part.body.raw_source,
+							:encoding => part.body.encoding,
 							:size => part.body.raw_source.size,
-							:charset => part.body.charset
+							:charset => part.body.charset,
+							:multipart => part.multipart?,
+							:cid => cid
 							)
-		attachments << a
+		return a
     end
 
 
@@ -137,7 +136,7 @@ class Attachment
     end
 
     def decode
-
+		begin
         case @encoding
             when /quoted-printable/
                 #decoded = @content.gsub(/_/," ").unpack("M").first
@@ -157,20 +156,26 @@ class Attachment
             else
                 decoded = @content
         end
+        rescue
+			@content
+        end
     end
 
     def decode_and_charset
-
+		begin
         decoded = decode
 
         if not @charset == 'UTF-8'
-            @charset.nil? ? charset = $defaults["msg_unknown_encoding"] : charset = @charset
+            @charset.nil? ? charset = $defaults["msg_unknown_charset"] : charset = @charset
             charseted = Iconv.iconv("UTF-8",charset,decoded).first
         else
             charseted = decoded
         end
 
         charseted
+        rescue
+			decoded
+		end
 
     end
 

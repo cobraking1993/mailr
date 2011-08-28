@@ -8,48 +8,10 @@ class Message < ActiveRecord::Base
     set_primary_key :uid
     attr_accessible :unseen, :to_addr, :size, :content_type, :folder_id, :subject, :date, :uid, :from_addr, :user_id, :msg_id
 
-    def self.decode(text,unknown_encoding = $defaults["msg_unknown_encoding"])
-        begin
-            if text.=~(/=\?/).nil?
-                after = Iconv.conv('UTF-8',unknown_encoding,text)
-            else
-# TODO support multiple showing of =?xxx?=
-					text =~ /(=\?\S+\?=)/
-					after = text
-					match = $1
-					logger.custom('match',match)
-					f = match.split(/\?/)
-					case f[2].downcase
-						when 'q':
-							replace = f[3].gsub(/_/," ").unpack("M").first
-						when 'b':
-							replace = f[3].gsub(/_/," ").unpack("m").first
-						else
-							replace = match
-					end
-					logger.custom('replace',replace)
-					match.gsub!(/\?/,'\?')
-					match.gsub!(/\)/,'\)')
-					after = text.gsub(/#{match}/,replace)
-
-					logger.custom('after',after)
-
-                if f[1].downcase != 'utf-8'
-                    after = Iconv.conv('UTF-8',f[1],after)
-                end
-
-            end
-            return after
-        rescue
-            logger.error("Class Message: String decode error: #{text}")
-            return text
-        end
-    end
-
     def self.addr_to_db(addr)
         ret = ""
         name = addr.name
-        name.nil? ? ret : ret << decode(name)
+        name.nil? ? ret : ret << ApplicationController.decode_quoted(name)
         ret << "<" + addr.mailbox + "@" + addr.host
         ret
     end
@@ -74,7 +36,7 @@ class Message < ActiveRecord::Base
         from = addr_to_db(envelope.from[0])
         to = addr_to_db(envelope.to[0])
 
-        envelope.subject.nil? ? subject = "" : subject = decode(envelope.subject)
+        envelope.subject.nil? ? subject = "" : subject = ApplicationController.decode_quoted(envelope.subject)
 
         create(
                 :user_id => user.id,

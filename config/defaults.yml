@@ -21,7 +21,7 @@ msg_address_length: 35
 msg_search_fields: [subject, from, to]
 
 # if encoding can not be get from data
-msg_unknown_encoding: ISO-8859-2
+msg_unknown_charset: ISO-8859-2
 
 imap_debug: false
 imap_use_ssl: 'false'

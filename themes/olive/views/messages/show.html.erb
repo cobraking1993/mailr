@@ -27,7 +27,6 @@
             <%= render :partial => 'html_part' %>
         <% else %>
             <div class="render_text">
-            <span><%= t(:content,:scope=>:message) %></span>
                 <% if @text_part.nil? %>
                 <p>
                     <%= t(:no_content,:scope => :message) %>

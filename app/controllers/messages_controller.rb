@@ -135,7 +135,7 @@ class MessagesController < ApplicationController
         mail.from = @current_user.full_address
         mail.to = params[:message][:to_addr]
         mail.body = params[:message][:body]
-        mail.add_file :filename => 'somefile.png', :content => File.read('/tmp/script_monitor_20110810143216.log')
+        #mail.add_file :filename => 'somefile.png', :content => File.read('/tmp/script_monitor_20110810143216.log')
 
         if params[:send]
             smtp_server = @current_user.servers.primary_for_smtp

@@ -1,8 +1,6 @@
 class ContactsController < ApplicationController
 
-	before_filter :check_current_user,:selected_folder
-
-	before_filter :get_current_folders
+	before_filter :check_current_user,:selected_folder, :get_current_folders
 
 	before_filter :get_contacts, :only => [:index]
 

@@ -6,34 +6,36 @@ class FoldersController < ApplicationController
     include ImapMailboxModule
 	include ImapSessionModule
 
-	before_filter :check_current_user ,:selected_folder
+    before_filter :check_current_user,:selected_folder, :get_current_folders
 
-	before_filter :open_imap_session, :except => [:index,:show_hide]
-	after_filter :close_imap_session, :except => [:index,:show_hide]
+	before_filter :open_imap_session, :except => [:index,:show_hide,:system]
+	after_filter :close_imap_session, :except => [:index,:show_hide,:system]
 
 	before_filter :get_folders
 
 	theme :theme_resolver
 
     def index
-
+        @buttons = []
+        @buttons << {:text => 'show_hide',:image => 'tick.png'}
+        @buttons << {:text => 'refresh',:image => 'tick.png'}
     end
 
     def create
-        if params["folder"].empty?
+        if params[:folder][:target].empty?
             flash[:warning] = t(:to_create_empty,:scope=>:folder)
             render "index"
         else
             begin
                 #TODO recreate local copy of folders
-                if params["parent_folder"].empty?
-                    @mailbox.create_folder(params[:folder])
+                if params[:folder][:parent].empty?
+                    @mailbox.create_folder(params[:folder][:target])
                 else
-                    parent_folder = @current_user.folders.find(params["parent_folder"])
+                    parent_folder = @current_user.folders.find(params[:folder][:parent])
                     if parent_folder.depth >= $defaults["mailbox_max_parent_folder_depth"].to_i
                         raise Exception, t(:max_depth,:scope=>:folder)
                     end
-                    @mailbox.create_folder(parent_folder.full_name + parent_folder.delim + params[:folder])
+                    @mailbox.create_folder(parent_folder.full_name + parent_folder.delim + params[:folder][:target])
                 end
             rescue Exception => e
                 flash[:error] = t(:can_not_create,:scope=>:folder) + ' (' + e.to_s + ')'
@@ -46,25 +48,18 @@ class FoldersController < ApplicationController
     end
 
     def delete
-        if params["folder"].empty?
+        if params[:folder][:delete].empty?
             flash[:warning] = t(:to_delete_empty,:scope=>:folder)
             render "index"
         else
             begin
-                folder = @current_user.folders.find(params["folder"])
-                system_folders = Array.new
-                system_folders << $defaults["mailbox_inbox"]
-                system_folders << $defaults["mailbox_trash"]
-                system_folders << $defaults["mailbox_sent"]
-                system_folders << $defaults["mailbox_drafts"]
-                if system_folders.include?(folder.full_name.downcase)
-                    raise Exception, t(:system_folder)
+                folder = @current_user.folders.find(params[:folder][:delete])
+                if @folders_system.include?(folder)
+                    raise Exception, t(:system,:scope=>:folder)
                 end
                 @mailbox.delete_folder(folder.full_name)
-                logger.custom('c',@current_folder.inspect)
-                logger.custom('f',folder.inspect)
                 if @current_folder.eql? folder
-                    session[:selected_folder] = $defaults['mailbox_inbox']
+                    session[:selected_folder] = nil
                 end
                 folder.destroy
             rescue Exception => e
@@ -77,25 +72,48 @@ class FoldersController < ApplicationController
         end
     end
 
-    def show_hide
-        if !params["folders_to_show"].nil?
-            @folders.each do |f|
-                if params["folders_to_show"].include?(f.id.to_s)
-                    f.shown = true
-                    f.save
-                else
-                    f.shown = false
-                    f.save
-                end
+    def system
+        logger.custom('sss',params[:folder].inspect)
+        @folders.each do |f|
+        logger.custom('s',f.inspect)
+            if f.isSystem?
+                f.setNone
             end
-		end
+            if f.id == params[:folder][:mailbox_inbox].to_i
+                f.setInbox
+            end
+            if f.id == params[:folder][:mailbox_sent].to_i
+                f.setSent
+            end
+            if f.id == params[:folder][:mailbox_trash].to_i
+                f.setTrash
+            end
+            if f.id == params[:folder][:mailbox_drafts].to_i
+                f.setDrafts
+            end
+        end
         redirect_to :action => 'index'
     end
 
 	def refresh
-		Folder.refresh(@mailbox,@current_user)
-		flash.keep
-		redirect_to :action => 'index'
+	# TODO save system folders
+        if params[:refresh]
+            Folder.refresh(@mailbox,@current_user)
+            flash.keep
+        elsif params[:show_hide]
+            if !params["folders_to_show"].nil?
+                @folders.each do |f|
+                    if params["folders_to_show"].include?(f.id.to_s)
+                        f.shown = true
+                        f.save
+                    else
+                        f.shown = false
+                        f.save
+                    end
+                end
+            end
+        end
+        redirect_to :action => 'index'
 	end
 
 	def select
@@ -114,7 +132,10 @@ class FoldersController < ApplicationController
 
 	def emptybin
         begin
-            trash_folder = @current_user.folders.find_by_full_name($defaults["mailbox_trash"])
+            trash_folder = @current_user.folders.trash.first
+            if trash_folder.nil?
+                raise Exception, t(:not_configured_trash,:scope=>:folder)
+            end
             @mailbox.set_folder(trash_folder.full_name)
             trash_folder.messages.each do |m|
                 @mailbox.delete_message(m.uid)
@@ -134,16 +155,13 @@ class FoldersController < ApplicationController
     protected
 
     def get_folders
-        @folders = @current_user.folders.order("name asc")
-        @folders_shown = []
-        @folders.each do |f|
-			if f.shown == true
-				@folders_shown << f
-			end
-			if f.selected?(@selected_folder)
-				@current_folder = f
-			end
-        end
+        @folders = @current_user.folders
+        @folders_shown = @current_user.folders.shown
+        #@folders_system = @current_user.folders.sys
+        @current_user.folders.inbox.first.nil? ? @folder_inbox = "" : @folder_inbox = @current_user.folders.inbox.first.id
+        @current_user.folders.drafts.first.nil? ? @folder_drafts = "" : @folder_drafts = @current_user.folders.drafts.first.id
+        @current_user.folders.sent.first.nil? ? @folder_sent = "" : @folder_sent = @current_user.folders.sent.first.id
+        @current_user.folders.trash.first.nil? ? @folder_trash = "" : @folder_trash = @current_user.folders.trash.first.id
     end
 
 end

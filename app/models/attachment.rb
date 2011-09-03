@@ -1,3 +1,4 @@
+
 class Attachment
     include ActiveModel::Validations
     include ActiveModel::Conversion
@@ -19,7 +20,9 @@ class Attachment
                 if p =~ /=/
                     fields = p.split(/=/)
                     key = fields[0]
-                    value = fields[1]
+                    fields.delete_at(0)
+                    value = fields.join("=")
+                    # FIXME maybe do decoding only for name and filename key
                     if Attachment.attribute_method?(key) == true
                         send("#{key}=", ApplicationController.decode_quoted(value))
                     end
@@ -110,6 +113,10 @@ class Attachment
     def isHtml?
 		@type =~ /^text\/html/
 	end
+
+	def isImageAndNotCid?
+        @type =~ /^image/ and @cid.size.zero?
+    end
 
     def title
         @description.nil? ? name : @description

@@ -1,7 +1,14 @@
 Mailr::Application.routes.draw do
 
-  match "prefs/index" => "prefs#index", :as => :prefs
-  post "prefs/update"
+  #match "prefs/index" => "prefs#index", :as => :prefs
+
+  post "prefs/update_look"
+  post "prefs/update_identity"
+  post "prefs/update_servers"
+
+  match "prefs/look" => "prefs#look", :as => :prefs_look
+  match "prefs/identity" => "prefs#identity", :as => :prefs_identity
+  match "prefs/servers" => "prefs#servers", :as => :prefs_servers
 
   resources :contacts
   post "contacts/ops"
@@ -11,8 +18,9 @@ Mailr::Application.routes.draw do
   match "folders/index" => 'folders#index', :as => :folders
   post "folders/create"
   post "folders/delete"
+  post "folders/system"
   post "folders/show_hide"
-  get "folders/refresh"
+  post "folders/refresh"
   get "folders/refresh_status"
   post "folders/refresh"
   match "folders/select/:id" => 'folders#select', :as => :folders_select
@@ -32,10 +40,12 @@ Mailr::Application.routes.draw do
 	post "messages/ops"
 	post "messages/msgops"
 	match "messages/compose" => 'messages#compose'
+	match "messages/edit/:id" => 'messages#edit' ,:as => :messages_edit
 	match "messages/reply/:id" => 'messages#reply'
-	post "messages/sendout"
+	match "messages/sendout_or_save" => 'messages#sendout_or_save' ,:as =>:sendout_or_save
 	match "messages/show/:id" => 'messages#show'
 	match "messages/body/:id/:idx" => 'messages#body' , :as => :messages_part_body
+	match "messages/html_body/:id" => 'messages#html_body' , :as => :messages_html_body
 	match "messages/attachment/:id/:idx" => 'messages#attachment', :as => :messages_attachment_download
 
 	get "user/logout"

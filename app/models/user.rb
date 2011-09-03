@@ -31,4 +31,16 @@ class User < ActiveRecord::Base
 		(0...8).map{65.+(rand(25)).chr}.join
 	end
 
+	def full_name
+        first_name + " " + last_name
+	end
+
+	def full_address
+        if email =~ /\@/
+            email
+        else
+            email + "@" + domain
+        end
+	end
+
 end

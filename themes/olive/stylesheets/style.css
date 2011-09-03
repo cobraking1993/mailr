@@ -241,7 +241,6 @@ p {
 /* forms */
 
 .form input.text_field, .form textarea.text_area {
-  width: 100%;
 	border:1px solid #CFCFCF;
 }
 
@@ -417,10 +416,6 @@ div.param_group label.label {
     margin-right: 5px;
 }
 
-div.params {
-    margin-bottom: 15px;
-}
-
 div.params div.group {
     margin-bottom: 10px;
 }
@@ -453,8 +448,7 @@ div.params div.group div.fieldWithErrors label.label, div.params div.group label
     font-size: 14px;
 }
 
-div.params input.text_field, div.params textarea.text_area {
-    width: 100%;
+div.params input, div.params textarea, div.params select {
 	border:1px solid #CFCFCF;
 }
 
@@ -517,4 +511,30 @@ span.attachment pre {
 
 span.attachment span.title {
     font-weight: bold;
+}
+
+div.images {
+    margin: 15px 0 5px;
+}
+
+div.images span.title {
+    font-weight: bold;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+div.images div.image {
+    margin: 5px;
+    padding: 2px;
+}
+
+div.images div.image div.desc {
+    font-weight: normal;
+    font-size: 10px;
+    padding: 2px;
+}
+
+div.params input,div.params select,div.params textarea {
+    width: 100%
 }

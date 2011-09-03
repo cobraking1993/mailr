@@ -4,7 +4,6 @@
 
 <% trclass = :even %>
 <% for idx in 0..@attachments.size-1 %>
-<% @attachments[idx].idx = idx %>
 <tr class="<%= trclass.to_s %>">
         <%= render :partial => 'attachment', :object => @attachments[idx] %>
 </tr>

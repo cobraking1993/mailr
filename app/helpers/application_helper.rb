@@ -1,3 +1,5 @@
+require 'iconv'
+
 module ApplicationHelper
 
 def form_field(object,field,flabel,example,val)
@@ -36,7 +38,7 @@ def form_field(object,field,flabel,example,val)
 
 end
 
-def mail_param_view(object,field,value)
+def show_param_view(object,field,value)
     model_name = eval(object.class.model_name)
     html = ""
     html << "<div class=\"group\">"
@@ -69,7 +71,7 @@ def area_field(object,field,flabel,example,val,cols,rows)
     name = object.class.name.downcase + '[' + field + ']'
     id = object.class.name.downcase+"_"+field
     value = object.instance_eval(field) || val || ""
-    html << "<textarea id=\"#{id}\" name=\"#{name}\" class=\"text_area\" cols=\"#{cols}\" rows=\"#{rows}\" value=\"#{value}\"></textarea>"
+    html << "<textarea id=\"#{id}\" name=\"#{name}\" class=\"text_area\" cols=\"#{cols}\" rows=\"#{rows}\">#{value}</textarea>"
 
     desc = t(:example) + ": " + example
     html << "<span class=\"description\">#{desc}</span>"
@@ -90,6 +92,24 @@ def form_button(text,image)
 	html << "</button></div>"
 end
 
+def form_buttons(buttons)
+	html = ""
+	html << "<div class=\"group navform wat-cf\">"
+
+	buttons.each do |b|
+	html << "<button class=\"button\" type=\"submit\" name=\"#{b[:text]}\">"
+	html << "<img src=\""
+	html << current_theme_image_path(b[:image])
+	html << "\" alt=\""
+	html << t(b[:text].to_sym)
+	html << "\" />"
+	html << t(b[:text].to_sym)
+	html << "</button> "
+	end
+
+	html << "</div>"
+end
+
 def form_button_value(text,image,onclick)
 	html = ""
 	html << "<div class=\"group navform wat-cf\">"
@@ -105,11 +125,11 @@ def form_button_value(text,image,onclick)
 	html << "</button></div>"
 end
 
-def simple_input_field(name,label,value)
+def simple_input_field(name,id,label,value)
     html = ""
     html << "<div class=\"param_group\">"
     html << "<label class=\"label\">#{label}</label>"
-    html << "<input name=\"#{name}\" class=\"text_field\" type=\"text\" value=\"#{value}\">"
+    html << "<input name=\"#{name}[#{id}]\" id=\"#{name}_#{id} class=\"text_field\" type=\"text\" value=\"#{value}\">"
     html << "</div>"
 end
 
@@ -155,7 +175,7 @@ def nav_to_contacts
 end
 
 def nav_to_prefs
-    link_to( t(:prefs,:scope=>:prefs), prefs_path )
+    link_to( t(:prefs,:scope=>:prefs), prefs_look_path )
 end
 
 def main_navigation(active)
@@ -168,6 +188,26 @@ def main_navigation(active)
     active == :prefs ? s += "<li class=\"active\">#{nav_to_prefs}</li>" : s += "<li>#{nav_to_prefs}</li>"
 #    active == :filters ? s += "<li class=\"active\">#{link_mail_filters}</li>" : s += "<li>#{link_mail_filters}</li>"
 
+    s += "</ul>"
+end
+
+def prefs_navigation(active)
+	look_active = ""
+	identity_active = ""
+	servers_active = ""
+	case active
+		when :look
+			look_active = "active"
+		when :identity
+			identity_active ="active"
+		when :servers
+			servers_active ="active"
+	end
+    s = ""
+    s += "<ul class=\"wat-cf\">"
+    s += "<li class=\"first #{look_active}\">#{link_to( t(:look,:scope=>:prefs), prefs_look_path )}</li>"
+    s += "<li class=\"#{identity_active}\">#{link_to( t(:identity,:scope=>:prefs), prefs_identity_path )}</li>"
+    s += "<li class=\"last #{servers_active}\">#{link_to( t(:servers,:scope=>:prefs), prefs_servers_path )}</li>"
     s += "</ul>"
 end
 
@@ -195,7 +235,15 @@ def multi_select(id, name, objects, selected_objects, label, value,joiner,conten
     option_content = bracket.empty? ? "#{text}" : "#{text} (#{bracket})"
     options << "<option value=\"#{option_value}\"#{selected}>&nbsp;&nbsp;#{option_content}&nbsp;&nbsp;</option>\n"
   end
-  "<div class=\"group\"><label class=\"label\">#{label}</label><select multiple=\"multiple\" size=10 id=\"#{id}\" name=\"#{name}\">\n#{options}</select></div>"
+  "<div class=\"param_group\"><label class=\"label\">#{label}</label><select multiple=\"multiple\" size=10 id=\"#{id}\" name=\"#{name}\">\n#{options}</select></div>"
+end
+
+def force_charset(text)
+    begin
+        Iconv.iconv("UTF-8",$defaults["msg_unknown_charset"],text)
+    rescue
+        text
+    end
 end
 
 

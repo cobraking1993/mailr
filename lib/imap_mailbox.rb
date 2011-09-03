@@ -194,6 +194,14 @@ class IMAPMailbox
         end
     end
 
+    def append(folder,message,flags)
+        begin
+            @imap.append(folder,message,flags)
+        rescue Exception => e
+            raise e
+        end
+    end
+
 end
 
 end

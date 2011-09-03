@@ -3,7 +3,9 @@ require 'yaml'
 class ApplicationController < ActionController::Base
 
 	protect_from_forgery
+
 	before_filter :load_defaults,:current_user,:set_locale
+
 	before_filter :plugins_configuration
 
     rescue_from ActiveRecord::RecordNotFound do
@@ -12,13 +14,13 @@ class ApplicationController < ActionController::Base
         redirect_to :controller=>'user', :action => 'login'
     end
 
+    def load_defaults
+		$defaults ||= YAML::load(File.open(Rails.root.join('config','defaults.yml')))
+	end
+
     ################################# protected section ###########################################
 
 	protected
-
-	def load_defaults
-		$defaults ||= YAML::load(File.open(Rails.root.join('config','defaults.yml')))
-	end
 
 	def theme_resolver
 		if @current_user.nil?
@@ -49,24 +51,35 @@ class ApplicationController < ActionController::Base
 	end
 
 	def selected_folder
-        session[:selected_folder] ? @selected_folder = session[:selected_folder] : @selected_folder = $defaults['mailbox_inbox']
+        if session[:selected_folder]
+            @selected_folder = session[:selected_folder]
+        else
+            folder = @current_user.folders.inbox.first
+            if not folder.nil?
+                @selected_folder = folder.full_name
+            end
+        end
 	end
 
 	def get_current_folders
 		@folders_shown = @current_user.folders.shown.order("name asc")
-		@current_folder = @current_user.folders.find_by_full_name(@selected_folder)
+		if not @selected_folder.nil?
+            @current_folder = @current_user.folders.find_by_full_name(@selected_folder)
+        end
 	end
 
 	def self.decode_quoted(text,unknown_charset = $defaults["msg_unknown_charset"])
         begin
-            if text.=~(/=\?/).nil?
+            if text.match(/\=\?.+\?\w\?.+\?\=/).nil?
                 after = Iconv.conv('UTF-8',unknown_charset,text)
                 #after = text
             else
-# TODO support multiple showing of =?xxx?=
-					text =~ /(=\?.+\?=)/
+
+# FIXME support multiple showing of =?xxx?=
+
+
 					after = text
-					match = $1
+					match = text.match(/\=\?.+\?\w\?.+\?\=/).to_s
 					f = match.split(/\?/)
 					case f[2].downcase
 						when 'q':
@@ -85,6 +98,7 @@ class ApplicationController < ActionController::Base
                 end
 
             end
+            #logger.custom('after',after)
             return after
         rescue Exception => e
             logger.error("Class Message: #{e.to_s}: T: #{text} M: #{match} R: #{replace} A: #{after}")

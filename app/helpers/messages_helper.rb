@@ -14,25 +14,39 @@ module MessagesHelper
         date.nil? ? t(:no_data) : date.strftime("%Y-%m-%d %H:%M")
     end
 
-#    def address_formatter(addr)
-#        ImapMessageModule::IMAPAddress.parse(addr).friendly
-#    end
-
     def address_formatter(addr,mode)
         s = ""
         length = $defaults["msg_address_length"].to_i
         fs = addr.split(/</)
 
-        if mode == :index
-            fs[0].size.zero? ? s = fs[1] : s = fs[0]
-            s.length >= length ? s = s[0,length]+"..." : s
-        else
-            fs[0].size.zero? ? s = "<" + fs[1] + ">" : s << fs[0] + " <" + fs[1] + ">"
+        if not fs.size.zero?
+            case mode
+                when :index
+                    fs[0].size.zero? ? s = fs[1] : s = fs[0]
+                    s.length >= length ? s = s[0,length]+"..." : s
+                    return h(s)
+                when :message
+                    fs[0].size.zero? ? s = "<" + fs[1] + ">" : s << fs[0] + " <" + fs[1] + ">"
+                    return h(s)
+                when :raw
+                    fs[0].size.zero? ? s = fs[1] : s << fs[0] + " <" + fs[1] + ">"
+                    return s
+            end
         end
-
-        return h(s)
-
     end
+
+    def show_addr_formatter(addrs)
+        return h(force_charset(addrs[0].decoded))
+    end
+
+    def show_subject_formatter(subject)
+        if subject.to_s.nil?
+            t(:no_subject,:scope=>:message)
+        else
+            return h(force_charset(subject.decoded))
+        end
+    end
+
 
     def subject_formatter(message)
         if message.subject.size.zero?
@@ -49,8 +63,8 @@ module MessagesHelper
     end
 
     def headers_links
-
-        if @current_folder.hasFullName?($defaults["mailbox_sent"])
+        #if @current_folder.hasFullName?(@folder_sent_name) || @current_folder.hasFullName?(@folder_drafts_name)
+        if @current_folder == @sent_folder || @current_folder == @drafts_folder
             fields = $defaults["msgs_sent_view_fields"]
         else
             fields = $defaults["msgs_inbox_view_fields"]
@@ -71,6 +85,7 @@ module MessagesHelper
 
     def content_text_plain_for_render(text)
         html = "<pre>"
+        #html << text.gsub!(/\r\n/,"\n")
         html << h(text)
         html << "</pre>"
         html

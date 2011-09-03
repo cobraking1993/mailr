@@ -6,7 +6,8 @@ class Message < ActiveRecord::Base
     belongs_to :folder
 
     set_primary_key :uid
-    attr_accessible :unseen, :to_addr, :size, :content_type, :folder_id, :subject, :date, :uid, :from_addr, :user_id, :msg_id
+    attr_accessible :unseen, :to_addr, :size, :content_type, :folder_id, :subject, :date, :uid, :from_addr, :user_id, :msg_id, :body,:cc_addr,:bcc_addr
+    attr_accessor :body
 
     def self.addr_to_db(addr)
         ret = ""
@@ -33,9 +34,8 @@ class Message < ActiveRecord::Base
 
         envelope = imap_message.attr['ENVELOPE']
 
-        from = addr_to_db(envelope.from[0])
-        to = addr_to_db(envelope.to[0])
-
+        envelope.from.nil? ? from = "" : from = addr_to_db(envelope.from[0])
+        envelope.to.nil? ? to = "" : to = addr_to_db(envelope.to[0])
         envelope.subject.nil? ? subject = "" : subject = ApplicationController.decode_quoted(envelope.subject)
 
         create(
@@ -56,6 +56,5 @@ class Message < ActiveRecord::Base
     def change_folder(folder)
         update_attributes(:folder_id => folder.id)
     end
-
 
 end

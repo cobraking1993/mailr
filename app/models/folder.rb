@@ -5,6 +5,20 @@ class Folder < ActiveRecord::Base
     before_save :check_fill_params, :on => :create
     has_many :messages, :dependent => :destroy
 
+    SYS_NONE = 0
+    SYS_TRASH = 1
+    SYS_INBOX = 2
+    SYS_SENT = 3
+    SYS_DRAFTS = 4
+
+    default_scope :order => 'name asc'
+    scope :shown, where(['shown = ?',true])
+    scope :inbox, where(['sys = ?',SYS_INBOX])
+    scope :sent, where(['sys = ?',SYS_SENT])
+    scope :drafts, where(['sys = ?',SYS_DRAFTS])
+    scope :trash, where(['sys = ?',SYS_TRASH])
+    scope :sys, where(['sys > ?',SYS_NONE])
+
     def full_name
         if parent.empty?
             name
@@ -33,6 +47,48 @@ class Folder < ActiveRecord::Base
         full_name.downcase == folder_name.downcase
 	end
 
+	def isSystem?
+        sys > SYS_NONE
+    end
+
+    def isTrash?
+        sys == SYS_TRASH
+    end
+
+    def isSent?
+        sys == SYS_SENT
+    end
+
+    def isInbox?
+        sys == SYS_INBOX
+    end
+
+    def isDrafts?
+        sys == SYS_DRAFTS
+    end
+
+    def setNone
+        update_attributes(:sys => SYS_NONE)
+    end
+
+    def setTrash
+        update_attributes(:sys => SYS_TRASH)
+    end
+
+    def setSent
+        update_attributes(:sys => SYS_SENT)
+    end
+
+    def setInbox
+        update_attributes(:sys => SYS_INBOX)
+    end
+
+    def setDrafts
+        update_attributes(:sys => SYS_DRAFTS)
+    end
+
+
+
     ############################################## private section #####################################
 
     private
@@ -43,6 +99,7 @@ class Folder < ActiveRecord::Base
         self.parent.nil? ? self.parent = "" : self.parent
         self.haschildren.nil? ? self.haschildren = false : self.haschildren
         self.delim.nil? ? self.delim = "." : self.delim
+        self.sys.nil? ? self.sys = SYS_NONE : self.sys
     end
 
     def self.createBulk(user,imapFolders)
@@ -64,7 +121,8 @@ class Folder < ActiveRecord::Base
             :haschildren => has_children,
             :delim => data.delim,
             :total => data.messages,
-            :unseen => data.unseen)
+            :unseen => data.unseen,
+            :sys => SYS_NONE)
         end
     end
 
@@ -76,16 +134,10 @@ class Folder < ActiveRecord::Base
 		where(['name = ? and parent = ?',nam,par]).first
     end
 
-    def self.shown
-		where(['shown = ?',true])
-	end
-
 	def self.refresh(mailbox,user)
         user.folders.destroy_all
         folders=mailbox.folders
         Folder.createBulk(user,folders)
 	end
-
-
 
 end

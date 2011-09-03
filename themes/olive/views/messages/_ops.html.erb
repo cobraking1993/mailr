@@ -4,7 +4,7 @@
     <%= submit_tag(t(:move), :name=>'move')%>
     <%= t(:checked,:scope=>:message) %>
     <%= t(:to_folder,:scope=>:folder) %>
-    <%= raw simple_select_for_folders("","dest_folder",@folders_shown,true) %>
+    <%= raw simple_select_for_folders("folder","target",@folders_shown,'',true) %>
     <br/>
     <%= submit_tag(t(:delete), :name=>'trash')%>
     <%= submit_tag(t(:set_read,:scope=>:message), :name=>'set_read')%>

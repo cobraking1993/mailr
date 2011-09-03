@@ -1,0 +1,27 @@
+<% content_for :sidebar do %>
+<%= render :partial => 'folders/list' %>
+<% end %>
+
+<% content_for :title do %>
+- <%= t(:prefs,:scope=>:prefs) %>
+<% end %>
+
+<div class="block" id="block-tables">
+    <div class="secondary-navigation">
+        <%= raw main_navigation(:prefs) %>
+    </div>
+    <div class="content"><div class="secondary-navigation">
+        <%= raw prefs_navigation(:servers) %>
+    </div>
+        <div class="inner"> <%= form_tag(prefs_update_servers_path,:name=>'prefs') %>
+            <div class="columns wat-cf">
+                <div class="column left">
+                    <%= render :partial => 'prefs/servers_left' %>
+                </div>
+                <div class="column right">
+                    <%= render :partial => 'prefs/servers_right' %>
+                </div>
+            </div></form>
+        </div>
+    </div>
+</div>

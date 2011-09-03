@@ -1,9 +1,17 @@
 <div class="msg_header">
-    <%= raw mail_param_view(@message,"from_addr",address_formatter(@message.from_addr,:message)) %>
-    <%= raw mail_param_view(@message,"to_addr",address_formatter(@message.to_addr,:message)) %>
-    <%= raw mail_param_view(@message,"subject",@message.subject) %>
-    <%= raw mail_param_view(@message,"date",date_formatter(@message.date)) %>
+    <%= raw show_param_view(@message,"from_addr",show_addr_formatter(@from)) %>
+    <%= raw show_param_view(@message,"to_addr",show_addr_formatter(@to)) %>
+    <% if @to.size > 1 %>
+        <%= raw show_param_view(@message,"to_addr","To dodatkowe jest") %>
+    <% end %>
+    <% if not @cc.nil? %>
+        <%= raw show_param_view(@message,"cc_addr","CC jest") %>
+    <% end %>
+    <% if not @bcc.nil? %>
+        <%= raw show_param_view(@message,"bcc_addr","BCC jest ") %>
+    <% end %>
+    <%= raw show_param_view(@message,"subject",show_subject_formatter(@subject)) %>
+    <%= raw show_param_view(@message,"date",date_formatter(@date)) %>
     <%= hidden_field_tag 'uids[]', @message.uid %>
-    <%= hidden_field_tag 'id', @message.id %>
     <%= hidden_field_tag 'source', 'show' %>
 </div>

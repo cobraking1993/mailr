@@ -1,0 +1,8 @@
+<div class="images">
+<span class="title"><%= t(:images,:scope=>:message) %></span>
+
+<% for idx in 0..@images.size-1 %>
+<%= render :partial => 'image', :object => @images[idx] %>
+<% end %>
+
+</div>

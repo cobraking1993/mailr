@@ -1,0 +1,8 @@
+<div class="image">
+<%= image_tag(messages_attachment_download_path(image.parent_id,image.idx), :size => "128x128", :alt=>image.filename, :title=>image.filename) %>
+<div class="desc">
+<span class="name"><%= link_to (image.filename,messages_attachment_download_path(image.parent_id,image.idx)) %></span>
+<span class="size"><%= size_formatter(image.getSize) %></span>
+</div>
+</div>
+

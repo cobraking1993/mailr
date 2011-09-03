@@ -1,21 +1,21 @@
 <td>
-<%= link_to attachment.title, messages_attachment_download_path(attachment.message_id,attachment.idx) %>
+<%= link_to attachment.filename, messages_attachment_download_path(attachment.parent_id,attachment.idx) %>
 </td>
 <td>
-<%= attachment.type %>
+<%= attachment.main_type %>/<%= attachment.sub_type %>
 </td>
 <td>
 <%= attachment.charset %>
 </td>
 <td>
-<%= attachment.encoding %>
+<%= attachment.content_transfer_encoding %>
 </td>
 <td>
-<%= size_formatter(attachment.size) %>
+<%= size_formatter(attachment.getSize) %>
 </td>
 <td>
-<%= link_to t(:download), messages_attachment_download_path(attachment.message_id,attachment.idx) %>
+<%= link_to t(:download), messages_attachment_download_path(attachment.parent_id,attachment.idx) %>
 </td>
 <td>
-<%= link_to t(:view), messages_part_body_path(attachment.message_id,attachment.idx) %>
+<%= link_to t(:view), messages_part_body_path(attachment.parent_id,attachment.idx) %>
 </td>

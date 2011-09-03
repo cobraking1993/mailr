@@ -61,9 +61,10 @@ class UserController < ApplicationController
 
 		if @user.valid? and @server.valid?
 			@user.save
-			@server.user_id = @user.id
-			@server.save
-			Prefs.create_default(@user.id)
+			#@server.user_id = @user.id
+			#@server.save
+			Prefs.create_default(@user)
+			Server.create_defaults(@user)
 			flash[:notice] = t(:setup_done,:scope=>:user)
 			redirect_to :action => 'login'
 		else

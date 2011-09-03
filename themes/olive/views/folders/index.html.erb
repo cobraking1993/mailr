@@ -14,24 +14,12 @@
 <div class="inner">
     <div class="columns wat-cf">
         <div class="column left">
-            <%= form_tag(folders_create_path,:class=>'form') %>
-                <%= raw select_for_folders("","parent_folder",@folders,t(:parent,:scope=>:folder),true) %>
-                <%= raw simple_input_field("folder",t(:to_create,:scope=>:folder),"") %>
-                <%= raw form_button('create','tick.png') %>
-            </form>
-            <%= form_tag(folders_delete_path,:class=>'form') %>
-                <%= raw select_for_folders("","folder",@folders,t(:to_delete,:scope=>:folder),true) %>
-                <%= raw form_button('delete','cross.png') %>
-            </form>
+            <%= render :partial => 'create' %>
+            <%= render :partial => 'delete' %>
+            <%= render :partial => 'system' %>
         </div>
         <div class="column right">
-			<%= form_tag(folders_refresh_path,:class=>'form') %>
-				<%= raw form_button('refresh','tick.png') %>
-			</form>
-            <%= form_tag(folders_show_hide_path,:class=>'form') %>
-            <%= raw multi_select("", 'folders_to_show[]', @folders, @folders_shown,t(:shown,:scope=>:folder),:id,"",{:text => [:parent,:delim,:name]}) %>
-            <%= raw form_button('show_hide','tick.png') %>
-            </form>
+			<%= render :partial => 'refresh' %>
         </div>
     </div>
 </div>

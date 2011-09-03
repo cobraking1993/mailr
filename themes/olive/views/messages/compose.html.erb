@@ -12,7 +12,7 @@
     </div>
     <div class="content">
             <h2><%= t(:new_message,:scope=>:compose) %></h2>
-        <%= form_tag(messages_sendout_path)%>
+        <%= form_tag(sendout_or_save_path)%>
         <div class="inner">
             <%= render :partial => 'new' %>
         </div>

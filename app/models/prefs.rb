@@ -6,8 +6,8 @@ class Prefs < ActiveRecord::Base
 
 	protected
 
-	def self.create_default(user_id)
-		Prefs.create(:user_id => user_id,
+	def self.create_default(user)
+		Prefs.create(:user_id => user.id,
 					 :theme => $defaults['theme'],
 					 :locale => $defaults['locale'],
 					 :msgs_per_page => $defaults['msgs_per_page'],

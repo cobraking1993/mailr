@@ -10,14 +10,16 @@
     <div class="secondary-navigation">
         <%= raw main_navigation(:prefs) %>
     </div>
-    <div class="content">
-        <div class="inner"> <%= form_tag(prefs_update_path,:name=>'prefs') %>
+    <div class="content"><div class="secondary-navigation">
+        <%= raw prefs_navigation(:look) %>
+    </div>
+        <div class="inner"> <%= form_tag(prefs_update_look_path,:name=>'prefs') %>
             <div class="columns wat-cf">
                 <div class="column left">
-                    <%= render :partial => 'prefs/left' %>
+                    <%= render :partial => 'prefs/look_left' %>
                 </div>
                 <div class="column right">
-                    <%= render :partial => 'prefs/right' %>
+                    <%= render :partial => 'prefs/look_right' %>
                 </div>
             </div></form>
         </div>

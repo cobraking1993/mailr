@@ -29,6 +29,8 @@ pl:
         size: Rozmiar
         date: Data
         body: Treść
+        cc_addr: Dw
+        bcc_addr: UDw
       user:
         email: E-mail
         password: Hasło
@@ -53,14 +55,18 @@ pl:
 
   prefs:
     prefs: Ustawienia
+    look: Wygląd
+    identity: Tożsamość
+    servers: Serwery
 
   folder:
+    folder: Folder
     folders: Foldery
     no_shown: Nie prezentowany jest żaden folder. Skonfiguruj widok folderów w zakładce
     parent: Folder nadrzędny
     to_create: Folder do utworzenia
     to_delete: Folder do usunięcia
-    shown: Foldery pokazane
+    shown: Wyświetlane foldery
     emptybin: Opróżnij
     current: Folder bieżący
     no_selected: Nie wybrano żadnego folderu
@@ -72,6 +78,12 @@ pl:
     can_not_delete: Nie można usunąć folderu
     was_deleted: Folder został usunięty
     to_folder: do folderu
+    system: Folder systemowy
+    not_all_configured: Nie wszystkie systemowe foldery zostały skonfigurowane
+    inbox_name: Odebrane
+    sent_name: Wysłane
+    trash_name: Kosz
+    drafts_name: Roboczy
 
   message:
     messages: Wiadomości
@@ -87,6 +99,8 @@ pl:
     content: Treść wiadomości
     header_source: Nagłówek wiadomości
     show_header: Pokaż nagłówek
+    edit: Edycja
+    images: Obrazy
 
   compose:
     compose: Nowa wiadomość
@@ -94,9 +108,14 @@ pl:
     not_contain_at: ",jeżeli nie zawiera znaku @, adres będzie szukany w kontaktach"
     subject_of_the_message: Temat wiadomości
     write_your_message_here: Tu wpisz swoją wiadomość
-
-  sendout:
     was_sent: Wiadomość została wysłana
+    was_saved: Wiadomość została zapisana w katalogu roboczym
+    reply_string: "Odp: "
+    not_configured_smtp: Brak konfiguracji SMTP
+    not_configured_drafts: Folder Roboczy nie został przypisany
+    not_configured_sent: Folder Wysłany nie został przypisany
+    not_configured_trash: Folder Kosz nie został przypisany
+    not_configured_inbox: Folder Odebrane nie został przypisany
 
   show:
     replay_to: Odpowiedz
@@ -141,4 +160,6 @@ pl:
   download: Pobierz
   view: Pokaż
   version: Wersja
+  save_as_draft: Zapisz w katalogu roboczym
+  set: Ustaw
 

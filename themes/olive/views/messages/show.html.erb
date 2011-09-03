@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :title do %>
-- <%= @message.subject %>
+- <%= show_subject_formatter(@subject) %>
 <% end %>
 
 <div class="block" id="block-tables">
@@ -19,23 +19,24 @@
             <%= render :partial => 'attachments' %>
         <% end %>
 
-		<% if not @render_as_html_idx.nil? %>
+        <% if not @images.size.zero? %>
+            <%= render :partial => 'images' %>
+        <% end %>
+
+        <% if not @html_part.nil? %>
             <%= render :partial => 'html_part' %>
         <% else %>
             <div class="render_text">
             <span><%= t(:content,:scope=>:message) %></span>
-            <% if @render_as_text.size.zero? %>
+                <% if @text_part.nil? %>
                 <p>
                     <%= t(:no_content,:scope => :message) %>
                 </p>
             <% else %>
-                <% @render_as_text.each do |r| %>
-                 <%= raw content_text_plain_for_render(r) %>
-                <% end %>
+                <%= raw content_text_plain_for_render(@text_part) %>
             <% end %>
             </div>
         <% end %>
-
         </form>
     </div>
 </div>

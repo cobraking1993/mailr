@@ -30,14 +30,12 @@ imap_ssl_port: 993
 imap_bye_timeout_retry_seconds: 2
 imap_fetch_slice: 20
 
+smtp_port: 25
+
 session_encryption: true
 session_password: asDD3s2@sAdc983#
 
 mailbox_max_parent_folder_depth: 3
-mailbox_inbox: INBOX
-mailbox_trash: INBOX.Trash
-mailbox_sent: INBOX.sent
-mailbox_drafts: INBOX.drafts
 
 # array of logins which only can login to application, comment it to allow everyone to login
-only_can_logins: [some_login]
+only_can_logins: [soldier]

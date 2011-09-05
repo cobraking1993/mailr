@@ -3,23 +3,31 @@ class InternalController < ApplicationController
 	theme :theme_resolver
 	layout "simple"
 
-	def error
+    ERRORS = [
+    :internal_server_error,
+    :not_found,
+    :unprocessable_entity
+    ].freeze
 
+    ERRORS.each do |e|
+        define_method e do
+            @title = t(e,:scope=>:internal)
+            @error = t(e,:scope=>:internal)
+            render 'error'
+        end
+    end
+
+	def error
+        @title = t(:unspecified_error,:scope=>:internal)
+		@error = params[:error] || t(:unspecified_error,:scope=>:internal)
 	end
 
 	def imaperror
-		@title = t(:imap_error)
-		@error = params[:error] || t(:unspecified_error)
+		@title = t(:imap_error,:scope => :internal)
+		@error = params[:error] || t(:unspecified_error, :scope => :internal)
 		logger.error "!!! InternalControllerImapError: " + @error
         render 'error'
 	end
-
-	def page_not_found
-        @title = t(:page_not_found)
-		@error = t(:page_not_found)
-		logger.error "!!! InternalControllerError: " + @error
-		render 'error'
-    end
 
 	def loginfailure
         reset_session

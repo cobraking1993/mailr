@@ -11,9 +11,9 @@
         <%= raw main_navigation(:show) %>
     </div>
     <div class="content">
-        <%= form_tag(messages_msgops_path)%>
+        <%= form_tag(messages_ops_single_path)%>
         <%= render :partial => 'header' %>
-        <%= render :partial => 'msg_ops' %>
+        <%= render :partial => 'single_ops' %>
 
         <% if not @attachments.size.zero? %>
             <%= render :partial => 'attachments' %>

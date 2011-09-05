@@ -84,6 +84,10 @@ pl:
     sent_name: Wysłane
     trash_name: Kosz
     drafts_name: Roboczy
+    not_configured_drafts: Folder Roboczy nie został przypisany
+    not_configured_sent: Folder Wysłany nie został przypisany
+    not_configured_trash: Folder Kosz nie został przypisany
+    not_configured_inbox: Folder Odebrane nie został przypisany
 
   message:
     messages: Wiadomości
@@ -112,10 +116,6 @@ pl:
     was_saved: Wiadomość została zapisana w katalogu roboczym
     reply_string: "Odp: "
     not_configured_smtp: Brak konfiguracji SMTP
-    not_configured_drafts: Folder Roboczy nie został przypisany
-    not_configured_sent: Folder Wysłany nie został przypisany
-    not_configured_trash: Folder Kosz nie został przypisany
-    not_configured_inbox: Folder Odebrane nie został przypisany
 
   show:
     replay_to: Odpowiedz
@@ -133,6 +133,13 @@ pl:
     login: Logowanie
     only_can_logins: Podany identyfikator użytkownika nie uprawnia do korzystania z aplikacji
 
+  internal:
+    imap_error: Błąd protokołu IMAP
+    unspecified_error: Nieoczekiwany błąd
+    not_found: Nie znaleziono żądanej strony
+    internal_server_error: Błąd aplikacji
+    unprocessable_entity: Błąd procesowania
+
   must_be_unique: musi być unikalny
   some_add_info: jakieś dodatkowe informacje
   example: przykład
@@ -140,11 +147,9 @@ pl:
   create: Utwórz
   delete: Usuń
   show_hide: Pokaż/Ukryj
-  mailr: Mailr
+  mailr: MailR
   save: Zapisz
-  imap_error: Błąd protokołu IMAP
-  unspecified_error: Nieoczekiwany błąd
-  page_not_found: Nie znaleziono żądanej strony
+
   copy: Skopiuj
   move: Przenieś
   to: do

@@ -8,11 +8,11 @@ class ApplicationController < ActionController::Base
 
 	before_filter :plugins_configuration
 
-    rescue_from ActiveRecord::RecordNotFound do
-        logger.custom('record_not_found','exc')
-        reset_session
-        redirect_to :controller=>'user', :action => 'login'
-    end
+#    rescue_from ActiveRecord::RecordNotFound do
+#        logger.custom('record_not_found','exc')
+#        reset_session
+#        redirect_to :controller=>'user', :action => 'login'
+#    end
 
     def load_defaults
 		$defaults ||= YAML::load(File.open(Rails.root.join('config','defaults.yml')))
@@ -104,6 +104,23 @@ class ApplicationController < ActionController::Base
             logger.error("Class Message: #{e.to_s}: T: #{text} M: #{match} R: #{replace} A: #{after}")
             return text
         end
+    end
+
+    def prepare_compose_buttons
+        @buttons = []
+        @buttons << {:text => 'send',:image => 'tick.png'}
+        @buttons << {:text => 'save_as_draft',:image => 'tick.png'}
+    end
+
+    ##################################### protected section ########################################
+
+    protected
+
+    def get_system_folders
+        @drafts_folder = @current_user.folders.drafts.first
+        @sent_folder = @current_user.folders.sent.first
+        @inbox_folder = @current_user.folders.inbox.first
+        @trash_folder = @current_user.folders.trash.first
     end
 
     ##################################### private section ##########################################

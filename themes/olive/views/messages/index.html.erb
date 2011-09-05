@@ -11,7 +11,7 @@
         <%= raw main_navigation(:messages) %>
     </div>
     <div class="content">
-        <%= form_tag({:controller=>'messages', :action=>'ops'},{:name=>'messages'})%>
+        <%= form_tag({:controller=>'messages_ops', :action=>'multi'},{:name=>'messages'})%>
 
             <% if @current_folder.nil? %>
                 <h2><%= t(:no_selected,:scope=>:folder) %></h2>
@@ -22,7 +22,7 @@
                     <div class="header_info"><%= t(:no_in,:scope=>:message) %></div>
                 </div>
             <% else %>
-                <%= render :partial => 'ops' %>
+                <%= render :partial => 'multi_ops' %>
                 <%= render :partial => 'list' %>
             <% end %>
 

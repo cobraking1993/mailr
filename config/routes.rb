@@ -31,20 +31,24 @@ Mailr::Application.routes.draw do
     get "internal/loginfailure"
     get "internal/onlycanlogins"
 
+    match "messages_ops/single" => 'messages_ops#single'
+    match "messages_ops/multi" => 'messages_ops#multi'
+    match "messages_ops/sendout_or_save" => 'messages_ops#sendout_or_save' ,:as =>:sendout_or_save
+
 	root :to => "messages#index"
 	#get "messages/refresh_status"
 	#get "messages/emptybin"
 	#match "messages/select/:id" => 'messages#select', :as => :messages_select
 	get "messages/index"
 	#match 'messages/folder/:id' => 'messages#folder', :as => :messages_folder
-	post "messages/ops"
-	post "messages/msgops"
+	#post "messages/ops"
+	#post "messages/msgops"
 	match "messages/compose" => 'messages#compose'
-	match "messages/edit/:id" => 'messages#edit' ,:as => :messages_edit
-	match "messages/reply/:id" => 'messages#reply'
-	match "messages/sendout_or_save" => 'messages#sendout_or_save' ,:as =>:sendout_or_save
+	#match "messages/edit/:id" => 'messages#edit' ,:as => :messages_edit
+	#match "messages/reply/:id" => 'messages#reply'
+
 	match "messages/show/:id" => 'messages#show'
-	match "messages/body/:id/:idx" => 'messages#body' , :as => :messages_part_body
+	#match "messages/body/:id/:idx" => 'messages#body' , :as => :messages_part_body
 	match "messages/html_body/:id" => 'messages#html_body' , :as => :messages_html_body
 	match "messages/attachment/:id/:idx" => 'messages#attachment', :as => :messages_attachment_download
 
@@ -58,7 +62,7 @@ Mailr::Application.routes.draw do
 
 	themes_for_rails
 
-	match '*a', :to => 'internal#page_not_found'
+	match '*a', :to => 'internal#not_found'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

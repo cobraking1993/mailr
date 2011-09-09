@@ -1,0 +1,16 @@
+<div class="attachments">
+<span class="title"><%= t(:attachments,:scope=>:message) %></span>
+<% if not @attachments.size.zero? %>
+<% trclass = :even %>
+<table>
+<% @attachments.each do |a| %>
+<tr class="<%= trclass.to_s %>">
+<%= render :partial => 'messages/file_attach', :object => a %>
+</tr>
+<% trclass == :even ? trclass = :odd : trclass = :even %>
+<% end %>
+</table>
+<%= raw single_action('delete_marked','compose','minus.png') %>
+<% end %>
+</div>
+

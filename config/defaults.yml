@@ -1,3 +1,5 @@
+version: Build 2011-09-09
+
 theme: olive
 locale: pl
 
@@ -5,6 +7,8 @@ themes: [olive]
 locales: [en, pl]
 msgs_per_page_table: [15, 20, 25, 30, 35, 40, 45, 50]
 msg_send_type: [html, text]
+msg_image_view_as: [attachment, thumbnail]
+msg_image_thumbnail_size: [128x128, 128x96, 192x192, 192x144, 256x256, 256x192]
 
 contacts_table_fields: [nick, first_name, last_name, email, info]
 contacts_per_page: 25
@@ -16,9 +20,10 @@ msgs_update_time: 600
 msgs_inbox_view_fields: [from_addr, subject, date, size]
 msgs_sent_view_fields: [to_addr, subject, date, size]
 
-msg_subject_length: 45
+msg_subject_length: 50
 msg_address_length: 35
 msg_search_fields: [subject, from, to]
+msg_upload_dir: "tmp/uploads"
 
 # if encoding can not be get from data
 msg_unknown_charset: ISO-8859-2

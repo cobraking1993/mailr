@@ -1,4 +1,10 @@
 pl:
+  date:
+    day_names: [Niedziela, Poniedziałek, Wtorek, Środa, Czwartek, Piątek, Sobota]
+    abbr_day_names: [Ni, Po, Wt, Śr, Cz, Pi, So]
+    month_names: [~, Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień]
+    abbr_month_names: [~, Sty, Lut, Mar, Kwi, Maj, Czer, Lip, Sier, Wrze, Paź, Lis, Grudz]
+    order: [ :year, :month, :day ]
   activerecord:
     errors:
       messages:
@@ -22,6 +28,8 @@ pl:
         locale: Ustawienia językowe
         msgs_per_page: Ilość wiadomości wyświetlanych na stronie
         msg_send_type: Format wysyłanej wiadomości
+        msg_image_view_as: Prezentuj obraz jako
+        msg_image_thumbnail_size: Rozmiar miniaturki obrazu
       message:
         from_addr: Od
         to_addr: Do
@@ -58,6 +66,9 @@ pl:
     look: Wygląd
     identity: Tożsamość
     servers: Serwery
+    were_saved: Ustawienia zostały zapisane
+    thumbnail: Miniaturka
+    attachment: Załącznik
 
   folder:
     folder: Folder
@@ -88,6 +99,8 @@ pl:
     not_configured_sent: Folder Wysłany nie został przypisany
     not_configured_trash: Folder Kosz nie został przypisany
     not_configured_inbox: Folder Odebrane nie został przypisany
+    show_hide: Pokaż/Ukryj
+    refresh: Odśwież
 
   message:
     messages: Wiadomości
@@ -105,6 +118,9 @@ pl:
     show_header: Pokaż nagłówek
     edit: Edycja
     images: Obrazy
+    delete: Usuń zaznaczone
+    move: Przenieś
+    copy: Skopiuj
 
   compose:
     compose: Nowa wiadomość
@@ -114,11 +130,19 @@ pl:
     write_your_message_here: Tu wpisz swoją wiadomość
     was_sent: Wiadomość została wysłana
     was_saved: Wiadomość została zapisana w katalogu roboczym
-    reply_string: "Odp: "
+
     not_configured_smtp: Brak konfiguracji SMTP
+    select_file: Wybierz plik
+    delete_marked: Usuń zaznaczone
+    send_file: Wyślij plik
+    send: Wyślij
+    save_as_draft: Zapisz w katalogu roboczym
 
   show:
-    replay_to: Odpowiedz
+    reply: Odpowiedz
+    show_header: Pokaż nagłówek
+    delete: Usuń
+    reply_string: "Odp: "
 
   user:
     login_failure: Nieudane logowanie. Podano błędny e-mail lub hasło.
@@ -140,31 +164,30 @@ pl:
     internal_server_error: Błąd aplikacji
     unprocessable_entity: Błąd procesowania
 
-  must_be_unique: musi być unikalny
-  some_add_info: jakieś dodatkowe informacje
-  example: przykład
-  refresh: Odśwież
-  create: Utwórz
-  delete: Usuń
-  show_hide: Pokaż/Ukryj
-  mailr: MailR
-  save: Zapisz
+  common:
+    must_be_unique: musi być unikalny
+    some_add_info: jakieś dodatkowe informacje
+    example: przykład
 
-  copy: Skopiuj
-  move: Przenieś
-  to: do
-  previous_page: Poprzednia
-  next_page: Następna
-  bytes: B
-  kbytes: kB
-  mbytes: MB
-  site_link: https://github.com/lmanolov/mailr
-  send: Wyślij
-  no_data: Brak danych
-  logout: Wyloguj
-  download: Pobierz
-  view: Pokaż
-  version: Wersja
-  save_as_draft: Zapisz w katalogu roboczym
-  set: Ustaw
+    create: Utwórz
+    delete: Usuń
 
+    mailr: MailR
+    save: Zapisz
+    copy: Skopiuj
+    move: Przenieś
+    to: do
+    previous_page: Poprzednia
+    next_page: Następna
+    bytes: B
+    kbytes: kB
+    mbytes: MB
+    site_link: https://github.com/lmanolov/mailr
+
+    no_data: Brak danych
+    download: Pobierz
+    view: Pokaż
+    version: Wersja
+
+    set: Ustaw
+    logout: Wyloguj

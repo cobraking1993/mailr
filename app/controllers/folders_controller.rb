@@ -17,8 +17,8 @@ class FoldersController < ApplicationController
 
     def index
         @buttons = []
-        @buttons << {:text => 'show_hide',:image => 'tick.png'}
-        @buttons << {:text => 'refresh',:image => 'tick.png'}
+        @buttons << {:text => 'show_hide',:scope=>'folder',:image => 'flag.png'}
+        @buttons << {:text => 'refresh',:scope=>'folder',:image => 'refresh.png'}
     end
 
     def create

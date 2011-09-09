@@ -2,6 +2,6 @@
 <td nowrap="nowrap"><%= link_to row.nick,edit_contact_path(row) %></td>
 <td nowrap="nowrap"><%= row.first_name %></td>
 <td nowrap="nowrap"><%= row.last_name %></td>
-<td nowrap="nowrap"><%= link_to row.email, {:controller => 'messages',:action => 'compose' , :cids => row.id.to_a} %></td>
+<td nowrap="nowrap"><%= link_to row.email, {:controller => 'messages',:action => 'compose' , :cids => row.id} %></td>
 <td colspan="2" nowrap="nowrap"><%= row.info %></td>
 

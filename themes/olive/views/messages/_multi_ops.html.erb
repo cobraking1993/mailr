@@ -1,14 +1,4 @@
 <div id="ops" class="ops">
-    <p>
-    <%= submit_tag(t(:copy), :name=> 'copy')%>
-    <%= submit_tag(t(:move), :name=>'move')%>
-    <%= t(:checked,:scope=>:message) %>
-    <%= t(:to_folder,:scope=>:folder) %>
-    <%= raw simple_select_for_folders("folder","target",@folders_shown,'',true) %>
-    <br/>
-    <%= submit_tag(t(:delete), :name=>'trash')%>
-    <%= submit_tag(t(:set_read,:scope=>:message), :name=>'set_read')%>
-    <%= submit_tag(t(:set_unread,:scope=>:message), :name=>'set_unread')%>
-    <%= t(:checked,:scope=>:message) %>
-    </p>
+    <%= raw group_action_text(@multi1_buttons,t(:checked,:scope=>:message) + " " + t(:to_folder,:scope=>:folder)+ " " + simple_select_for_folders("folder","target",@folders_shown,'',true)) %>
+    <%= raw group_action(@multi2_buttons) %>
 </div>

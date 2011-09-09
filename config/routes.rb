@@ -34,8 +34,11 @@ Mailr::Application.routes.draw do
     match "messages_ops/single" => 'messages_ops#single'
     match "messages_ops/multi" => 'messages_ops#multi'
     match "messages_ops/sendout_or_save" => 'messages_ops#sendout_or_save' ,:as =>:sendout_or_save
+    match "messages_ops/upload" => 'messages_ops#upload',:as => :upload
 
 	root :to => "messages#index"
+	match "messages/index" => 'messages#index', :as => :messages
+	match "messages/compose" => 'messages#compose', :as => :compose
 	#get "messages/refresh_status"
 	#get "messages/emptybin"
 	#match "messages/select/:id" => 'messages#select', :as => :messages_select
@@ -43,7 +46,7 @@ Mailr::Application.routes.draw do
 	#match 'messages/folder/:id' => 'messages#folder', :as => :messages_folder
 	#post "messages/ops"
 	#post "messages/msgops"
-	match "messages/compose" => 'messages#compose'
+
 	#match "messages/edit/:id" => 'messages#edit' ,:as => :messages_edit
 	#match "messages/reply/:id" => 'messages#reply'
 

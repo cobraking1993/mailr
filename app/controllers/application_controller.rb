@@ -108,13 +108,22 @@ class ApplicationController < ActionController::Base
 
     def prepare_compose_buttons
         @buttons = []
-        @buttons << {:text => 'send',:image => 'tick.png'}
-        @buttons << {:text => 'save_as_draft',:image => 'tick.png'}
+        @buttons << {:text => 'send',:scope=>:compose,:image => 'email.png'}
+        @buttons << {:text => 'save_as_draft',:scope=>:compose,:image => 'save.png'}
     end
 
-    ##################################### protected section ########################################
-
-    protected
+    def create_message_with_params
+        @message = Message.new
+        if params[:message]
+            @message.update_attributes(params[:message])
+        end
+        files = Dir.glob(File.join($defaults["msg_upload_dir"],@current_user.username + "*"))
+        @attachments = []
+        files.each do |f|
+            @attachments << {:name => File.basename(f).gsub!(/#{@current_user.username}_/,"") , :size => File.stat(f).size }
+        end
+        logger.custom('a',@attachments.inspect)
+    end
 
     def get_system_folders
         @drafts_folder = @current_user.folders.drafts.first
@@ -128,8 +137,8 @@ class ApplicationController < ActionController::Base
     private
 
     def plugins_configuration
-        WillPaginate::ViewHelpers.pagination_options[:previous_label] = t(:previous_page)
-        WillPaginate::ViewHelpers.pagination_options[:next_label] = t(:next_page)
+        WillPaginate::ViewHelpers.pagination_options[:previous_label] = t(:previous_page,:scope=>:common)
+        WillPaginate::ViewHelpers.pagination_options[:next_label] = t(:next_page,:scope=>:common)
     end
 
 end

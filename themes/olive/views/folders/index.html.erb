@@ -1,5 +1,5 @@
 <% content_for :sidebar do %>
-<%= render :partial => 'folders/list' %>
+<%= content_for_sidebar %>
 <% end %>
 
 <% content_for :title do %>
@@ -8,7 +8,7 @@
 
 <div class="block" id="block-tables">
 <div class="secondary-navigation">
-    <%= raw main_navigation(:folders) %>
+    <%= raw main_navigation(:folders_tab) %>
 </div>
 <div class="content">
 <div class="inner">

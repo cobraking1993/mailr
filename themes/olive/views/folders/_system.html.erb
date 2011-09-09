@@ -4,6 +4,6 @@
 <%= raw select_for_folders("folder","mailbox_trash",@folders,t(:folder,:scope => :folder) + " " + t(:trash_name,:scope=>:folder),@folder_trash,true) %>
 <%= raw select_for_folders("folder","mailbox_sent",@folders,t(:folder,:scope => :folder) + " " + t(:sent_name,:scope=>:folder),@folder_sent,true) %>
 <%= raw select_for_folders("folder","mailbox_drafts",@folders,t(:folder,:scope => :folder) + " " + t(:drafts_name,:scope=>:folder),@folder_drafts,true) %>
-<%= raw form_button('set','tick.png') %>
+<%= raw single_action('set','common','save.png') %>
 </div>
 </form>

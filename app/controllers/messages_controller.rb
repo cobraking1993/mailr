@@ -12,15 +12,13 @@ class MessagesController < ApplicationController
     include MessagesHelper
 
 	before_filter :check_current_user ,:selected_folder,:get_current_folders
-
 	before_filter :open_imap_session, :select_imap_folder
-
 	before_filter :prepare_compose_buttons, :only => [:compose]
-
-	#before_filter :mail_defaults, :only => [:sendout_or_save]
-
 	before_filter :get_system_folders, :only => [:index]
-
+	before_filter :create_message_with_params, :only => [:compose]
+	before_filter :prepare_multi1_buttons, :only => [:index,:show]
+	before_filter :prepare_multi2_buttons, :only => [:index]
+	before_filter :prepare_multi3_buttons, :only => [:show]
 	after_filter :close_imap_session
 
 	theme :theme_resolver
@@ -67,10 +65,7 @@ class MessagesController < ApplicationController
 	end
 
 	def compose
-        @message = Message.new
-        if params[:message]
-            @message = update_attributes(params[:message])
-        end
+        #before_filter
 	end
 
     def show
@@ -89,7 +84,7 @@ class MessagesController < ApplicationController
         @to = mail.To.addrs
         @cc = mail.Cc
         @bcc = mail.Bcc
-        @subject = mail.Subject
+        #@subject = mail.Subject
         @date = mail.date
 
         if mail.multipart? == true
@@ -118,7 +113,7 @@ class MessagesController < ApplicationController
             part.parent_id = @message.uid
             if part.isText?
                 @text_part = part.decoded_and_charseted
-            elsif part.isImage?
+            elsif part.isImage? and @current_user.prefs.msg_image_view_as.to_sym == :thumbnail
                 @images << part
             elsif part.isHtml?
                 @html_part = part.decoded_and_charseted
@@ -136,8 +131,18 @@ class MessagesController < ApplicationController
         else
             @body = mail.decoded_and_charseted
         end
+
         if @body.nil?
             @body = t(:no_body,:scope=>:message)
+        else
+            if @body=~/cid:([\w@\.]+)/
+                attachments = mail.attachments
+                if not attachments.size.zero?
+                for idx in 0..attachments.size - 1
+                    @body.gsub!(/cid:#{attachments[idx].cid}/,messages_attachment_download_path(message.uid,idx))
+                end
+            end
+            end
         end
         render 'html_body',:layout => 'html_body'
     end
@@ -157,8 +162,28 @@ class MessagesController < ApplicationController
         render :text => a.decoded
     end
 
+
     ############################################# protected section ##########################################
 
     protected
 
+    def prepare_multi2_buttons
+        @multi2_buttons = []
+        @multi2_buttons << {:text => 'delete',:scope=>:message,:image => 'trash.png'}
+        @multi2_buttons << {:text => 'set_unread',:scope=>:message,:image => 'unseen.png'}
+        @multi2_buttons << {:text => 'set_read',:scope=>:message,:image => 'seen.png'}
+    end
+
+    def prepare_multi1_buttons
+        @multi1_buttons = []
+        @multi1_buttons << {:text => 'copy',:scope=>:message,:image => 'copy.png'}
+        @multi1_buttons << {:text => 'move',:scope=>:message,:image => 'move.png'}
+    end
+
+    def prepare_multi3_buttons
+        @multi3_buttons = []
+        @multi3_buttons << {:text => 'show_header',:scope=>:show,:image => 'zoom.png'}
+        @multi3_buttons << {:text => 'delete',:scope=>:show,:image => 'trash.png'}
+        @multi3_buttons << {:text => 'reply',:scope=>:show,:image => 'reply.png'}
+    end
 end

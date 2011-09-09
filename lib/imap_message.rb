@@ -45,7 +45,7 @@ end
 
 class IMAPMessage
 
-    @@fetch_attr = ['ENVELOPE','BODYSTRUCTURE', 'FLAGS', 'UID', 'RFC822.SIZE']
+    @@fetch_attr = ['RFC822.HEADER', 'FLAGS', 'UID', 'RFC822.SIZE']
     #@@fetch_attr = ['RFC822','FLAGS', 'UID', 'RFC822.SIZE']
 
 #    attr_accessor :envelope,:uid,:content_type,:size,:unseen,:from,:message_id,:to,:from,:subject,:date

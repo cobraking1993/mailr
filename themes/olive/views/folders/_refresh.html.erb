@@ -2,6 +2,6 @@
 <div class="params">
 <%= raw multi_select("", 'folders_to_show[]', @folders, @folders_shown,t(:shown,:scope=>:folder),:id,"",{:text => [:parent,:delim,:name]}) %>
 </div>
-<%= raw form_buttons(@buttons) %>
+<%= raw group_action(@buttons) %>
 </form>
 

@@ -1,4 +1,5 @@
 require 'iconv'
+require 'mail'
 
 class Message < ActiveRecord::Base
 
@@ -30,26 +31,28 @@ class Message < ActiveRecord::Base
         Message.paginate :page => page , :per_page => user.prefs.msgs_per_page.to_i, :conditions=> ['user_id = ? and folder_id = ?', user.id,folder.id],:order => order
     end
 
-    def self.createForUser(user,folder,imap_message)
+    def self.createForUser(user,folder,message)
 
-        envelope = imap_message.attr['ENVELOPE']
+#        envelope = imap_message.attr['ENVELOPE']
+#
+#        envelope.from.nil? ? from = "" : from = addr_to_db(envelope.from[0])
+#        envelope.to.nil? ? to = "" : to = addr_to_db(envelope.to[0])
+#        envelope.subject.nil? ? subject = "" : subject = ApplicationController.decode_quoted(envelope.subject)
 
-        envelope.from.nil? ? from = "" : from = addr_to_db(envelope.from[0])
-        envelope.to.nil? ? to = "" : to = addr_to_db(envelope.to[0])
-        envelope.subject.nil? ? subject = "" : subject = ApplicationController.decode_quoted(envelope.subject)
+        mail = Mail.new(message.attr['RFC822.HEADER'])
 
         create(
                 :user_id => user.id,
                 :folder_id => folder.id,
-                :msg_id => envelope.message_id,
-                :uid => imap_message.attr['UID'].to_i,
-                :from_addr => from,
-                :to_addr => to,
-                :subject => subject,
-                :content_type => imap_message.attr['BODYSTRUCTURE'].media_type.downcase,
-                :date => envelope.date,
-                :unseen => !(imap_message.attr['FLAGS'].member? :Seen),
-                :size => imap_message.attr['RFC822.SIZE']
+                :msg_id => mail.message_id,
+                :uid => message.attr['UID'].to_i,
+                :from_addr => mail.From.charseted,
+                :to_addr => mail.To.charseted,
+                :subject => mail.Subject.charseted,
+                :content_type => mail.content_type,
+                :date => mail.date.to_s(:db),
+                :unseen => !(message.attr['FLAGS'].member? :Seen),
+                :size => message.attr['RFC822.SIZE']
             )
         end
 

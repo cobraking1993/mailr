@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110901120826) do
+ActiveRecord::Schema.define(:version => 20110908094506) do
 
   create_table "contacts", :force => true do |t|
     t.string   "nick"
@@ -19,6 +19,18 @@ ActiveRecord::Schema.define(:version => 20110901120826) do
     t.string   "last_name"
     t.string   "info"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "priority"
+    t.text     "description"
+    t.string   "category"
+    t.datetime "start"
+    t.datetime "stop"
+    t.boolean  "allday"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20110901120826) do
     t.datetime "updated_at"
     t.string   "msgs_per_page"
     t.string   "msg_send_type"
+    t.string   "msg_image_view_as"
+    t.string   "msg_image_thumbnail_size"
   end
 
   create_table "servers", :force => true do |t|

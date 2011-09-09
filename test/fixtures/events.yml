@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  priority: 1
+  description: MyText
+  category: MyString
+  start: 2011-09-06 11:41:29
+  stop: 2011-09-06 11:41:29
+  allday: false
+
+two:
+  user_id: 1
+  priority: 1
+  description: MyText
+  category: MyString
+  start: 2011-09-06 11:41:29
+  stop: 2011-09-06 11:41:29
+  allday: false

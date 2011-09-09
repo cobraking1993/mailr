@@ -92,6 +92,67 @@ def form_button(text,image)
 	html << "</button></div>"
 end
 
+def single_action(text,scope,image)
+	html = ""
+	html << "<div class=\"actiongroup wat-cf\">"
+	html << "<button class=\"button\" name=\"#{text}\" type=\"submit\">"
+	html << "<img src=\""
+	html << current_theme_image_path(image)
+	html << "\" alt=\""
+	html << t(text.to_sym, :scope => scope.to_sym)
+	html << "\" />"
+	html << t(text.to_sym, :scope => scope.to_sym)
+	html << "</button></div>"
+end
+
+def single_action_onclick(text,scope,image,onclick)
+	html = ""
+	html << "<div class=\"actiongroup navform wat-cf\">"
+    html << "<button class=\"button\" type=\"submit\" onclick=\"window.location='"
+    html << onclick
+    html << "'\">"
+	html << "<img src=\""
+	html << current_theme_image_path(image)
+	html << "\" alt=\""
+	html << t(text.to_sym, :scope => scope.to_sym)
+	html << "\" />"
+	html << t(text.to_sym, :scope => scope.to_sym)
+	html << "</button></div>"
+end
+
+def group_action(buttons)
+    html =  ""
+	html << "<div class=\"actiongroup navform wat-cf\">"
+	buttons.each do |b|
+        html << "<button class=\"button\" type=\"submit\" name=\"#{b[:text]}\">"
+        html << "<img src=\""
+        html << current_theme_image_path(b[:image])
+        html << "\" alt=\""
+        html << t(b[:text].to_sym,:scope=>b[:scope].to_sym)
+        html << "\" />"
+        html << t(b[:text].to_sym,:scope=>b[:scope].to_sym)
+        html << "</button> "
+	end
+	html << "</div>"
+end
+
+def group_action_text(buttons,text)
+    html =  ""
+	html << "<div class=\"group navform wat-cf\">"
+	buttons.each do |b|
+        html << "<button class=\"button\" type=\"submit\" name=\"#{b[:text]}\">"
+        html << "<img src=\""
+        html << current_theme_image_path(b[:image])
+        html << "\" alt=\""
+        html << t(b[:text].to_sym,:scope=>b[:scope].to_sym)
+        html << "\" />"
+        html << t(b[:text].to_sym,:scope=>b[:scope].to_sym)
+        html << "</button> "
+	end
+	html << text
+	html << "</div>"
+end
+
 def form_buttons(buttons)
 	html = ""
 	html << "<div class=\"group navform wat-cf\">"
@@ -150,6 +211,19 @@ def select_field_table(object,field,table_choices,choice,blank)
     html << "</div>"
 end
 
+def select_field_table_t(object,field,table_choices,choice,blank)
+    model_name = eval(object.class.model_name)
+    html = ""
+    html << "<div class=\"param_group\">"
+    html << "<label class=\"label\">#{model_name.human_attribute_name(field)}</label>"
+    t = []
+    table_choices.each do |c|
+        t << [t(c.to_sym,:scope=>:prefs),c.to_s]
+    end
+    html << select(object.class.to_s.downcase, field, options_for_select(t,choice), {:include_blank => blank})
+    html << "</div>"
+end
+
 #def form_simle_field(name,label,value)
 #    html = ""
 #    html << "<div class=\"group\">"
@@ -158,56 +232,45 @@ end
 #    html << "</div>"
 #end
 
-def nav_to_folders
-    link_to( t(:folders,:scope=>:folder), :controller=>:folders, :action=>:index )
-end
-
-def nav_to_messages
-    link_to( t(:messages,:scope=>:message), :controller=>:messages, :action=>:index )
-end
-
-def nav_to_compose
-    link_to( t(:compose,:scope=>:compose), :controller=>:messages, :action=>:compose )
-end
-
-def nav_to_contacts
-    link_to( t(:contacts,:scope=>:contact), contacts_path )
-end
-
-def nav_to_prefs
-    link_to( t(:prefs,:scope=>:prefs), prefs_look_path )
-end
+#def nav_to_folders
+#    link_to( t(:folders,:scope=>:folder), :controller=>:folders, :action=>:index )
+#end
+#
+#def nav_to_messages
+#    link_to( t(:messages,:scope=>:message), :controller=>:messages, :action=>:index )
+#end
+#
+#def nav_to_compose
+#    link_to( t(:compose,:scope=>:compose), :controller=>:messages, :action=>:compose )
+#end
+#
+#def nav_to_contacts
+#    link_to( t(:contacts,:scope=>:contact), contacts_path )
+#end
+#
+#def nav_to_prefs
+#    link_to( t(:prefs,:scope=>:prefs), prefs_look_path )
+#end
 
 def main_navigation(active)
+    instance_variable_set("@#{active}", "active")
     s = ""
     s += "<ul class=\"wat-cf\">"
-    active == :messages ? s += "<li class=\"first active\">#{nav_to_messages}</li>" : s += "<li class=\"first\">#{nav_to_messages}</li>"
-    active == :compose ? s += "<li class=\"active\">#{nav_to_compose}</li>" : s += "<li>#{nav_to_compose}</li>"
-    active == :folders ? s += "<li class=\" active\">#{nav_to_folders}</li>" : s += "<li class=\"first\">#{nav_to_folders}</li>"
-    active == :contacts ? s += "<li class=\"active\">#{nav_to_contacts}</li>" : s += "<li>#{nav_to_contacts}</li>"
-    active == :prefs ? s += "<li class=\"active\">#{nav_to_prefs}</li>" : s += "<li>#{nav_to_prefs}</li>"
-#    active == :filters ? s += "<li class=\"active\">#{link_mail_filters}</li>" : s += "<li>#{link_mail_filters}</li>"
-
+    s += "<li class=\"first #{@messages_tab}\">#{link_to( t(:messages,:scope=>:message), messages_path )}</li>"
+    s += "<li class=\"#{@compose_tab}\">#{link_to( t(:compose,:scope=>:compose), compose_path )}</li>"
+    s += "<li class=\"#{@folders_tab}\">#{link_to( t(:folders,:scope=>:folder), folders_path )}</li>"
+    s += "<li class=\"#{@contacts_tab}\">#{link_to( t(:contacts,:scope=>:contact), contacts_path )}</li>"
+    s += "<li class=\"last #{@prefs_tab}\">#{link_to( t(:prefs,:scope=>:prefs), prefs_look_path )}</li>"
     s += "</ul>"
 end
 
 def prefs_navigation(active)
-	look_active = ""
-	identity_active = ""
-	servers_active = ""
-	case active
-		when :look
-			look_active = "active"
-		when :identity
-			identity_active ="active"
-		when :servers
-			servers_active ="active"
-	end
+    instance_variable_set("@#{active}", "active")
     s = ""
     s += "<ul class=\"wat-cf\">"
-    s += "<li class=\"first #{look_active}\">#{link_to( t(:look,:scope=>:prefs), prefs_look_path )}</li>"
-    s += "<li class=\"#{identity_active}\">#{link_to( t(:identity,:scope=>:prefs), prefs_identity_path )}</li>"
-    s += "<li class=\"last #{servers_active}\">#{link_to( t(:servers,:scope=>:prefs), prefs_servers_path )}</li>"
+    s += "<li class=\"first #{@look_tab}\">#{link_to( t(:look,:scope=>:prefs), prefs_look_path )}</li>"
+    s += "<li class=\"#{@identity_tab}\">#{link_to( t(:identity,:scope=>:prefs), prefs_identity_path )}</li>"
+    s += "<li class=\"last #{@servers_tab}\">#{link_to( t(:servers,:scope=>:prefs), prefs_servers_path )}</li>"
     s += "</ul>"
 end
 
@@ -244,6 +307,13 @@ def force_charset(text)
     rescue
         text
     end
+end
+
+def content_for_sidebar
+    s = render :partial => 'folders/list'
+    s += render :partial => 'events/calendar'
+    s += render :partial => 'internal/version'
+    s
 end
 
 

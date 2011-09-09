@@ -4,6 +4,8 @@ class ContactsController < ApplicationController
 
 	before_filter :get_contacts, :only => [:index]
 
+	before_filter :prepare_ops_buttons, :only => [:index]
+
 	theme :theme_resolver
 
     def index
@@ -11,14 +13,18 @@ class ContactsController < ApplicationController
     end
 
     def ops
+        if params["create_new"]
+            redirect_to(new_contact_path)
+            return
+        end
         if !params["cids"]
             flash[:warning] = t(:no_selected,:scope=>:contact)
         else
-            if params["delete"]
+            if params["delete_selected"]
                 params["cids"].each do |id|
                     @current_user.contacts.find_by_id(id).destroy
                 end
-            elsif params["compose"]
+            elsif params["compose_to_selected"]
                 redirect_to :controller=>'messages',:action=>'compose',:cids=>params["cids"]
                 return
             end
@@ -59,6 +65,17 @@ class ContactsController < ApplicationController
         else
             render 'edit'
         end
+    end
+
+    ####################################### protected section ################################
+
+    protected
+
+    def prepare_ops_buttons
+        @buttons = []
+        @buttons << {:text => 'compose_to_selected',:scope=> 'contact', :image => 'email.png'}
+        @buttons << {:text => 'create_new',:scope=> 'contact', :image => 'plus.png'}
+        @buttons << {:text => 'delete_selected',:scope=>'contact',:image => 'minus.png'}
     end
 
     ####################################### private section ##################################

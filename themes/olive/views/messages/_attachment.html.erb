@@ -1,5 +1,5 @@
 <td>
-<%= link_to attachment.filename, messages_attachment_download_path(attachment.parent_id,attachment.idx) %>
+<%= link_to attachment.filename_charseted, messages_attachment_download_path(attachment.parent_id,attachment.idx) %>
 </td>
 <td>
 <%= attachment.main_type %>/<%= attachment.sub_type %>
@@ -14,6 +14,6 @@
 <%= size_formatter(attachment.getSize) %>
 </td>
 <td>
-<%= link_to t(:download), messages_attachment_download_path(attachment.parent_id,attachment.idx) %>
+<%= link_to image_tag(current_theme_image_path('download.png')), messages_attachment_download_path(attachment.parent_id,attachment.idx) %>
 </td>
 

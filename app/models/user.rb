@@ -43,4 +43,8 @@ class User < ActiveRecord::Base
         end
 	end
 
+	def username
+        email.gsub(/\@/,"_").gsub(/\./,"_")
+	end
+
 end

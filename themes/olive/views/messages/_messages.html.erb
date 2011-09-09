@@ -19,7 +19,7 @@
     <% @messages.each do |m| %>
     <% m.unseen == true ? unseen = "unseen" : unseen = "" %>
     <tr class="<%= trclass.to_s %> <%= unseen %>">
-       <%= render :partial => 'messages/row', :object => m %>
+       <%= render :partial => 'messages/message', :object => m %>
     </tr>
     <% trclass == :even ? trclass = :odd : trclass = :even %>
     <% end %>

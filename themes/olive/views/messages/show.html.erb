@@ -1,9 +1,9 @@
 <% content_for :sidebar do %>
-<%= render :partial => 'folders/list' %>
+<%= content_for_sidebar %>
 <% end %>
 
 <% content_for :title do %>
-- <%= show_subject_formatter(@subject) %>
+- <%= subject_formatter(@message,:show) %>
 <% end %>
 
 <div class="block" id="block-tables">

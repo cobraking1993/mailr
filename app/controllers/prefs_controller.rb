@@ -12,6 +12,7 @@ class PrefsController < ApplicationController
         if params[:prefs]
             @prefs.update_attributes(params[:prefs])
         end
+        flash[:notice] = t(:were_saved,:scope=>:prefs)
         redirect_to :action => 'look'
     end
 

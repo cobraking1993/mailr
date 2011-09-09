@@ -196,7 +196,7 @@ body {
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 15px;
+  margin: 5px 0;
 }
 
 .table th {
@@ -382,11 +382,11 @@ button.button[type] {
 }
 
 button.button img, a.button img {
-  margin:0 3px -3px 0 !important;
+  margin:0 6px -4px 0 !important;
   padding:0;
   border:none;
-  width:16px;
-  height:16px;
+  width:18px;
+  height:18px;
 }
 
 button.button:hover, a.button:hover {

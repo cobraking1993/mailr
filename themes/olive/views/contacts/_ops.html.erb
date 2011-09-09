@@ -1,6 +1,5 @@
 <div id="ops" class="ops">
     <p>
-    <%= submit_tag(t(:compose_to_selected,:scope => :contact), :name=> 'compose')%>
-    <%= submit_tag(t(:delete_selected,:scope => :contact), :name=>'delete')%>
+    <%= raw group_action(@buttons) %>
     </p>
 </div>

@@ -42,4 +42,58 @@ module Mail
 
     end
 
+    class Field
+        def charseted
+            begin
+                if encoded =~ /\=\?([\w\-]+)\?/
+                    source_charset = $1
+                    if source_charset.upcase == 'UTF-8'
+                        return decoded
+                    end
+                else
+                    source_charset = $defaults["msg_unknown_charset"]
+                end
+                Iconv.iconv("UTF-8",source_charset,decoded).first
+            rescue
+                decoded
+            end
+        end
+    end
+
+    class Address
+        def charseted
+            begin
+                if encoded =~ /\=\?([\w\-]+)\?/
+                    source_charset = $1
+                    if source_charset.upcase == 'UTF-8'
+                        return decoded
+                    end
+                else
+                    source_charset = $defaults["msg_unknown_charset"]
+                end
+                Iconv.iconv("UTF-8",source_charset,decoded).first
+            rescue
+                decoded
+            end
+        end
+    end
+
+    class Part
+        def filename_charseted
+            begin
+                if content_type =~ /\=\?([\w\-]+)\?/
+                    source_charset = $1
+                    if source_charset.upcase == 'UTF-8'
+                        return filename
+                    end
+                else
+                    source_charset = $defaults["msg_unknown_charset"]
+                end
+                Iconv.iconv("UTF-8",source_charset,filename).first
+            rescue
+                filename
+            end
+        end
+    end
+
 end

@@ -3,5 +3,5 @@
 <%= raw select_for_folders("folder","parent",@folders,t(:parent,:scope=>:folder),"",true) %>
 <%= raw simple_input_field("folder","target",t(:to_create,:scope=>:folder),"") %>
 </div>
-<%= raw form_button('create','tick.png') %>
+<%= raw single_action('create','common','plus.png') %>
 </form>

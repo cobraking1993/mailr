@@ -2,7 +2,7 @@
 <div class="inner">
 
 <div class="actions-bar wat-cf">
-    <span class="other_info"> <%= t(:total_entries,:scope=>:contact) %>: <%= @contacts.total_entries %> / <%= link_to t(:create_new,:scope=>:contact), new_contact_path %></span>
+    <span class="other_info"> <%= t(:total_entries,:scope=>:contact) %>: <%= @contacts.total_entries %></span>
     </div>
     <%= will_paginate @contacts %>
 </div>

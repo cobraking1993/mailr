@@ -135,10 +135,10 @@ p {
 }
 
 #sidebar ul li {
-	border-bottom: 1px solid #F0F0EE;
+	border-bottom: 1px solid #F0F0EE;Załączniki burnet.tar.gz
 }
 
-#sidebar ul li a:hover, #sidebar ul li a:active {
+#sidebar ul li a:hover, #sidebar ul li a:active {Załączniki burnet.tar.gz
   background: #ADBFD6;
   color: #FFF;
 }
@@ -371,12 +371,6 @@ tr.unseen td {
     font-weight:bold;
 }
 
-div.ops {
-     border: 1px solid #DACF77;
-     padding: 5px;
-     margin: 3px 0;
-}
-
 div.actions-bar div.header_info {
     float: left;
     color: #5E634E;
@@ -471,13 +465,8 @@ div.attachments span.title {
     font-size: 14px;
 }
 
-div.attachments table {
-    margin-top: 10px;
-}
 
-div.attachments table td{
-    padding: 8px;
-}
+
 div.render_text{
     margin: 5px 0 0 0;
     font-size: 14px;
@@ -527,6 +516,7 @@ div.images span.title {
 div.images div.image {
     margin: 5px;
     padding: 2px;
+    float: left;
 }
 
 div.images div.image div.desc {
@@ -535,6 +525,58 @@ div.images div.image div.desc {
     padding: 2px;
 }
 
+div.desc span.size {
+   float: right;
+}
+
 div.params input,div.params select,div.params textarea {
     width: 100%
+}
+
+.width100 {
+    width: 100%;
+}
+
+table.side_calendar td {
+    text-align: right;
+    background-color: #EFF3E4;
+    padding: 2px;
+}
+
+table.side_calendar td.wday, table.side_calendar td.week {
+    color: white;
+    background-color: #DACF77;
+    font-weight: bold;
+    text-align: center;
+}
+
+table.side_calendar td.weekend {
+    color: white;
+    background-color: #5E634E;
+}
+
+table.side_calendar td.off {
+    background-color: white;
+}
+table.side_calendar td.today {
+    color: white;
+    background-color: red;
+    font-weight: bold;
+}
+
+p.version {
+    color: #5E634E;
+    text-align: center;
+    font-size: 14px;
+}
+
+div.fileselect {
+    margin-top: 5px;
+    padding: 5px 0;
+}
+
+div.actiongroup {
+    display: block;
+    margin: 5px 0;
+    padding: 2px 0;
 }

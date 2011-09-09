@@ -41,16 +41,23 @@ class Message < ActiveRecord::Base
 
         mail = Mail.new(message.attr['RFC822.HEADER'])
 
+		mail.date.nil? ? date = nil : date = mail.date.to_s
+		mail.From.nil? ? from = nil : from = mail.From.charseted
+		mail.To.nil? ? to = nil : to = mail.To.charseted
+		mail.Subject.nil? ? subject = nil : subject = mail.Subject.charseted
+
+		#logger.custom('mail',mail.inspect)
+
         create(
                 :user_id => user.id,
                 :folder_id => folder.id,
                 :msg_id => mail.message_id,
                 :uid => message.attr['UID'].to_i,
-                :from_addr => mail.From.charseted,
-                :to_addr => mail.To.charseted,
-                :subject => mail.Subject.charseted,
+                :from_addr => from,
+                :to_addr => to,
+                :subject => subject,
                 :content_type => mail.content_type,
-                :date => mail.date.to_s(:db),
+                :date => date,
                 :unseen => !(message.attr['FLAGS'].member? :Seen),
                 :size => message.attr['RFC822.SIZE']
             )

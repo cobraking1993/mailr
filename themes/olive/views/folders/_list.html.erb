@@ -1,5 +1,5 @@
 <div class="block">
-	<h3><%=t(:folders,:scope=>:folder) %> <%= link_to t(:refresh), folders_refresh_status_path, :class=>'minor' %></h3>
+	<h3><%=t(:folders,:scope=>:folder) %></h3>
 	<div class="content">
 	<% if @folders_shown.nil? or @folders_shown.size.zero? %>
 	<p><%= t(:no_shown,:scope=>:folder) %> <%= link_to t(:folders,:scope=>:folder), folders_path %></p>

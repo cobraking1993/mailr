@@ -80,12 +80,15 @@ class MessagesController < ApplicationController
 
         mail = Mail.new(imap_message)
         @plain_header = mail.header.to_s
-        @from = mail.From.addrs
-        @to = mail.To.addrs
-        @cc = mail.Cc
-        @bcc = mail.Bcc
+
+
+		# FIXME missing fields
+        @from = mail.From.addrs.presence
+        @to = mail.To.addrs.presence
+        @cc = mail.Cc.presence
+        @bcc = mail.Bcc.presence
         #@subject = mail.Subject
-        @date = mail.date
+        @date = mail.date.presence
 
         if mail.multipart? == true
             if not mail.text_part.nil?
@@ -169,7 +172,7 @@ class MessagesController < ApplicationController
 
     def prepare_multi2_buttons
         @multi2_buttons = []
-        @multi2_buttons << {:text => 'delete',:scope=>:message,:image => 'trash.png'}
+        @multi2_buttons << {:text => 'trash',:scope=>:message,:image => 'trash.png'}
         @multi2_buttons << {:text => 'set_unread',:scope=>:message,:image => 'unseen.png'}
         @multi2_buttons << {:text => 'set_read',:scope=>:message,:image => 'seen.png'}
     end
@@ -183,7 +186,7 @@ class MessagesController < ApplicationController
     def prepare_multi3_buttons
         @multi3_buttons = []
         @multi3_buttons << {:text => 'show_header',:scope=>:show,:image => 'zoom.png'}
-        @multi3_buttons << {:text => 'delete',:scope=>:show,:image => 'trash.png'}
+        @multi3_buttons << {:text => 'trash',:scope=>:show,:image => 'trash.png'}
         @multi3_buttons << {:text => 'reply',:scope=>:show,:image => 'reply.png'}
     end
 end

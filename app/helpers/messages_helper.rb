@@ -11,7 +11,7 @@ module MessagesHelper
     end
 
     def date_formatter(date)
-        date.nil? ? t(:no_data) : date.strftime("%Y-%m-%d %H:%M")
+        date.nil? ? t(:no_date,:scope=>:message) : date.strftime("%Y-%m-%d %H:%M")
     end
 
     def address_formatter(addr,mode)

@@ -45,7 +45,7 @@ class MessagesOpsController < ApplicationController
             set_unread
         elsif params[:set_read]
             set_read
-        elsif params[:delete]
+        elsif params[:trash]
             trash
         elsif params[:copy]
             copy

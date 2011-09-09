@@ -121,6 +121,8 @@ pl:
     delete: Usuń zaznaczone
     move: Przenieś
     copy: Skopiuj
+    trash: Usuń zaznaczone
+    no_date: Brak daty
 
   compose:
     compose: Nowa wiadomość
@@ -143,6 +145,7 @@ pl:
     show_header: Pokaż nagłówek
     delete: Usuń
     reply_string: "Odp: "
+    trash: Usuń
 
   user:
     login_failure: Nieudane logowanie. Podano błędny e-mail lub hasło.

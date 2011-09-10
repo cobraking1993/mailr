@@ -65,7 +65,9 @@ class MessagesController < ApplicationController
 	end
 
 	def compose
-        #before_filter
+		#before filter
+        @operation = :new
+        logger.custom('m',@message.inspect)
 	end
 
     def show
@@ -82,7 +84,7 @@ class MessagesController < ApplicationController
         @plain_header = mail.header.to_s
 
 
-		# FIXME missing fields
+		# FIXME missing fields and support arrays
         #@from = mail.From.addrs.presence
         #@to = mail.To.addrs.presence
         @from = @message.from_addr

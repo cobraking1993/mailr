@@ -1,11 +1,25 @@
 <%= form_tag(sendout_or_save_path)%>
 <div class="params">
-    <%= raw form_field(@message,"to_addr",nil,"joe@domain.com"+', '+t(:not_contain_at,:scope=>:compose),@message.to_addr) %>
-    <% if not @reply.nil? %>
-    <% @message.subject = t(:reply_string,:scope=>:compose) + @message.subject %>
-    <% end %>
-    <%= raw form_field(@message,"subject",nil,t(:subject_of_the_message,:scope=>:compose),@message.subject) %>
-    <%= raw area_field(@message,"body",nil,t(:write_your_message_here,:scope=>:compose),@message.body,80,20) %>
+<%= raw form_field(	@message,
+					"to_addr",
+					nil,
+					"joe@domain.com"+', '+ t(:not_contain_at,:scope=>:compose),
+					address_formatter(@message.to_addr,@operation)
+					) %>
+<%= raw form_field(	@message,
+					"subject",
+					nil,
+					t(:subject_of_the_message,:scope=>:compose),
+					subject_formatter(@message.subject,@operation)
+					) %>
+<%= raw area_field(	@message,
+					"body",
+					nil,
+					t(:write_your_message_here,:scope=>:compose),
+					body_formatter(@message.body,@operation),
+					80,
+					20
+					) %>
 </div>
 <%= raw group_action(@buttons) %>
 <%= render :partial=> 'messages/file_attachs' %>

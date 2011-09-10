@@ -14,12 +14,12 @@ module MessagesHelper
         date.nil? ? t(:no_date,:scope=>:message) : date.strftime("%Y-%m-%d %H:%M")
     end
 
-    def address_formatter(addr,mode)
+    def address_formatter(addr,op)
         s = ""
         return s if addr.nil?
         length = $defaults["msg_address_length"].to_i
 
-            case mode
+            case op
                 when :index
                     fs = addr.gsub(/\"/,"").split(/</)
                     fs[0].size.zero? ? s = fs[1] : s = fs[0]
@@ -27,30 +27,32 @@ module MessagesHelper
                     return h(s)
                 when :show
                     #addr = addr[0].charseted.gsub(/\"/,"")
-                    return h(addr)
+                    return h(addr.gsub(/\"/,""))
                 when :raw
                     #fs = addr.gsub(/\"/,"").split(/</)
                     #fs[0].size.zero? ? s = fs[1] : s << fs[0] + " <" + fs[1] + ">"
                     s = h(addr)
                     return s
+				when :reply
+					return h(addr)
             end
     end
 
-#    def show_addr_formatter(addrs)
-#        return h(force_charset(addrs[0].decoded))
-#    end
+    def body_formatter(body,op)
+		case op
+			when :reply
+				s = "\n\n\n"
+				body.gsub(/^\s+/,"").split(/\n/).each do |line|
+					s += ">" + line + "\n"
+				end
+				s
+			when :edit
+				return body
+		end
+    end
 
-#    def show_subject_formatter(subject)
-#        if subject.to_s.nil?
-#            t(:no_subject,:scope=>:message)
-#        else
-#            return h(force_charset(subject.decoded))
-#        end
-#    end
-
-
-    def subject_formatter(message,mode)
-		case mode
+    def subject_formatter(message,op)
+		case op
 			when :index
 				if message.subject.nil? or message.subject.size.zero?
 					s = t(:no_subject,:scope=>:message)
@@ -64,6 +66,12 @@ module MessagesHelper
 					t(:no_subject,:scope=>:message)
 				else
 					message.subject
+				end
+			when :reply
+				if message.nil? or message.size.zero?
+					t(:reply_string,:scope=>:show)
+				else
+					t(:reply_string,:scope=>:show) + " " + message
 				end
 		end
     end

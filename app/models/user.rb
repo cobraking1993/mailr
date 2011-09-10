@@ -36,10 +36,11 @@ class User < ActiveRecord::Base
 	end
 
 	def full_address
+		d = domain.presence || ""
         if email =~ /\@/
             email
         else
-            email + "@" + domain
+            email + "@" + d
         end
 	end
 

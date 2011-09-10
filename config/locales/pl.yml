@@ -132,13 +132,13 @@ pl:
     write_your_message_here: Tu wpisz swoją wiadomość
     was_sent: Wiadomość została wysłana
     was_saved: Wiadomość została zapisana w katalogu roboczym
-
     not_configured_smtp: Brak konfiguracji SMTP
     select_file: Wybierz plik
     delete_marked: Usuń zaznaczone
     send_file: Wyślij plik
     send: Wyślij
     save_as_draft: Zapisz w katalogu roboczym
+    no_attach: Nie wybrano żadnego pliku
 
   show:
     reply: Odpowiedz

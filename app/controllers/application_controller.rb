@@ -5,14 +5,7 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery
 
 	before_filter :load_defaults,:current_user,:set_locale
-
 	before_filter :plugins_configuration
-
-#    rescue_from ActiveRecord::RecordNotFound do
-#        logger.custom('record_not_found','exc')
-#        reset_session
-#        redirect_to :controller=>'user', :action => 'login'
-#    end
 
     def load_defaults
 		$defaults ||= YAML::load(File.open(Rails.root.join('config','defaults.yml')))
@@ -68,44 +61,6 @@ class ApplicationController < ActionController::Base
         end
 	end
 
-	def self.decode_quoted(text,unknown_charset = $defaults["msg_unknown_charset"])
-        begin
-            if text.match(/\=\?.+\?\w\?.+\?\=/).nil?
-                after = Iconv.conv('UTF-8',unknown_charset,text)
-                #after = text
-            else
-
-# FIXME support multiple showing of =?xxx?=
-
-
-					after = text
-					match = text.match(/\=\?.+\?\w\?.+\?\=/).to_s
-					f = match.split(/\?/)
-					case f[2].downcase
-						when 'q':
-							replace = f[3].gsub(/_/," ").unpack("M").first
-						when 'b':
-							replace = f[3].gsub(/_/," ").unpack("m").first
-						else
-							replace = match
-					end
-					match.gsub!(/\?/,'\?')
-					match.gsub!(/\)/,'\)')
-					after = text.gsub(/#{match}/,replace)
-
-                if f[1].downcase != 'utf-8'
-                    after = Iconv.conv('UTF-8',f[1],after)
-                end
-
-            end
-            #logger.custom('after',after)
-            return after
-        rescue Exception => e
-            logger.error("Class Message: #{e.to_s}: T: #{text} M: #{match} R: #{replace} A: #{after}")
-            return text
-        end
-    end
-
     def prepare_compose_buttons
         @buttons = []
         @buttons << {:text => 'send',:scope=>:compose,:image => 'email.png'}
@@ -122,7 +77,6 @@ class ApplicationController < ActionController::Base
         files.each do |f|
             @attachments << {:name => File.basename(f).gsub!(/#{@current_user.username}_/,"") , :size => File.stat(f).size }
         end
-        logger.custom('a',@attachments.inspect)
     end
 
     def get_system_folders

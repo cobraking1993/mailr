@@ -1,9 +1,6 @@
 <div class="msg_header">
     <%= raw show_param_view(@message,"from_addr",address_formatter(@from,:show)) %>
     <%= raw show_param_view(@message,"to_addr",address_formatter(@to,:show)) %>
-    <% if @to.size > 1 %>
-        <%= raw show_param_view(@message,"to_addr","To dodatkowe jest") %>
-    <% end %>
     <% if not @cc.nil? %>
         <%= raw show_param_view(@message,"cc_addr","CC jest") %>
     <% end %>

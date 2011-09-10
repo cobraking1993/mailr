@@ -53,7 +53,7 @@ class MessagesOpsController < ApplicationController
             move
         end
         rescue Exception => e
-            flash[:error] = "#{t(:imap_error)} (#{e.to_s})"
+            flash[:error] = "#{t(:imap_error,:scope=>:internal)} (#{e.to_s})"
         end
         redirect_to :controller => 'messages', :action => 'index'
     end
@@ -124,12 +124,18 @@ class MessagesOpsController < ApplicationController
     end
 
     def upload
-        name = params[:upload][:datafile].original_filename
-        upload_dir = $defaults["msg_upload_dir"]
-        path = File.join(upload_dir, @current_user.username + "_" + name)
-        File.open(path, "wb") { |f| f.write(params[:upload][:datafile].read) }
-        create_message_with_params
-        render 'messages/compose'
+    #FIXME check if uploads directory exists
+		@operation = :upload
+		create_message_with_params
+		if not params[:upload]
+			flash[:error] = t(:no_attach,:scope=>:compose)
+		else
+			name = params[:upload][:datafile].original_filename
+			upload_dir = $defaults["msg_upload_dir"]
+			path = File.join(upload_dir, @current_user.username + "_" + name)
+			File.open(path, "wb") { |f| f.write(params[:upload][:datafile].read) }
+		end
+		render 'messages/compose'
     end
 
 #    Files uploaded from Internet Explorer:
@@ -166,12 +172,15 @@ class MessagesOpsController < ApplicationController
 
 	def sendout_or_save
 
+	#FIXME check if domain is set
+
         if params[:delete_marked] and params[:files]
             params[:files].each do |filename|
                 path = File.join(Rails.root,$defaults["msg_upload_dir"],@current_user.username + "_" +filename)
                 File.delete(path) if File.exist?(path)
             end
             create_message_with_params
+            @operation = :new
             render 'messages/compose'
             return
         end
@@ -193,6 +202,7 @@ class MessagesOpsController < ApplicationController
 
             if smtp_server.nil?
                 flash[:error] = t(:not_configured_smtp,:scope => :compose)
+                @operation = :new
                 render 'messages/compose'
                 return
             end
@@ -245,13 +255,11 @@ class MessagesOpsController < ApplicationController
     protected
 
     def edit
-
         old_message = @current_user.messages.find(params[:id].first)
         @message = Message.new
-        @message.to_addr = address_formatter(old_message.to_addr,:raw)
+        @message.to_addr = old_message.to_addr
         @message.subject = old_message.subject
         imap_message = @mailbox.fetch_body(old_message.uid)
-        @edit = true
         mail = Mail.new(imap_message)
         if mail.multipart?
             @message.body = mail.text_part.decoded_and_charseted
@@ -259,14 +267,15 @@ class MessagesOpsController < ApplicationController
             @message.body = mail.decoded_and_charseted
         end
         @attachments = []
+        @operation = :edit
         render 'messages/compose'
 	end
 
     def reply
         old_message = @current_user.messages.find(params[:uids].first)
         @message = Message.new
-        @message.to_addr = address_formatter(old_message.from_addr,:raw)
-        @message.subject = t(:reply_string,:scope=>:show) + old_message.subject
+        @message.to_addr = old_message.from_addr
+        @message.subject = old_message.subject
 
         imap_message = @mailbox.fetch_body(old_message.uid)
         mail = Mail.new(imap_message)
@@ -276,6 +285,7 @@ class MessagesOpsController < ApplicationController
             @message.body = mail.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         end
         @attachments = []
+		@operation = :reply
         render 'messages/compose'
     end
 

@@ -26,11 +26,11 @@ def form_field(object,field,flabel,example,val)
 	html << "\""
 	html << " name=\"#{object.class.name.downcase}[#{field}]\""
 	html << " type=\"text\" class=\"text_field\" value=\""
-    value = object.instance_eval(field) || val || ""
+    value =  val || object.instance_eval(field) || ""
 	html << value
 	html << "\"/>"
 	html << "<span class=\"description\">"
-	html << t(:example)
+	html << t(:example,:scope=>:common)
 	html << ": "
 	html << example
 	html << "</span>"
@@ -70,10 +70,10 @@ def area_field(object,field,flabel,example,val,cols,rows)
 
     name = object.class.name.downcase + '[' + field + ']'
     id = object.class.name.downcase+"_"+field
-    value = object.instance_eval(field) || val || ""
+    value = val || object.instance_eval(field) || ""
     html << "<textarea id=\"#{id}\" name=\"#{name}\" class=\"text_area\" cols=\"#{cols}\" rows=\"#{rows}\">#{value}</textarea>"
 
-    desc = t(:example) + ": " + example
+    desc = t(:example,:scope=>:common) + ": " + example
     html << "<span class=\"description\">#{desc}</span>"
 
     html << "</div>"

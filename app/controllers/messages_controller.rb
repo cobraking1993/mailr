@@ -103,7 +103,7 @@ class MessagesController < ApplicationController
                     a = attachments[idx]
                     a.idx = idx
                     a.parent_id = @message.uid
-                    if a.isImage?
+                    if a.isImage? and @current_user.prefs.msg_image_view_as.to_sym.eql?(:thumbnail)
                         @images << a
                     else
                        @attachments << a
@@ -116,7 +116,7 @@ class MessagesController < ApplicationController
             part.parent_id = @message.uid
             if part.isText?
                 @text_part = part.decoded_and_charseted
-            elsif part.isImage? and @current_user.prefs.msg_image_view_as.to_sym == :thumbnail
+            elsif part.isImage? and @current_user.prefs.msg_image_view_as.to_sym.eql?(:thumbnail)
                 @images << part
             elsif part.isHtml?
                 @html_part = part.decoded_and_charseted

@@ -46,6 +46,8 @@ class Message < ActiveRecord::Base
 		mail.To.nil? ? to = nil : to = mail.To.charseted
 		mail.Subject.nil? ? subject = nil : subject = mail.Subject.charseted
 
+		#logger.custom('subject',mail.Subject.encoded)
+		#logger.custom('subject',subject)
 		#logger.custom('mail',mail.inspect)
 
         create(

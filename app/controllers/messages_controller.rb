@@ -83,8 +83,10 @@ class MessagesController < ApplicationController
 
 
 		# FIXME missing fields
-        @from = mail.From.addrs.presence
-        @to = mail.To.addrs.presence
+        #@from = mail.From.addrs.presence
+        #@to = mail.To.addrs.presence
+        @from = @message.from_addr
+        @to = @message.to_addr
         @cc = mail.Cc.presence
         @bcc = mail.Bcc.presence
         #@subject = mail.Subject

@@ -2,7 +2,7 @@
 <span class="title"><%= t(:attachments,:scope=>:message) %></span>
 <% if not @attachments.size.zero? %>
 <% trclass = :even %>
-<table>
+<table class="table">
 <% @attachments.each do |a| %>
 <tr class="<%= trclass.to_s %>">
 <%= render :partial => 'messages/file_attach', :object => a %>

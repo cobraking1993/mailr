@@ -15,8 +15,8 @@ module MessagesHelper
     end
 
     def address_formatter(addr,mode)
-
         s = ""
+        return s if addr.nil?
         length = $defaults["msg_address_length"].to_i
 
             case mode
@@ -26,12 +26,13 @@ module MessagesHelper
                     s.length >= length ? s = s[0,length]+"..." : s
                     return h(s)
                 when :show
-                    addr = addr[0].charseted.gsub(/\"/,"")
+                    #addr = addr[0].charseted.gsub(/\"/,"")
                     return h(addr)
                 when :raw
                     #fs = addr.gsub(/\"/,"").split(/</)
                     #fs[0].size.zero? ? s = fs[1] : s << fs[0] + " <" + fs[1] + ">"
-                    return addr
+                    s = h(addr)
+                    return s
             end
     end
 
@@ -49,19 +50,22 @@ module MessagesHelper
 
 
     def subject_formatter(message,mode)
-        if message.subject.size.zero?
-            s = t(:no_subject,:scope=>:message)
-        else
-            case mode
-                when :index
-                    length = $defaults["msg_subject_length"].to_i
-                    message.subject.length >= length ? s = message.subject[0,length]+"..." : s = message.subject
-                    link_to s,{:controller => 'messages', :action => 'show', :id => message.uid} , :title => message.subject
-                when :show
-                    message.subject
-            end
-        end
-
+		case mode
+			when :index
+				if message.subject.nil? or message.subject.size.zero?
+					s = t(:no_subject,:scope=>:message)
+				else
+					length = $defaults["msg_subject_length"].to_i
+					message.subject.length >= length ? s = message.subject[0,length]+"..." : s = message.subject
+				end
+				link_to s,{:controller => 'messages', :action => 'show', :id => message.uid} , :title => message.subject
+			when :show
+				if message.subject.nil? or message.subject.size.zero?
+					t(:no_subject,:scope=>:message)
+				else
+					message.subject
+				end
+		end
     end
 
     def attachment_formatter(message)

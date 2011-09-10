@@ -45,7 +45,7 @@ module Mail
     class Field
         def charseted
             begin
-                if encoded =~ /\=\?([\w\-]+)\?/
+                if value =~ /\=\?([\w\-]+)\?/
                     source_charset = $1
                     if source_charset.upcase == 'UTF-8'
                         return decoded
@@ -63,7 +63,7 @@ module Mail
     class Address
         def charseted
             begin
-                if encoded =~ /\=\?([\w\-]+)\?/
+                if value =~ /\=\?([\w\-]+)\?/
                     source_charset = $1
                     if source_charset.upcase == 'UTF-8'
                         return decoded

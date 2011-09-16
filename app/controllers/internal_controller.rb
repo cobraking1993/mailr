@@ -1,7 +1,10 @@
 class InternalController < ApplicationController
 
+    before_filter :check_current_user ,:selected_folder, :get_current_folders, :only => [:about]
+
 	theme :theme_resolver
 	layout "simple"
+
 
     ERRORS = [
     :internal_server_error,
@@ -41,6 +44,10 @@ class InternalController < ApplicationController
         flash[:error] = t(:only_can_logins,:scope=>:user)
         @current_user = nil
         redirect_to :controller=>'user', :action => 'login'
+	end
+
+	def about
+        render 'internal/about', :layout => 'application'
 	end
 
 end

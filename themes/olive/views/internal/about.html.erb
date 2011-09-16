@@ -1,0 +1,27 @@
+<% content_for :title do %>
+- <%= t(:about,:scope=>:internal) %>
+<% end %>
+
+<% content_for :sidebar do %>
+<%= content_for_sidebar %>
+<% end %>
+
+<div class="block" id="block-tables">
+    <div class="secondary-navigation">
+        <%= raw single_navigation(:about,:internal) %>
+    </div>
+    <div class="content">
+<div class="actions-bar wat-cf">
+<div class="header_info">
+<%= t(:current_version,:scope=>:internal) + ": " + $defaults["version"] %>
+</div></div>
+<div class="render_text">
+<pre>
+<%= render :file => 'config/about.txt' %>
+<%= render :text => "To do:\n" %>
+<%= render :file => 'config/todo.txt' %>
+</pre>
+</div>
+    </div>
+</div>
+

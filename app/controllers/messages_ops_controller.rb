@@ -2,6 +2,7 @@ require 'imap_session'
 require 'imap_mailbox'
 require 'imap_message'
 require 'mail'
+require 'mail_plugin_extension'
 
 class MessagesOpsController < ApplicationController
 
@@ -128,7 +129,7 @@ class MessagesOpsController < ApplicationController
 		@operation = :upload
 		create_message_with_params
 		if not params[:upload]
-			flash[:error] = t(:no_attach,:scope=>:compose)
+			flash[:error] = t(:no_file_chosen,:scope=>:common)
 		else
 			name = params[:upload][:datafile].original_filename
 			upload_dir = $defaults["msg_upload_dir"]
@@ -188,11 +189,12 @@ class MessagesOpsController < ApplicationController
         mail = Mail.new
         mail.subject = params[:message][:subject]
         mail.from = @current_user.full_address
+        #TODO check if email address is valid if not get address from contacts
         mail.to = params[:message][:to_addr]
         mail.body = params[:message][:body]
 
         attachments = Dir.glob(File.join($defaults["msg_upload_dir"],@current_user.username + "*"))
-        logger.custom('attach',attachments.inspect)
+        #logger.custom('attach',attachments.inspect)
         attachments.each do |a|
             mail.add_file :filename => File.basename(a.gsub(/#{@current_user.username}_/,"")), :content => File.read(a)
         end
@@ -221,7 +223,7 @@ class MessagesOpsController < ApplicationController
             @mailbox.append(@sent_folder.full_name,mail.to_s,[:Seen])
 
             rescue Exception => e
-                flash[:error] = "#{t(:imap_error)} (#{e.to_s})"
+                flash[:error] = "#{t(:imap_err,:scope=>:internal)} (#{e.to_s})"
                 redirect_to :controller => 'messages', :action => 'index'
                 return
             end
@@ -238,10 +240,13 @@ class MessagesOpsController < ApplicationController
                 if @drafts_folder.nil?
                     raise t(:not_configured_drafts,:scope=>:compose)
                 end
-                # TODO delete old one if was edit
                 @mailbox.append(@drafts_folder.full_name,mail.to_s,[:Seen])
+                if params[:olduid].present?
+                    @mailbox.move_message(params[:olduid],@trash_folder.full_name)
+                    @mailbox.expunge
+                end
             rescue Exception => e
-                flash[:error] = "#{t(:imap_error)} (#{e.to_s})"
+                flash[:error] = "#{t(:imap_error,:scope=>:internal)} (#{e.to_s})"
                 redirect_to :controller => 'messages', :action => 'index'
                 return
             end
@@ -250,24 +255,24 @@ class MessagesOpsController < ApplicationController
         end
     end
 
-    ###################################### protected section #######################################
 
-    protected
-
+    #FIXME edit does not support attachments
     def edit
-        old_message = @current_user.messages.find(params[:id].first)
+        old_message = @current_user.messages.find(params[:id])
         @message = Message.new
         @message.to_addr = old_message.to_addr
         @message.subject = old_message.subject
+
         imap_message = @mailbox.fetch_body(old_message.uid)
         mail = Mail.new(imap_message)
         if mail.multipart?
-            @message.body = mail.text_part.decoded_and_charseted
+            @message.body = mail.text_part.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         else
-            @message.body = mail.decoded_and_charseted
+            @message.body = mail.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         end
         @attachments = []
         @operation = :edit
+        @olduid = old_message.uid
         render 'messages/compose'
 	end
 
@@ -280,7 +285,7 @@ class MessagesOpsController < ApplicationController
         imap_message = @mailbox.fetch_body(old_message.uid)
         mail = Mail.new(imap_message)
         if mail.multipart?
-            @message.body = mail.text_part.decoded_and_charseted
+            @message.body = mail.text_part.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         else
             @message.body = mail.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         end
@@ -288,6 +293,11 @@ class MessagesOpsController < ApplicationController
 		@operation = :reply
         render 'messages/compose'
     end
+    ###################################### protected section #######################################
+
+    protected
+
+
 
     ############################################ set_mail_defaults ####################################
 

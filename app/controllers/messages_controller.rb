@@ -65,9 +65,23 @@ class MessagesController < ApplicationController
 	end
 
 	def compose
-		#before filter
+		#before filter :prepare_compose_buttons, :create_message_with_params
         @operation = :new
-        logger.custom('m',@message.inspect)
+        if params["cid"].present?
+            contact = @current_user.contacts.find_by_id(params["cid"])
+            if not contact.nil?
+                @message.to_addr = contact.email
+            end
+        elsif params["cids"].present?
+            contacts = []
+            params["cids"].each do |c|
+                contact = @current_user.contacts.find_by_id(c)
+                if not contact.nil?
+                    contacts << contact.email
+                end
+            end
+            @message.to_addr = contacts.join(';')
+        end
 	end
 
     def show

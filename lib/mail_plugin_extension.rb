@@ -40,6 +40,21 @@ module Mail
             body.raw_source.size
         end
 
+        def decoded_and_charseted
+            begin
+                if not charset.upcase == 'UTF-8'
+                    charset.nil? ? source_charset = $defaults["msg_unknown_charset"] : source_charset = charset
+                    charseted = Iconv.iconv("UTF-8",source_charset,decoded).first
+                else
+                    charseted = decoded
+                end
+            rescue
+                decoded
+            end
+
+        end
+
+
     end
 
     class Field

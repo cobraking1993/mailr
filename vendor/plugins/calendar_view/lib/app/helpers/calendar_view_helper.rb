@@ -1,6 +1,5 @@
-module EventsHelper
-    #DAYNAMES = [:mon, :tue, :wed, :thu, :fri, :sat, :sun]
-    def calendar(yeard,monthd,addMonths)
+module CalendarViewHelper
+    def calendar_small(options={})
         now = DateTime.now
         first = Date.new(now.year,now.month,1)
         last = Date.new(now.year,now.month,-1)
@@ -9,13 +8,15 @@ module EventsHelper
         html << t(:month_names,:scope=>:date)[now.month]
         html << "</h3><div class=\"content\">"
         html << "<table class=\"side_calendar width100\">"
-        html << "<tr><td></td>"
 
+        html << "<tr><td></td>"
         1.upto(6) do |i|
             html << "<td class=\"wday\">#{t(:abbr_day_names,:scope=>:date)[i]}</td>"
         end
         html << "<td class=\"wday\">#{t(:abbr_day_names,:scope=>:date)[0]}</td>"
         html << "</tr>"
+
+
         html << "<tr>"
         html << "<td class=\"week\">#{first.cweek}</td>"
 

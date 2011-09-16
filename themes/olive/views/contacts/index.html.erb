@@ -7,21 +7,21 @@
 <% end %>
 
 <div class="block" id="block-tables">
-    <div class="secondary-navigation">
-        <%= raw main_navigation(:contacts_tab) %>
-    </div>
-    <div class="content">
-        <%= form_tag(contacts_ops_path,{:name=>'contacts'})%>
-
-            <% if @contacts.size.zero? %>
-                    <h3><%= t(:no_entries,:scope=>:contact) %></h3>
-                    <%= raw single_action('create_new','contact','plus.png') %>
-            <% else %>
-                <%= render :partial => 'ops' %>
-                <%= render :partial => 'list' %>
-            <% end %>
-
-        </form>
-    </div>
+<div class="secondary-navigation">
+<%= raw main_navigation(:contacts_tab) %>
+</div>
+<div class="content">
+<%= form_tag(contacts_ops_path,{:name=>'contacts'})%>
+<% if @contacts.size.zero? %>
+<h3><%= t(:no_entries,:scope=>:contact) %></h3>
+<%= raw single_action('create_new','contact','plus.png') %>
+</form>
+<% else %>
+<%= render :partial => 'ops' %>
+<%= render :partial => 'list' %>
+</form>
+<% end %>
+<%= render :partial => 'external' %>
+</div>
 </div>
 

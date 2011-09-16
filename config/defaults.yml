@@ -1,4 +1,4 @@
-version: Build 2011-09-10
+version: 0.8.3
 
 theme: olive
 locale: pl
@@ -25,10 +25,12 @@ msg_address_length: 35
 msg_search_fields: [subject, from, to]
 msg_upload_dir: "tmp/uploads"
 
+contact_tmp_filename: contact_import
+
 # if encoding can not be get from data
 msg_unknown_charset: ISO-8859-2
 
-imap_debug: false
+imap_debug: true
 imap_use_ssl: 'false'
 imap_port: 143
 imap_ssl_port: 993
@@ -43,4 +45,4 @@ session_password: asDD3s2@sAdc983#
 mailbox_max_parent_folder_depth: 3
 
 # array of logins which only can login to application, comment it to allow everyone to login
-only_can_logins: [some_login]
+only_can_logins: [wtodryk]

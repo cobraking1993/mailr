@@ -2,6 +2,8 @@ require 'ezcrypto'
 
 class User < ActiveRecord::Base
 
+    #acts_as_notes_owner
+
     validates_presence_of :first_name,:last_name
 	validates_uniqueness_of :email
 	has_many :servers, :dependent => :destroy

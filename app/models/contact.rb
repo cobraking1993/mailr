@@ -5,7 +5,7 @@ class Contact < ActiveRecord::Base
     validates_length_of :email, :within => 5..50
     validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
     validates_length_of :info, :maximum => 50
-    validate_on_create :check_unique_nick
+    validate :check_unique_nick, :on => :create
 
     belongs_to :user
 
@@ -32,4 +32,23 @@ class Contact < ActiveRecord::Base
         end
     end
 
+    def export
+        fields = []
+        fields << nick.presence || ""
+        fields << first_name || ""
+        fields << last_name || ""
+        fields << email || ""
+        fields << info || ""
+        fields.join(';')
+    end
+
+    def self.import(user,line)
+        fields = line.split(/;/)
+        contact = user.contacts.build(  :nick => fields[0],
+                                        :first_name => fields[1],
+                                        :last_name => fields[2],
+                                        :email => fields[3],
+                                        :info => fields[4])
+        contact.save!
+    end
 end

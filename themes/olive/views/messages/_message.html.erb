@@ -11,7 +11,7 @@
 <td nowrap="nowrap"><%= date_formatter(message.date) %></td>
 </td><td nowrap="nowrap"><%= size_formatter(message.size) %></td>
 <% if @current_folder == @drafts_folder %>
-<td><%= link_to(t(:edit,:scope=>:message),messages_ops_single_path(message.uid)) %></td>
+<td><%= link_to(t(:edit,:scope=>:message),messages_ops_edit_path(message.uid)) %></td>
 <% else %>
 <td><%= raw('&nbsp;') %></td>
 <% end %>

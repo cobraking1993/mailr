@@ -21,6 +21,9 @@
 					20
 					) %>
 </div>
+<% if !@olduid.nil? %>
+<%= hidden_field_tag 'olduid', @olduid %>
+<% end %>
 <%= raw group_action(@buttons) %>
 <%= render :partial=> 'messages/file_attachs' %>
 </form>

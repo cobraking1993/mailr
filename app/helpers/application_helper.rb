@@ -252,6 +252,14 @@ end
 #    link_to( t(:prefs,:scope=>:prefs), prefs_look_path )
 #end
 
+def single_navigation(label,scope)
+    s = ""
+    s += "<ul class=\"wat-cf\">"
+    s += "<li class=\"first active\">#{link_to(t(label,:scope=>scope),'#')}</li>"
+    s += "<li class=\"last\">&nbsp;</li>"
+    s += "</ul>"
+end
+
 def main_navigation(active)
     instance_variable_set("@#{active}", "active")
     s = ""
@@ -310,8 +318,9 @@ def force_charset(text)
 end
 
 def content_for_sidebar
-    s = render :partial => 'folders/list'
-    s += render :partial => 'events/calendar'
+    s = render :partial => 'sidebar/logo'
+    s += render :partial => 'folders/list'
+    s += render :partial => 'sidebar/calendar_view'
     s += render :partial => 'internal/version'
     s
 end

@@ -144,7 +144,7 @@ class FoldersController < ApplicationController
             trash_folder.messages.destroy_all
             trash_folder.update_attributes(:unseen => 0, :total => 0)
         rescue Exception => e
-            flash[:error] = "#{t(:imap_error)} (#{e.to_s})"
+            flash[:error] = "#{t(:imap_error,:scope=>:common)} (#{e.to_s})"
         end
         redirect_to :controller => 'messages', :action => 'index'
 	end

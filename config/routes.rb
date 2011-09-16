@@ -10,9 +10,10 @@ Mailr::Application.routes.draw do
   match "prefs/identity" => "prefs#identity", :as => :prefs_identity
   match "prefs/servers" => "prefs#servers", :as => :prefs_servers
 
-  resources :contacts
   post "contacts/ops"
-
+  get "contacts/export"
+  match "contacts/external" => "contacts#external", :as => :contacts_external
+  resources :contacts
 
   #resources :folders
   match "folders/index" => 'folders#index', :as => :folders
@@ -30,15 +31,18 @@ Mailr::Application.routes.draw do
     get "internal/imaperror"
     get "internal/loginfailure"
     get "internal/onlycanlogins"
+    match "internal/about" => 'internal#about' ,:as => :about
 
     match "messages_ops/single" => 'messages_ops#single'
     match "messages_ops/multi" => 'messages_ops#multi'
     match "messages_ops/sendout_or_save" => 'messages_ops#sendout_or_save' ,:as =>:sendout_or_save
     match "messages_ops/upload" => 'messages_ops#upload',:as => :upload
+    match "messages_ops/edit/:id" => 'messages_ops#edit', :as => :messages_ops_edit
 
 	root :to => "messages#index"
 	match "messages/index" => 'messages#index', :as => :messages
 	match "messages/compose" => 'messages#compose', :as => :compose
+	match "messages/compose/:cid" => 'messages#compose', :as => :compose_contact
 	#get "messages/refresh_status"
 	#get "messages/emptybin"
 	#match "messages/select/:id" => 'messages#select', :as => :messages_select
@@ -64,8 +68,9 @@ Mailr::Application.routes.draw do
 	get "user/unknown"
 
 	themes_for_rails
+	#acts_as_notes_owner
 
-	match '*a', :to => 'internal#not_found'
+	#match '*a', :to => 'internal#not_found'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

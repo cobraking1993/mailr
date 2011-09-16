@@ -2,6 +2,10 @@
 <%= form_tag(contacts_external_path, :multipart => true) %>
 <label for="upload_file"><%= t(:select_file,:scope=>:compose) %></label>:&nbsp;
 <%= file_field 'upload', 'datafile' %>
+<% if @contacts.size.zero? %>
+<%= raw single_action('import','contact','right.png') %>
+<% else %>
 <%= raw group_action(@ei_buttons) %>
+<% end %>
 </form>
 </div>

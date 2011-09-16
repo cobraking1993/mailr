@@ -28,14 +28,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 				<%= yield :sidebar %>
 				</div>
 				<div id="main">
-				<div class="flash">
-                <% flash.each do |key, msg| %>
-                    <% unless msg.blank? %>
-                    <%= content_tag(:div,(content_tag :p, msg), :class => "message #{key.to_s}" )%>
-                    <%= flash[key.to_sym]='' %>
-                    <% end %>
-                <% end %>
-                </div>
+				<%= render :partial=>'layouts/flash', :object => flash %>
 				<%= yield %>
 				</div>
 				<br class="clear"/>

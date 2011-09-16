@@ -82,13 +82,17 @@ class ContactsController < ApplicationController
                 tmp_file.flush
                 tmp_file.rewind
                 tmp_file.readlines.each do |line|
+					next if line =~ /^#/
                     Contact.import(@current_user,line)
                 end
-            rescue Exception => e
-                flash[:error] = e.to_s
+            rescue ActiveRecord::RecordInvalid => e
+                flash[:error] = {:title => e.to_s,:info => e.record.inspect + e.record.errors.inspect}
+			rescue Exception => e
+				flash[:error] = e.to_s
+            else
+				flash[:notice] = t(:were_imported,:scope=>:contact)
             end
         end
-        flash[:notice] = t(:were_imported,:scope=>:contact) if not flash[:error]
         redirect_to :action => 'index'
     end
 

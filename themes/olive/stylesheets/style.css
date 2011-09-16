@@ -583,3 +583,8 @@ div.logo {
 div#logo {
     background-color: #EFF3E4;
 }
+
+div.flash p.info {
+	text-align: left;
+	font-size: 10px;
+}

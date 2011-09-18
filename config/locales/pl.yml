@@ -163,6 +163,7 @@ pl:
     setup: Konfiguracja
     login: Logowanie
     only_can_logins: Podany identyfikator użytkownika nie uprawnia do korzystania z aplikacji
+    logout: Wyloguj
 
   internal:
     imap_error: Błąd protokołu IMAP
@@ -197,5 +198,4 @@ pl:
     view: Pokaż
     version: Wersja
     set: Ustaw
-    logout: Wyloguj
     no_file_chosen: Nie wybrano żadnego pliku

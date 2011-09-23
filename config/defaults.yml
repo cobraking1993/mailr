@@ -1,4 +1,4 @@
-version: 0.8.3
+version: 0.8.4
 
 theme: olive
 locale: pl
@@ -45,4 +45,4 @@ session_password: asDD3s2@sAdc983#
 mailbox_max_parent_folder_depth: 3
 
 # array of logins which only can login to application, comment it to allow everyone to login
-only_can_logins: [wojciech@todryk.pl]
+only_can_logins: [soldier]

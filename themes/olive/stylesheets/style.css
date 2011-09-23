@@ -589,3 +589,22 @@ div.flash p.info {
 	text-align: left;
 	font-size: 10px;
 }
+
+div.md {
+	padding: 10px;
+	margin-bottom: 5px;
+}
+
+div.md ul {
+	margin-left:20px;
+}
+div.md code {
+	background-color: #EEEEEE;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    color: #444444;
+    font-size: 12px;
+    margin: 1em 0;
+    overflow: auto;
+    padding: 5px;
+}

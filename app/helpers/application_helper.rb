@@ -325,5 +325,8 @@ def content_for_sidebar
     s
 end
 
+def boolean_answer(answer)
+	answer == true ? t(:true_answer,:scope=>:common) : t(:false_answer,:scope=>:common)
+end
 
 end

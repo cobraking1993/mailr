@@ -13,6 +13,8 @@ msg_image_thumbnail_size: [128x128, 128x96, 192x192, 192x144, 256x256, 256x192]
 contacts_table_fields: [nick, first_name, last_name, email, info]
 contacts_per_page: 25
 
+servers_table_fields: [name, port, use_ssl, use_tls, for_imap, for_smtp, auth]
+
 msgs_per_page: 20
 msgs_refresh_time: 300
 msgs_send_type: html

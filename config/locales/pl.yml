@@ -17,6 +17,7 @@ pl:
         record_invalid: Nieprawidłowy format danych
     models:
       contact: Kontakt
+      server: Serwer
     attributes:
       contact:
         nick: Pseudonim
@@ -47,6 +48,12 @@ pl:
         last_name: Nazwisko
       server:
         name: Nazwa serwera
+        port: Port
+        use_ssl: SSL?
+        use_tls: TLS?
+        for_imap: IMAP?
+        for_smtp: SMTP?
+        auth: Metoda autoryzacji
 
   contact:
     compose_to_selected: Napisz do wybranych
@@ -175,6 +182,8 @@ pl:
     current_version: Aktualna wersja
 
   common:
+    false_answer: Nie
+    true_answer: Tak
     file_format_error: Błędny format pliku
     no_tmp_dir: Brak katalogu tymczasowego
     must_be_unique: musi być unikalny

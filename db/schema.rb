@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110913114841) do
+ActiveRecord::Schema.define(:version => 20110927091830) do
 
   create_table "contacts", :force => true do |t|
     t.string   "nick"
@@ -19,6 +19,18 @@ ActiveRecord::Schema.define(:version => 20110913114841) do
     t.string   "last_name"
     t.string   "info"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "priority"
+    t.text     "description"
+    t.string   "category"
+    t.datetime "start"
+    t.datetime "stop"
+    t.boolean  "allday"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,17 +66,6 @@ ActiveRecord::Schema.define(:version => 20110913114841) do
     t.datetime "updated_at"
   end
 
-  create_table "notes", :force => true do |t|
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notes", ["owner_id", "owner_type"], :name => "index_notes_on_owner_id_and_owner_type"
-
   create_table "prefs", :force => true do |t|
     t.string   "theme"
     t.string   "locale"
@@ -91,7 +92,7 @@ ActiveRecord::Schema.define(:version => 20110913114841) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email"
+    t.string   "login"
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_at"

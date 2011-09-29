@@ -51,3 +51,7 @@ class ActiveSupport::BufferedLogger
     end
 end
 
+class MailrException < Exception
+end
+
+

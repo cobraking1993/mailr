@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     #acts_as_notes_owner
 
     validates_presence_of :first_name,:last_name
-	validates_uniqueness_of :email
+	validates_uniqueness_of :login
 	has_many :servers, :dependent => :destroy
 	has_one :prefs, :dependent => :destroy
 	has_many :folders, :dependent => :destroy
@@ -33,21 +33,31 @@ class User < ActiveRecord::Base
 		(0...8).map{65.+(rand(25)).chr}.join
 	end
 
-	def full_name
+	def name
         first_name + " " + last_name
 	end
 
-	def full_address
-		d = domain.presence || ""
-        if email =~ /\@/
-            email
+    def full_id
+        (name + " <" + email + ">") if email
+    end
+
+	def email
+        if login =~ /\@/
+            login
         else
-            email + "@" + d
+            (login + "@" + domain) if domain.presence
         end
 	end
 
 	def username
-        email.gsub(/\@/,"_").gsub(/\./,"_")
+        login.gsub(/\@/,"_").gsub(/\./,"_")
+	end
+
+	def has_domain?
+        return domain if domain.presence
+        if login =~ /\@/
+            login.split(/\@/)[1]
+        end
 	end
 
 end

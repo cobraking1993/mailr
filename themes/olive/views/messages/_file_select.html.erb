@@ -1,9 +1,7 @@
 <div class="fileselect">
-<%= form_tag(upload_path, :multipart => true) %>
 <label for="upload_file"><%= t(:select_file,:scope=>:compose) %></label>:&nbsp;
-<%= file_field 'upload', 'datafile' %>
-<%= raw single_action('send_file','compose','up.png') %>
-</form>
+<%= file_field 'file', 'data' %>
+<%= raw single_action('upload','compose','up.png') %>
 </div>
 
 

@@ -9,7 +9,7 @@
 <h2><%= t(:setup,:scope=>:user) %></h2>
 	<div class="content">
 	<form action="<%=url_for(:controller => 'user', :action => 'create')%>" method="post" class="form">
-	<%= raw form_field(@user,"email",nil,"joe.doe@domain.domain",params[:user].nil? ? params[:email] : params[:user][:email]) %>
+	<%= raw form_field(@user,"login",nil,"joe.doe",params[:user].nil? ? params[:login] : params[:user][:login]) %>
 	<%= raw form_field(@user,"first_name",nil,"Joe","") %>
 	<%= raw form_field(@user,"last_name",nil,"Doe","") %>
 	<%= raw form_field(@server,"name",nil,"server.domain","") %>

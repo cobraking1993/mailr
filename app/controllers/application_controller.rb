@@ -63,15 +63,15 @@ class ApplicationController < ActionController::Base
 
     def prepare_compose_buttons
         @buttons = []
-        @buttons << {:text => 'send',:scope=>:compose,:image => 'email.png'}
-        @buttons << {:text => 'save_as_draft',:scope=>:compose,:image => 'save.png'}
+        @buttons << {:text => 'sendout',:scope=>:compose,:image => 'email.png'}
+        @buttons << {:text => 'save',:scope=>:compose,:image => 'save.png'}
     end
 
     def create_message_with_params
-        @message = Message.new
-        if params[:message]
-            @message.update_attributes(params[:message])
-        end
+        @message = Message.new(params[:message])
+#        if params[:message]
+#            @message.update_attributes(params[:message])
+#        end
         files = Dir.glob(File.join($defaults["msg_upload_dir"],@current_user.username + "*"))
         @attachments = []
         files.each do |f|

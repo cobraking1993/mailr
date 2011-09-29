@@ -12,13 +12,12 @@ class FoldersController < ApplicationController
 	after_filter :close_imap_session, :except => [:index,:show_hide,:system]
 
 	before_filter :get_folders
+	before_filter :prepare_buttons_to_folders
 
 	theme :theme_resolver
 
     def index
-        @buttons = []
-        @buttons << {:text => 'show_hide',:scope=>'folder',:image => 'flag.png'}
-        @buttons << {:text => 'refresh',:scope=>'folder',:image => 'refresh.png'}
+        #before_filter
     end
 
     def create
@@ -153,6 +152,12 @@ class FoldersController < ApplicationController
 	############################################# protected section #######################################
 
     protected
+
+    def prepare_buttons_to_folders
+		@buttons = []
+        @buttons << {:text => 'show_hide',:scope=>'folder',:image => 'flag.png'}
+        @buttons << {:text => 'refresh',:scope=>'folder',:image => 'refresh.png'}
+	end
 
     def get_folders
         @folders = @current_user.folders

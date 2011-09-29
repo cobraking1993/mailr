@@ -46,6 +46,7 @@ pl:
         password: Hasło
         first_name: Imię
         last_name: Nazwisko
+        domain: Domena
       server:
         name: Nazwa serwera
         port: Port
@@ -147,9 +148,9 @@ pl:
     not_configured_smtp: Brak konfiguracji SMTP
     select_file: Wybierz plik
     delete_marked: Usuń zaznaczone
-    send_file: Wyślij plik
-    send: Wyślij
-    save_as_draft: Zapisz w katalogu roboczym
+    upload: Wyślij plik
+    sendout: Wyślij
+    save: Zapisz w katalogu roboczym
 
   show:
     reply: Odpowiedz
@@ -171,6 +172,7 @@ pl:
     login: Logowanie
     only_can_logins: Podany identyfikator użytkownika nie uprawnia do korzystania z aplikacji
     logout: Wyloguj
+    has_no_domain: Użytkownik nie ma ustawionej domeny
 
   internal:
     imap_error: Błąd protokołu IMAP
@@ -180,6 +182,7 @@ pl:
     unprocessable_entity: Błąd procesowania
     about: Informacje o programie
     current_version: Aktualna wersja
+    general_error: Błąd aplikacji
 
   common:
     false_answer: Nie

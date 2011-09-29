@@ -18,10 +18,10 @@
 	<form action="<%=url_for(:controller => 'user', :action => 'authenticate')%>" method="post" class="form login">
 		<div class="group wat-cf">
 			<div class="left">
-                <label class="label right"><%= User.human_attribute_name('email') %></label>
+                <label class="label right"><%= User.human_attribute_name('login') %></label>
 			</div>
 			<div class="right">
-				<%= text_field "user", "email" %>
+				<%= text_field "user", "login" %>
 			</div>
 		</div>
 		<div class="group wat-cf">

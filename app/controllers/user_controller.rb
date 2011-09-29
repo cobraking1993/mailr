@@ -15,15 +15,15 @@ class UserController < ApplicationController
 	def authenticate
 
         if not $defaults["only_can_logins"].nil?
-            if not $defaults["only_can_logins"].include?(params[:user][:email])
+            if not $defaults["only_can_logins"].include?(params[:user][:login])
                 redirect_to :controller => 'internal', :action => 'onlycanlogins'
                 return false
             end
         end
 
-		user = User.find_by_email(params[:user][:email])
+		user = User.find_by_login(params[:user][:login])
 		if user.nil?
-			redirect_to :action => 'unknown' ,:email=> params[:user][:email]
+			redirect_to :action => 'unknown' ,:login=> params[:user][:login]
 		else
             session[:user_id] = user.id
 			user.set_cached_password(session,params[:user][:password])
@@ -52,7 +52,7 @@ class UserController < ApplicationController
 	def create
 
 		@user = User.new
-		@user.email = params[:user][:email]
+		@user.login = params[:user][:login]
 		@user.first_name = params[:user][:first_name]
 		@user.last_name = params[:user][:last_name]
 

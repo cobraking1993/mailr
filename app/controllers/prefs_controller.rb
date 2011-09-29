@@ -22,10 +22,18 @@ class PrefsController < ApplicationController
     end
 
     def update_identity
-         if params[:user]
-            @current_user.update_attributes(params[:user])
+        if params[:user]
+            @current_user.first_name = params[:user][:first_name]
+            @current_user.last_name = params[:user][:last_name]
+            @current_user.domain = params[:user][:domain]
+            if @current_user.valid?
+                @current_user.save
+                flash[:notice] = t(:were_saved,:scope=>:prefs)
+                redirect_to :action => 'identity'
+            else
+                render 'prefs/identity'
+            end
         end
-        redirect_to :action => 'identity'
     end
 
     def look
@@ -33,7 +41,6 @@ class PrefsController < ApplicationController
     end
 
     def identity
-		@identity = @curent_user
     end
 
     def servers

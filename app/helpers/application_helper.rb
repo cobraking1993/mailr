@@ -5,7 +5,7 @@ module ApplicationHelper
 def form_field(object,field,flabel,example,val)
     model_name = eval(object.class.model_name)
 	html = ""
-	html << "<div class=\"group\">"
+	html << "<div class=\"param_group\">"
 	if not object.errors[field.to_sym].empty?
 		html << "<div class=\"fieldWithErrors\">"
 

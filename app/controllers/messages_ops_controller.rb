@@ -3,6 +3,7 @@ require 'imap_mailbox'
 require 'imap_message'
 require 'mail'
 require 'mail_plugin_extension'
+require 'net/smtp'
 
 class MessagesOpsController < ApplicationController
 
@@ -14,8 +15,9 @@ class MessagesOpsController < ApplicationController
     before_filter :check_current_user ,:selected_folder,:get_current_folders
     before_filter :open_imap_session, :select_imap_folder
     before_filter :prepare_compose_buttons
-    before_filter :get_system_folders, :only => [:sendout_or_save,:single,:multi]
-    before_filter :create_message_with_params , :only => [:sendout_or_save]
+    before_filter :get_system_folders, :only => [:composed,:single,:multi]
+    before_filter :prepare_composed , :only => [:composed]
+    before_filter :create_message_with_params, :only=> [:composed,:single,:multi]
     after_filter :close_imap_session
     theme :theme_resolver
 
@@ -125,17 +127,20 @@ class MessagesOpsController < ApplicationController
     end
 
     def upload
-    #FIXME check if uploads directory exists
-		@operation = :upload
-		create_message_with_params
-		if not params[:upload]
-			flash[:error] = t(:no_file_chosen,:scope=>:common)
-		else
-			name = params[:upload][:datafile].original_filename
+        begin
+            raise MailrException.new :cause=>:no_tmp_dir,:scope=>:common if not File.exists?($defaults["msg_upload_dir"])
+            raise MailrException.new :cause=>:no_file_chosen,:scope=>:common if not params[:upload]
+            @operation = :upload
+			name = params[:file][:data].original_filename
 			upload_dir = $defaults["msg_upload_dir"]
 			path = File.join(upload_dir, @current_user.username + "_" + name)
-			File.open(path, "wb") { |f| f.write(params[:upload][:datafile].read) }
+			File.open(path, "wb") { |f| f.write(params[:file][:data].read) }
+        rescue MailrException => e
+            flash[:error] = t(e.message[:cause],:scope => e.message[:scope])
+        rescue Exception => e
+            flash[:error] = t(:general_error,:scope=>:internal) + " (" + e.class.name + " " + e.to_s + ")"
 		end
+		create_message_with_params
 		render 'messages/compose'
     end
 
@@ -168,13 +173,7 @@ class MessagesOpsController < ApplicationController
 #            if File.exist?("#{RAILS_ROOT}/dirname/#{@filename}")
 #  end
 
-
-    ############################################### sendout_or_save ############################
-
-	def sendout_or_save
-
-	#FIXME check if domain is set
-
+    def composed
         if params[:delete_marked] and params[:files]
             params[:files].each do |filename|
                 path = File.join(Rails.root,$defaults["msg_upload_dir"],@current_user.username + "_" +filename)
@@ -184,77 +183,70 @@ class MessagesOpsController < ApplicationController
             @operation = :new
             render 'messages/compose'
             return
-        end
-
-        mail = Mail.new
-        mail.subject = params[:message][:subject]
-        mail.from = @current_user.full_address
-        #TODO check if email address is valid if not get address from contacts
-        mail.to = params[:message][:to_addr]
-        mail.body = params[:message][:body]
-
-        attachments = Dir.glob(File.join($defaults["msg_upload_dir"],@current_user.username + "*"))
-        #logger.custom('attach',attachments.inspect)
-        attachments.each do |a|
-            mail.add_file :filename => File.basename(a.gsub(/#{@current_user.username}_/,"")), :content => File.read(a)
-        end
-
-        if params[:send]
-            smtp_server = @current_user.servers.primary_for_smtp
-
-            if smtp_server.nil?
-                flash[:error] = t(:not_configured_smtp,:scope => :compose)
-                @operation = :new
-                render 'messages/compose'
-                return
-            end
-
-            begin
-
-            set_mail_defaults(@current_user,smtp_server,session)
-            logger.custom('mail',Mail.delivery_method.inspect)
-
-            @response = mail.deliver!
-            logger.custom('response',@response.inspect)
-
-            if @sent_folder.nil?
-                raise t(:not_configured_sent,:scope=>:compose)
-            end
-            @mailbox.append(@sent_folder.full_name,mail.to_s,[:Seen])
-
-            rescue Exception => e
-                flash[:error] = "#{t(:imap_err,:scope=>:internal)} (#{e.to_s})"
-                redirect_to :controller => 'messages', :action => 'index'
-                return
-            end
-
-            attachments.each do |filename|
-                path = File.join(Rails.root,filename)
-                File.delete(path) if File.exist?(path)
-            end
-
-            flash[:notice] = t(:was_sent,:scope => :compose)
-            redirect_to :controller => 'messages', :action => 'index'
-        elsif params[:save_as_draft]
-            begin
-                if @drafts_folder.nil?
-                    raise t(:not_configured_drafts,:scope=>:compose)
-                end
-                @mailbox.append(@drafts_folder.full_name,mail.to_s,[:Seen])
-                if params[:olduid].present?
-                    @mailbox.move_message(params[:olduid],@trash_folder.full_name)
-                    @mailbox.expunge
-                end
-            rescue Exception => e
-                flash[:error] = "#{t(:imap_error,:scope=>:internal)} (#{e.to_s})"
-                redirect_to :controller => 'messages', :action => 'index'
-                return
-            end
-            flash[:notice] = t(:was_saved,:scope => :compose)
+        elsif params[:upload]
+            upload
+        elsif params[:save]
+            save
+        elsif params[:sendout]
+            sendout
+        else
             redirect_to :controller => 'messages', :action => 'index'
         end
     end
 
+	def sendout
+        begin
+            smtp_server = @current_user.servers.primary_for_smtp
+            raise MailrException.new :cause=>:not_configured_smtp,:scope => :compose if smtp_server.nil?
+            raise MailrException.new :cause=>:has_no_domain,:scope=>:user if @current_user.has_domain?.nil?
+            raise MailrException.new :cause=>:not_configured_sent,:scope=>:compose if @sent_folder.nil?
+            send_mail_message(  smtp_server,
+                                @current_user.has_domain?,
+                                @current_user.login,
+                                @current_user.get_cached_password(session),
+                                @mail.to_s,
+                                @current_user.email,
+                                params[:message][:to_addr]
+                                )
+			upload_dir = $defaults["msg_upload_dir"]
+			@attachments.each do |file|
+                path = File.join(upload_dir, @current_user.username + "_" + file[:name])
+                File.delete(path) if File.exist?(path)
+            end
+        rescue MailrException => e
+            flash[:error] = t(e.message[:cause],:scope => e.message[:scope])
+        rescue Exception => e
+            flash[:error] = t(:general_error,:scope=>:internal) + " (" + e.class.name + " " + e.to_s + ")"
+        else
+            flash[:notice] = t(:was_sent,:scope => :compose)
+            redirect_to :controller => 'messages', :action => 'index'
+            return
+        end
+        @operation = :new
+        render 'messages/compose'
+    end
+
+    def save
+        begin
+            raise MailrException.new :cause=>:not_configured_drafts,:scope=>:folder if @drafts_folder.nil?
+            @mailbox.append(@drafts_folder.full_name,@mail.to_s,[:Seen])
+            if params[:olduid].present?
+                @mailbox.move_message(params[:olduid],@trash_folder.full_name)
+                @mailbox.expunge
+            end
+        rescue MailrException => e
+            flash[:error] = t(e.message[:cause],:scope => e.message[:scope])
+        rescue Exception => e
+            flash[:error] = t(:general_error,:scope=>:internal) + " (" + e.class.name + " " + e.to_s + ")"
+        else
+            @attachments.each do |filename|
+                path = File.join(Rails.root,filename)
+                File.delete(path) if File.exist?(path)
+            end
+            flash[:notice] = t(:was_saved,:scope => :compose)
+        end
+        redirect_to :controller => 'messages', :action => 'index'
+	end
 
     #FIXME edit does not support attachments
     def edit
@@ -266,7 +258,7 @@ class MessagesOpsController < ApplicationController
         imap_message = @mailbox.fetch_body(old_message.uid)
         mail = Mail.new(imap_message)
         if mail.multipart?
-            @message.body = mail.text_part.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
+            @message.body = mail.text_part.nil? ? "" : mail.text_part.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         else
             @message.body = mail.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         end
@@ -285,7 +277,7 @@ class MessagesOpsController < ApplicationController
         imap_message = @mailbox.fetch_body(old_message.uid)
         mail = Mail.new(imap_message)
         if mail.multipart?
-            @message.body = mail.text_part.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
+            @message.body = mail.text_part.nil? ? "" : mail.text_part.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         else
             @message.body = mail.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         end
@@ -297,7 +289,28 @@ class MessagesOpsController < ApplicationController
 
     protected
 
+    def send_mail_message(smtp_server,domain,username,password,msgstr,from,to)
+        if smtp_server.auth.nil?
+            smtp = Net::SMTP.start(smtp_server.name, smtp_server.port, domain)
+        else
+            smtp = Net::SMTP.start(smtp_server.name, smtp_server.port, domain, username, password, smtp_server.auth)
+        end
+        smtp.send_message msgstr, from, to
+        smtp.finish
+    end
 
+    def prepare_composed
+        @mail = Mail.new
+        @mail.subject = params[:message][:subject]
+        @mail.from = @current_user.full_id
+        #TODO check if email address is valid if not get address from contacts
+        @mail.to = params[:message][:to_addr]
+        @mail.body = params[:message][:body]
+        @attachments = Dir.glob(File.join($defaults["msg_upload_dir"],@current_user.username + "*"))
+        @attachments.each do |a|
+            @mail.add_file :filename => File.basename(a.gsub(/#{@current_user.username}_/,"")), :content => File.read(a)
+        end
+    end
 
     ############################################ set_mail_defaults ####################################
 
@@ -313,7 +326,7 @@ class MessagesOpsController < ApplicationController
             authentication = server.auth
             enable_starttls_auto = server.use_tls
             openssl_verify_mode = OpenSSL::SSL::VERIFY_NONE
-            user_name = user.full_address
+            user_name = user.login
         end
 		Mail.defaults do
 			delivery_method :smtp, {:address => server.name,

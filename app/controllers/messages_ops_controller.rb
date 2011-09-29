@@ -208,6 +208,7 @@ class MessagesOpsController < ApplicationController
                                 @current_user.email,
                                 params[:message][:to_addr]
                                 )
+			@mailbox.append(@sent_folder.full_name,@mail.to_s,[:Seen])
 			upload_dir = $defaults["msg_upload_dir"]
 			@attachments.each do |file|
                 path = File.join(upload_dir, @current_user.username + "_" + file[:name])

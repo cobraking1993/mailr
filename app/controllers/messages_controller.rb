@@ -160,7 +160,7 @@ class MessagesController < ApplicationController
                 attachments = mail.attachments
                 if not attachments.size.zero?
                 for idx in 0..attachments.size - 1
-                    @body.gsub!(/cid:#{attachments[idx].cid}/,messages_attachment_download_path(message.uid,idx))
+                    @body.gsub!(/cid:#{attachments[idx].cid}/,attachment_download_path(message.uid,idx))
                 end
             end
             end

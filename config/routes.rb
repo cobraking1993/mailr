@@ -13,7 +13,7 @@ Mailr::Application.routes.draw do
         post "ops"
         get "export"
     end
-    match "/external" => "contacts#external", :as => :external
+    match "/external" => "contacts#external", :as => :contacts_external
 
     resources :contacts
 

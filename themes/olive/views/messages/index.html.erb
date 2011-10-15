@@ -6,8 +6,10 @@
 - <%= t(:messages,:scope=>:message) %>
 <% end %>
 
-<div class="block" id="block-tables">
-    <div class="secondary-navigation">
+<%= calendar_window(:title=>t(:calendar,:scope=>:common)) %>
+
+<div class="block">
+    <div class="navigation-tabs clearfix">
         <%= raw main_navigation(:messages_tab) %>
     </div>
     <div class="content">

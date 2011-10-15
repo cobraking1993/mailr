@@ -6,25 +6,27 @@
 <%= content_for_sidebar %>
 <% end %>
 
-<div class="block" id="block-tables">
-<div class="secondary-navigation">
+<div class="block">
+<div class="navigation-tabs clearfix">
 <%= raw single_navigation(:about,:internal) %>
 </div>
-<div class="content">
-<div class="actions-bar wat-cf">
+<div class="content clearfix">
+
 <div class="header_info">
 <%= t(:current_version,:scope=>:internal) + ": " + $defaults["version"] %>
-</div></div>
+</div>
 
 <div class="md">
 <%= raw BlueCloth::new(render :file => 'README.markdown').to_html %>
 </div>
+
 <div class="md">
 <%= raw BlueCloth::new(render :file => 'CHANGES').to_html %>
 </div>
+
 <div class="md">
 <%= raw BlueCloth::new(render :file => 'TODO').to_html %>
 </div>
-</div>
+
 </div>
 

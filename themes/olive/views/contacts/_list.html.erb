@@ -1,5 +1,5 @@
 <div class="inner">
-<div class="actions-bar wat-cf">
+<div class="actions-bar">
 <span class="other_info"> <%= t(:total_entries,:scope=>:contact) %>: <%= @contacts.total_entries %></span>
 <%= will_paginate @contacts %>
 </div>
@@ -19,7 +19,7 @@
 <% end %>
 </tbody>
 </table>
-<div class="actions-bar wat-cf">
+<div class="actions-bar">
 <%= will_paginate @contacts %>
 </div>
 </div>

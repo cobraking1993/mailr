@@ -1,6 +1,6 @@
-<div class="inner">
+<div class="inner clearfix">
 
-<div class="actions-bar wat-cf">
+<div class="actions-bar clearfix">
     <div class="header_info"><%= t(:current,:scope=>:folder) %>: <%= pretty_folder_name(@current_folder) %>
     <span class="other_info">(<%= t(:total,:scope=>:message) %>: <%= @messages.total_entries %>)</span>
     </div>
@@ -26,7 +26,7 @@
     </tbody>
     </table>
 
-<div class="actions-bar wat-cf">
+<div class="actions-bar clearfix">
     <%= will_paginate @messages %>
 </div>
 

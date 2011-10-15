@@ -41,7 +41,7 @@ end
 def show_param_view(object,field,value)
     model_name = eval(object.class.model_name)
     html = ""
-    html << "<div class=\"group\">"
+    html << "<div class=\"group clearfix\">"
     html << "<label class=\"label\">#{model_name.human_attribute_name(field)}: </label>"
     html << value
     html << "</div>"
@@ -81,7 +81,7 @@ end
 
 def form_button(text,image)
 	html = ""
-	html << "<div class=\"group navform wat-cf\">"
+	html << "<div class=\"group\">"
 	html << "<button class=\"button\" type=\"submit\">"
 	html << "<img src=\""
 	html << current_theme_image_path(image)
@@ -94,7 +94,7 @@ end
 
 def single_action(text,scope,image)
 	html = ""
-	html << "<div class=\"actiongroup wat-cf\">"
+	html << "<div class=\"actiongroup clearfix\">"
 	html << "<button class=\"button\" name=\"#{text}\" type=\"submit\">"
 	html << "<img src=\""
 	html << current_theme_image_path(image)
@@ -107,7 +107,7 @@ end
 
 def single_action_onclick(text,scope,image,onclick)
 	html = ""
-	html << "<div class=\"actiongroup navform wat-cf\">"
+	html << "<div class=\"actiongroup clearfix\">"
     html << "<button class=\"button\" type=\"submit\" onclick=\"window.location='"
     html << onclick
     html << "'\">"
@@ -117,12 +117,13 @@ def single_action_onclick(text,scope,image,onclick)
 	html << t(text.to_sym, :scope => scope.to_sym)
 	html << "\" />"
 	html << t(text.to_sym, :scope => scope.to_sym)
-	html << "</button></div>"
+	html << "</button>"
+	html << "</div>"
 end
 
 def group_action(buttons)
     html =  ""
-	html << "<div class=\"actiongroup navform wat-cf\">"
+	html << "<div class=\"actiongroup clearfix\">"
 	buttons.each do |b|
         html << "<button class=\"button\" type=\"submit\" name=\"#{b[:text]}\">"
         html << "<img src=\""
@@ -138,7 +139,7 @@ end
 
 def group_action_text(buttons,text)
     html =  ""
-	html << "<div class=\"group navform wat-cf\">"
+	html << "<div class=\"group\">"
 	buttons.each do |b|
         html << "<button class=\"button\" type=\"submit\" name=\"#{b[:text]}\">"
         html << "<img src=\""
@@ -155,7 +156,7 @@ end
 
 def form_buttons(buttons)
 	html = ""
-	html << "<div class=\"group navform wat-cf\">"
+	html << "<div class=\"group\">"
 
 	buttons.each do |b|
 	html << "<button class=\"button\" type=\"submit\" name=\"#{b[:text]}\">"
@@ -173,7 +174,7 @@ end
 
 def form_button_value(text,image,onclick)
 	html = ""
-	html << "<div class=\"group navform wat-cf\">"
+	html << "<div class=\"group\">"
 	html << "<button class=\"button\" type=\"submit\" onclick=\"window.location='"
 	html << onclick
 	html << "'\">"
@@ -254,7 +255,7 @@ end
 
 def single_navigation(label,scope)
     s = ""
-    s += "<ul class=\"wat-cf\">"
+    s += "<ul>"
     s += "<li class=\"first active\">#{link_to(t(label,:scope=>scope),'#')}</li>"
     s += "<li class=\"last\">&nbsp;</li>"
     s += "</ul>"
@@ -263,7 +264,7 @@ end
 def main_navigation(active)
     instance_variable_set("@#{active}", "active")
     s = ""
-    s += "<ul class=\"wat-cf\">"
+    s += "<ul>"
     s += "<li class=\"first #{@messages_tab}\">#{link_to( t(:messages,:scope=>:message), messages_path )}</li>"
     s += "<li class=\"#{@compose_tab}\">#{link_to( t(:compose,:scope=>:compose), compose_path )}</li>"
     s += "<li class=\"#{@folders_tab}\">#{link_to( t(:folders,:scope=>:folder), folders_path )}</li>"
@@ -275,7 +276,7 @@ end
 def prefs_navigation(active)
     instance_variable_set("@#{active}", "active")
     s = ""
-    s += "<ul class=\"wat-cf\">"
+    s += "<ul>"
     s += "<li class=\"first #{@look_tab}\">#{link_to( t(:look,:scope=>:prefs), prefs_look_path )}</li>"
     s += "<li class=\"#{@identity_tab}\">#{link_to( t(:identity,:scope=>:prefs), prefs_identity_path )}</li>"
     s += "<li class=\"last #{@servers_tab}\">#{link_to( t(:servers,:scope=>:prefs), prefs_servers_path )}</li>"

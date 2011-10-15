@@ -2,9 +2,9 @@
   <%= t(:login,:scope=>:user) %>
 <% end %>
 
-<div id="box">
-<div class="block">
-<div id="logo"><a href="/"><img src="<%= current_theme_image_path('logo_small.png')%>" alt="Mailr"/></a>
+<div class="box">
+<div class="box2">
+<div class="logo"><a href="/"><img src="<%= current_theme_image_path('logo_small.png')%>" alt="Mailr"/></a>
 </div>
 <h2><%= t(:login,:scope=>:user) %></h2>
 	<div class="content login">
@@ -16,7 +16,7 @@
 		<% end %>
 		</div>
 	<form action="<%=url_for(:controller => 'user', :action => 'authenticate')%>" method="post" class="form login">
-		<div class="group wat-cf">
+		<div class="group">
 			<div class="left">
                 <label class="label right"><%= User.human_attribute_name('login') %></label>
 			</div>
@@ -24,7 +24,7 @@
 				<%= text_field "user", "login" %>
 			</div>
 		</div>
-		<div class="group wat-cf">
+		<div class="group">
 			<div class="left">
 				<label class="label right"><%= User.human_attribute_name('password') %></label>
 			</div>
@@ -32,7 +32,7 @@
                 <%= password_field "user", "password" %>
 			</div>
 		</div>
-		<div class="group navform wat-cf">
+		<div class="group">
 			<div class="right">
 				<button class="button" type="submit">
 					<img src="<%= current_theme_image_path('key.png')%>" alt="login" /> <%= t(:please_login,:scope=>:user) %>
@@ -40,6 +40,7 @@
 			</div>
 		</div>
 	</form>
+	<div class="clear"></div>
 	</div>
 </div>
 </div>

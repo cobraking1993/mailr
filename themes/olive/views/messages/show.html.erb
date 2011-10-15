@@ -6,11 +6,13 @@
 - <%= subject_formatter(@message,:show) %>
 <% end %>
 
-<div class="block" id="block-tables">
-    <div class="secondary-navigation">
+<%= calendar_window(:title=>t(:calendar,:scope=>:common)) %>
+
+<div class="block">
+    <div class="navigation-tabs clearfix">
         <%= raw main_navigation(:show) %>
     </div>
-    <div class="content">
+    <div class="content clearfix">
         <%= form_tag(messages_ops_single_path)%>
         <%= render :partial => 'header' %>
         <%= render :partial => 'single_ops' %>
@@ -26,7 +28,7 @@
         <% if not @html_part.nil? %>
             <%= render :partial => 'html_part' %>
         <% else %>
-            <div class="render_text">
+            <div class="render_text clearfix">
                 <% if @text_part.nil? %>
                 <p>
                     <%= t(:no_content,:scope => :message) %>

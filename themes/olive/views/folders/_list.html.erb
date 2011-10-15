@@ -1,6 +1,6 @@
 <div class="block">
 	<h3><%=t(:folders,:scope=>:folder) %></h3>
-	<div class="content">
+	<div class="content clearfix">
 	<% if @folders_shown.nil? or @folders_shown.size.zero? %>
 	<p><%= t(:no_shown,:scope=>:folder) %> <%= link_to t(:folders,:scope=>:folder), folders_path %></p>
 	<% else %>
@@ -14,7 +14,6 @@
 		<% end -%>
 	</ul>
 	<% end %>
-	<br/>
 	<%= raw single_action_onclick('logout','user','power.png',user_logout_path) %>
 	</div>
 </div>

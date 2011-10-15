@@ -102,7 +102,7 @@ module MessagesHelper
     end
 
     def content_text_plain_for_render(text)
-        html = "<pre>"
+        html = "<pre class=\"clearfix\">"
         #html << text.gsub!(/\r\n/,"\n")
         html << h(text)
         html << "</pre>"

@@ -1,4 +1,4 @@
-<div class="msg_header">
+<div class="msg_header clearfix">
     <%= raw show_param_view(@message,"from_addr",address_formatter(@from,:show)) %>
     <%= raw show_param_view(@message,"to_addr",address_formatter(@to,:show)) %>
     <% if not @cc.nil? %>

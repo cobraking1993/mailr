@@ -6,13 +6,13 @@
 - <%= t(:folders,:scope=>:folder) %>
 <% end %>
 
-<div class="block" id="block-tables">
-<div class="secondary-navigation">
+<div class="block">
+<div class="navigation-tabs clearfix">
     <%= raw main_navigation(:folders_tab) %>
 </div>
 <div class="content">
 <div class="inner">
-    <div class="columns wat-cf">
+    <div class="columns clearfix">
         <div class="column left">
             <%= render :partial => 'create' %>
             <%= render :partial => 'delete' %>

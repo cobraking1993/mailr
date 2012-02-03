@@ -115,14 +115,23 @@ class MessagesOpsController < ApplicationController
                 flash[:warning] = t(:no_selected,:scope=>:folder)
             else
                 dest_folder = @current_user.folders.find(params[:folder][:target])
+                logger.info "DEST: "+dest_folder.inspect
                 params["uids"].each do |uid|
+					logger.info "UID: "+uid
+					logger.info "DEST_FULL: "+dest_folder.full_name
                     @mailbox.move_message(uid,dest_folder.full_name)
                     message = @current_folder.messages.find_by_uid(uid)
+                    logger.info "M: "+message.inspect
+                    logger.info "UPDATE_DEST_BEFORE1: "+dest_folder.inspect
                     message.change_folder(dest_folder)
+                    logger.info "UPDATE_DEST_BEFORE2: "+dest_folder.inspect
                 end
+                logger.info "UPDATE_DEST_BEFORE: "+dest_folder.inspect
                 @mailbox.expunge
                 dest_folder.update_stats
+                logger.info "UPDATE_DEST: "+dest_folder.inspect
                 @current_folder.update_stats
+                logger.info "UPDATE_CUT: "+@current_folder.inspect
             end
     end
 

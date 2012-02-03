@@ -38,8 +38,11 @@ class Folder < ActiveRecord::Base
     end
 
 	def update_stats
+		logger.info "MESS_BEFORE: "+messages.inspect
         unseen = messages.where(:unseen => true).count
         total = messages.count
+        logger.info "MESS: "+messages.inspect
+        logger.info "MESS: #{unseen} #{total}"
         update_attributes(:unseen => unseen, :total => total)
 	end
 

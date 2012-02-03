@@ -406,6 +406,10 @@ th a.header {
     background: none repeat scroll 0 0 #EFF3E4;
 }
 
+.table tr.unseen {
+    font-weight: bold;
+} 
+
 .table td {
     border-bottom: 1px solid #F0F0EE;
 }

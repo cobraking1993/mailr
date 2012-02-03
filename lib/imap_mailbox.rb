@@ -17,7 +17,7 @@ class IMAPMailbox
 		@folders = {}
 		@connected = false
 		@logger = logger
-		Net::IMAP.debug = debug
+		Net::IMAP.debug = true
 	end
 
 	def connect(server,username,password)

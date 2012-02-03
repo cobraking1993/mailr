@@ -17,6 +17,15 @@ Mailr::Application.routes.draw do
 
     resources :contacts
 
+    namespace :links do
+        post "ops"
+        get "export"
+    end
+    #match "/external" => "contacts#external", :as => :contacts_external
+
+
+    resources :links
+
     namespace :folders do
         post "create"
         post "delete"

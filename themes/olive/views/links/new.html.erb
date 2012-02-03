@@ -1,0 +1,30 @@
+<% content_for :sidebar do %>
+<%= content_for_sidebar %>
+<% end %>
+
+<% content_for :title do %>
+- <%= t(:links,:scope=>:link) %>
+<% end %>
+
+<div class="block" id="block-tables">
+    <div class="secondary-navigation">
+        <%= raw main_navigation(:links) %>
+    </div>
+    <div class="content">
+        <div class="inner">
+        <div class="actions-bar wat-cf">
+                <div class="header_info"><%= t(:creating_new,:scope=>:link) %> </div>
+        </div>
+            <%= form_for(@link) do |f| %>
+            <div class="columns wat-cf">
+                <div class="column left">
+                    <%= render :partial => 'links/left' %>
+                </div>
+                <div class="column right">
+                    <%= render :partial => 'links/right' %>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>

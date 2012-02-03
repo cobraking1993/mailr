@@ -1,0 +1,7 @@
+
+<div class="params">
+<%= raw form_field(@link,"name",nil,"Fajny sznurek",@link.name) %>
+<%= raw form_field(@link,"url",nil,"http://aaa.com",@link.url) %>
+<%= raw form_field(@link,"info",nil,t(:some_add_info,:scope=>:link),@link.info) %>
+</div>
+<%= raw single_action('save','common','save.png') %>

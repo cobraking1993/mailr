@@ -18,7 +18,12 @@ pl:
     models:
       contact: Kontakt
       server: Serwer
+      link: Sznurek
     attributes:
+      link:
+        name: Nazwa
+        url: Adres
+        info: Informacje
       contact:
         nick: Pseudonim
         first_name: Imię
@@ -73,6 +78,14 @@ pl:
     import: Import
     were_imported: Kontakty zostały zaimportowane
     format_error: Nieprawidłowy format kontaktu
+
+  link:
+    link: Sznurek
+    links: Sznurki
+    create_new: Utwórz nowy sznurek
+    no_entries: Brak sznurków
+    total_entries: Liczba sznurków
+    delete_selected: Usuń wybrane
 
   prefs:
     prefs: Ustawienia

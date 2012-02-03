@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 	has_many :folders, :dependent => :destroy
 	has_many :messages, :dependent => :destroy
 	has_many :contacts, :dependent => :destroy
+	has_many :links, :dependent => :destroy
 
 	def set_cached_password(session,password)
 		if $defaults['session_encryption']

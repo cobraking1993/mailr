@@ -269,7 +269,8 @@ def main_navigation(active)
     s += "<li class=\"#{@compose_tab}\">#{link_to( t(:compose,:scope=>:compose), compose_path )}</li>"
     s += "<li class=\"#{@folders_tab}\">#{link_to( t(:folders,:scope=>:folder), folders_path )}</li>"
     s += "<li class=\"#{@contacts_tab}\">#{link_to( t(:contacts,:scope=>:contact), contacts_path )}</li>"
-    s += "<li class=\"last #{@prefs_tab}\">#{link_to( t(:prefs,:scope=>:prefs), prefs_look_path )}</li>"
+    s += "<li class=\"#{@prefs_tab}\">#{link_to( t(:prefs,:scope=>:prefs), prefs_look_path )}</li>"
+    s += "<li class=\"last #{@links_tab}\">#{link_to( t(:links,:scope=>:link), links_path )}</li>"
     s += "</ul>"
 end
 

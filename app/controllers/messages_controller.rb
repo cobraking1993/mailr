@@ -90,7 +90,7 @@ class MessagesController < ApplicationController
         @text_part = nil
         @html_part = nil
 
-        @message = @current_user.messages.find_by_uid(params[:id])
+        @message = @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,params[:id]).first
         @message.update_attributes(:unseen => false)
         imap_message = @mailbox.fetch_body(@message.uid)
 
@@ -145,7 +145,7 @@ class MessagesController < ApplicationController
     end
 
     def html_body
-        message = @current_user.messages.find(params[:id])
+		message = @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,params[:id]).first
         mail = Mail.new(@mailbox.fetch_body(message.uid))
         if mail.multipart?
             @body = mail.html_part.decoded_and_charseted
@@ -170,7 +170,7 @@ class MessagesController < ApplicationController
 
     def attachment
         attachments = []
-        message = @current_user.messages.find(params[:id])
+        message = @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,params[:id]).first
         mail = Mail.new(@mailbox.fetch_body(message.uid))
         if mail.multipart? == true
             attachments = mail.attachments

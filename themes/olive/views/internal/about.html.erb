@@ -10,11 +10,11 @@
 <div class="navigation-tabs clearfix">
 <%= raw single_navigation(:about,:internal) %>
 </div>
-<div class="content clearfix">
+<div class="content">
 
-<div class="header_info">
+<h4>
 <%= t(:current_version,:scope=>:internal) + ": " + $defaults["version"] %>
-</div>
+</h4>
 
 <div class="md">
 <%= raw BlueCloth::new(render :file => 'README.markdown').to_html %>
@@ -27,6 +27,7 @@
 <div class="md">
 <%= raw BlueCloth::new(render :file => 'TODO').to_html %>
 </div>
+
 
 </div>
 

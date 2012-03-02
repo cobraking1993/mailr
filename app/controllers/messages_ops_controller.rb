@@ -67,14 +67,14 @@ class MessagesOpsController < ApplicationController
     def set_unread
         params["uids"].each do |uid|
             @mailbox.set_unread(uid)
-            @current_user.messages.find_by_uid(uid).update_attributes(:unseen => 1)
+            @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,uid).first.update_attributes(:unseen => 1)
         end
     end
 
     def set_read
         params["uids"].each do |uid|
             @mailbox.set_read(uid)
-            @current_user.messages.find_by_uid(uid).update_attributes(:unseen => 0)
+            @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,uid).first.update_attributes(:unseen => 0)
         end
     end
 
@@ -260,7 +260,7 @@ class MessagesOpsController < ApplicationController
 
     #FIXME edit does not support attachments
     def edit
-        old_message = @current_user.messages.find(params[:id])
+		old_message = @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,params[:uids].first).first
         @message = Message.new
         @message.to_addr = old_message.to_addr
         @message.subject = old_message.subject
@@ -279,7 +279,7 @@ class MessagesOpsController < ApplicationController
 	end
 
     def reply
-        old_message = @current_user.messages.find(params[:uids].first)
+        old_message = @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,params[:uids].first).first
         @message = Message.new
         @message.to_addr = old_message.from_addr
         @message.subject = old_message.subject

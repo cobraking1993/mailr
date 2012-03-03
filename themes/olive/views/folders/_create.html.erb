@@ -1,7 +1,0 @@
-<%= form_tag(folders_create_path) %>
-<div class="params">
-<%= raw select_for_folders("folder","parent",@folders,t(:parent,:scope=>:folder),"",true) %>
-<%= raw simple_input_field("folder","target",t(:to_create,:scope=>:folder),"") %>
-</div>
-<%= raw single_action('create','common','plus.png') %>
-</form>

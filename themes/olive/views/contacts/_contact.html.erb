@@ -1,7 +1,0 @@
-<td><%= check_box_tag "cids[]", contact.id %></td>
-<td nowrap="nowrap"><%= link_to contact.nick,edit_contact_path(contact) %></td>
-<td nowrap="nowrap"><%= contact.first_name %></td>
-<td nowrap="nowrap"><%= contact.last_name %></td>
-<td nowrap="nowrap"><%= link_to contact.email, compose_contact_path(contact.id) %></td>
-<td colspan="2" nowrap="nowrap"><%= contact.info %></td>
-

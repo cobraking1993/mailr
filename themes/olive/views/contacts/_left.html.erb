@@ -1,9 +1,0 @@
-
-<div class="params">
-<%= raw form_field(@contact,"nick",nil,"joe"+', '+t(:must_be_unique,:scope=>:common),@contact.nick) %>
-<%= raw form_field(@contact,"first_name",nil,"Joe",@contact.first_name) %>
-<%= raw form_field(@contact,"last_name",nil,"Doe",@contact.last_name) %>
-<%= raw form_field(@contact,"email",nil,"joe.doe@domain.com",@contact.email) %>
-<%= raw form_field(@contact,"info",nil,t(:some_add_info,:scope=>:common),@contact.info) %>
-</div>
-<%= raw single_action('save','common','save.png') %>

@@ -1,6 +1,0 @@
-<%= form_tag(folders_delete_path) %>
-<div class="params">
-<%= raw select_for_folders("folder","delete",@folders,t(:to_delete,:scope=>:folder),"",true) %>
-<%= raw single_action('delete','common','minus.png') %>
-</div>
-</form>

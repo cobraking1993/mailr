@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Mailr::Application.config.secret_token = 'f07b5830035b1471d3c008debde5c152077eaff97f0dfcebaf265fe96db24dc5af46eb27e149e3077df89d7dbe2eb088ab7ef7b0e8b496d7ca005e31f6dc3017'
+Mailr::Application.config.secret_token = '014b3111b40bea36f7c0ab07ff2ae820f71b19bb67970baf1f7b44dc1555aae92a68395db757548058884dd4884b1267823d4d44a783160a595e2668d2e904a8'

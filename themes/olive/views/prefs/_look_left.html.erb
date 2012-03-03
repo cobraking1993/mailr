@@ -1,7 +1,0 @@
-<div class="params">
-<%= raw select_field_table(@prefs, "msgs_per_page", $defaults["msgs_per_page_table"],@prefs.msgs_per_page,false) %>
-<%= raw select_field_table(@prefs, "theme", $defaults["themes"],@prefs.theme,false) %>
-<%= raw select_field_table(@prefs, "locale", $defaults["locales"],@prefs.locale,false) %>
-<%= raw select_field_table(@prefs, "msg_send_type", $defaults["msg_send_type"],@prefs.msg_send_type,false) %>
-</div>
-<%= raw single_action('save','common','save.png') %>

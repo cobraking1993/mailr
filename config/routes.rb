@@ -1,79 +1,58 @@
 Mailr::Application.routes.draw do
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
 
-    namespace :prefs do
-        post "update_look"
-        post "update_identity"
-        post "update_servers"
-    end
-    match "prefs/look" => "prefs#look", :as => :prefs_look
-    match "prefs/identity" => "prefs#identity", :as => :prefs_identity
-    match "prefs/servers" => "prefs#servers", :as => :prefs_servers
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
 
-    namespace :contacts do
-        post "ops"
-        get "export"
-    end
-    match "/external" => "contacts#external", :as => :contacts_external
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
 
-    resources :contacts
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
 
-    namespace :links do
-        post "ops"
-        get "export"
-    end
-    #match "/external" => "contacts#external", :as => :contacts_external
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
 
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
 
-    resources :links
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
 
-    namespace :folders do
-        post "create"
-        post "delete"
-        post "system"
-        post "show_hide"
-        post "refresh"
-        get "refresh_status"
-        get "emptybin"
-    end
-    match "/folders/index" => 'folders#index', :as => :folders
-    match "/folders/select/:id" => 'folders#select', :as => :folders_select
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
 
-    namespace :internal do
-        get "error"
-        get "imaperror"
-        get "loginfailure"
-        get "onlycanlogins"
-    end
-    match "/internal/about" => 'internal#about' ,:as => :about
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
 
-    match "/messages_ops/single" => 'messages_ops#single'
-    match "/messages_ops/multi" => 'messages_ops#multi'
-    match "/messages_ops/sendout_or_save" => 'messages_ops#sendout_or_save' ,:as =>:sendout_or_save
-    match "/messages_ops/upload" => 'messages_ops#upload',:as => :upload
-    match "/messages_ops/edit/:id" => 'messages_ops#edit', :as => :edit
-    match "/messages_ops/composed" => 'messages_ops#composed', :as => :composed
+  # See how all your routes lay out with "rake routes"
 
-	root :to => "messages#index"
-
-    match "/messages/index" => 'messages#index', :as => :messages
-    match "/messages/compose" => 'messages#compose', :as => :compose
-    match "/messages/compose/:cid" => 'messages#compose', :as => :compose_contact
-    match "/messages/show/:id" => 'messages#show'
-    match "/messages/html_body/:id" => 'messages#html_body' , :as => :html_body
-    match "/messages/attachment/:id/:idx" => 'messages#attachment', :as => :attachment_download
-
-    namespace :user do
-        get "logout"
-        post "authenticate"
-        post "create"
-        get "login"
-        get "setup"
-        get "unknown"
-    end
-    match "/user/setup/:login" => 'user#setup'
-
-	themes_for_rails
-
-    #match '*a', :to => 'internal#not_found'
-    #match ':controller(/:action(/:id(.:format)))'
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id))(.:format)'
 end

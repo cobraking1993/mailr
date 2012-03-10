@@ -37,3 +37,10 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug'
+
+gem 'will_paginate'
+gem "ezcrypto"
+gem "calendar_view"
+gem 'bluecloth'
+gem 'sass'
+gem 'haml'

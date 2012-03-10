@@ -1,0 +1,91 @@
+es-ES:
+  mailr:          Mailr
+  email:          Email
+  password:       Contrase&ntilde;a 
+  log_in:         Iniciar sesi&oacute;n
+  wrong_email_or_password:  Email o contrase&ntilde;a incorrecta
+  mailbox:        Buzon de Correo
+  folders:        Carpetas
+  folder:         Carpeta
+  empty:          Vaciar
+  logout:         Cerrar sesi&oacute;n
+  compose:        Redactar
+  preferences:    Opciones
+  filters:        Filtros
+  contacts:       Contactos
+  search:         Buscar
+  search_txt:     Buscar en el campo
+  refresh:        Refrescar
+  operations:     Operaciones
+  operations_txt: Operaciones en mensajes marcados
+  delete:         borrar
+  copy:           copiar
+  move:           mover
+  junk:           Basura
+  sent:           Enviados
+  inbox:          Bandeja de Entrada
+  trash:          Basura
+  drafts:         Borradores
+  mark_read:      marcar como leido
+  mark_unread:    marcar comono leido
+  destination_txt:  Destino para operaciones de copiado y movido
+  for:            para
+  to:             Para
+  subject:        Asunto
+  date:           Fecha
+  size:           Tama&ntilde;o
+  from:           De
+  show_all:       Mostrar todos
+  pages:          P&aacute;ginas
+  first:          Primero
+  prev:           Previo
+  next:           Siguiente
+  last:           &Uacute;ltimo
+  back_to_list:   Volver a la lista
+  back_to_message:  Volver al mensaje
+  reply:          Responder
+  forward:        Reenviar
+  view_source:    Ver fuente
+  add_filter:     Agregar filtro
+  cc:             CC
+  bcc:            BCC
+  send:           Enviar
+  choose_address: Elegir direcci&oacute;n desde contactos
+  choose:         Elegir
+  compose_txt:    Componer nuevo correo
+  groups:         Grupos
+  attachment:     Adjunto
+  add:            Agregar
+  first_name:     Nombre
+  last_name:      Apellido
+  send_type:      Enviar mensaje tipo
+  messages_per_page:    Mensajes por p&aacute;gina
+  check_external_mail:  Comprobar correos externos?
+  check_external_mail_txt:  Note that by selecting this option webmail system will try to log you using your original email on a local server.
+  save:           Guardar
+  save_and_add_another:           Guardar y agregar otro
+  cancel:         Cancelar
+  add_one_contact:  Agregar un contacto
+  add_multiple:   Agregar multiples
+  add_multiple_contacts:   Agregar multiples contactos
+  name:           nombre
+  add_folder:     Agregar carpeta
+  total_messages: Mensajes totales
+  unseen:         No leidos
+  edit_create_contact: Editar o crear contacto
+  back_to_contacts: Volver a contactos
+  email_exists: Una cuenta con ese correo electr&oacute;nico ya existe.
+  delete_contact_question: "Desea borrar este contacto? {{name}} - {{email}}"
+  validate_fname_error: Por favor, ingrese un nombre (2 a 20 caracteres)
+  validate_lname_error: Por favor, ingrese un apellido (2 a 20 caracteres)
+  validate_email_error: Por favor, ingrese una direcci&oacute;n email v&aacute;lida.
+  contact_cannot_be_changed: El email del contacto no puede ser cambiado
+  csv_file: Archivo separado por comas(CSV)
+  tab_file: Archivo separado por tabulaciones
+  select_file: Selecionar archivo
+  import: Importar
+  back_to_folders: Volver a carpetas
+  add_edit_folder: agregar/editar
+  user_logged_out: Sesi&oacute;n cerrada correctamente
+  please_login: Por favor, inicie sesi&oacute;n
+  want_to_empty_trash_message: ¿Realmente quieres vaciar la papelera?

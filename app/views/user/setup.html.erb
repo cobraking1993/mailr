@@ -1,0 +1,20 @@
+<% content_for :title do %>
+  <%= t(:setup,:scope=>:user) %>
+<% end %>
+
+<div class="box">
+<div class="box2">
+<div class="logo"><a href="/"><img src="<%= current_theme_image_path('logo_small.png')%>" alt="<%= t(:mailr,:scope=>:common) %>"/></a>
+</div>
+<h2><%= t(:setup,:scope=>:user) %></h2>
+	<div class="content">
+	<form action="<%=url_for(:controller => 'user', :action => 'create')%>" method="post" class="form">
+	<%= raw form_field(@user,"login",nil,"joe.doe",params[:user].nil? ? params[:login] : params[:user][:login]) %>
+	<%= raw form_field(@user,"first_name",nil,"Joe","") %>
+	<%= raw form_field(@user,"last_name",nil,"Doe","") %>
+	<%= raw form_field(@server,"name",nil,"server.domain","") %>
+	<%= raw single_action('send','compose',"up.png") %>
+	</form>
+	</div>
+</div>
+</div>

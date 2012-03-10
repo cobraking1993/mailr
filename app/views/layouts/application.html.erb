@@ -1,14 +1,36 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Mailr</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+    <title>
+    <%= t(:mailr,:scope=>:common) %>
+    <%= yield :title %>
+    </title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<%=stylesheet_link_tag current_theme_stylesheet_path('olive') %>
+	<%=stylesheet_link_tag current_theme_stylesheet_path('calendar_olive') %>
+	<%=stylesheet_link_tag current_theme_stylesheet_path('jquery-ui-dialog') %>
+	<%=stylesheet_link_tag current_theme_stylesheet_path('jquery-ui-custom') %>
+
+    <%=javascript_include_tag current_theme_javascript_path('jquery') %>
+    <%=javascript_include_tag current_theme_javascript_path('jquery-ui') %>
+    <%=javascript_include_tag current_theme_javascript_path('rails') %>
+    <%=javascript_include_tag current_theme_javascript_path('application') %>
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 </head>
-<body>
-
-<%= yield %>
-
-</body>
+	<body>
+		<div id="container">
+				<div id="sidebar">
+				<%= yield :sidebar %>
+				</div>
+				<div id="main">
+				<%= render :partial=>'layouts/flash', :object => flash %>
+				<%= calendar_window(:title=>t(:calendar,:scope=>:common)) %>
+				<%= yield %>
+				</div>
+		</div>
+	</body>
 </html>

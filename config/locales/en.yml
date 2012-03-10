@@ -1,5 +1,63 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      prefs:
+        theme: Theme
+        locale: Locale
+        msgs_per_page: Messages per page
+        msg_send_type: Message send format
+  contact:
+    compose_to_selected: Compose to selected
+    delete_selected: Delete selected
+    modifying: Modifying contact
+    creating_new: Creating new contact
+    create_new: Create new contact
+    contacts: Contacts
+    contact: Contact
+    no_selected: No contact selected
+    total_entries: Total contacts entries
+    no_entries: No contacts
+    was_created: Contact was created
+    are_you_sure_to_delete_contact: Are You sure to delete contact?
+
+  prefs:
+    prefs: Preferences
+
+  folder:
+    folders: Folders
+    no_shown: No folders shown
+    parent: Parent folder
+    to_create: Folder to create
+    to_delete: Folder to delete
+    shown: Shown folders
+    emptybin: Empty
+    current: Current folder
+    no_selected: No folder selected
+    to_create_empty: No folder name
+    max_depth: Maximum folder depth reached
+    can_not_create: Can not create folder
+    was_created: Folder was created
+    to_delete_empty: No folder to delete
+    can_not_delete: Can not delete folder
+    was_deleted: Folder was deleted
+
+  message:
+    messages: Messages
+
+  compose:
+    compose: Compose
+
+  user:
+    login_failure: Login failure. Bad email or password
+    logged_out: User was logged out
+    setup_done: Setup done. Please login in
+
+  must_be_unique: must be unique
+  some_add_info: some additional information
+  example: example
+  refresh: Refresh
+  create: Create
+  delete: Delete
+  show_hide: Show/Hide
+  mailr: Mailr
+  save: Save

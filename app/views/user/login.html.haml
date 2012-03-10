@@ -1,0 +1,18 @@
+%form{:class=>"form-horizontal top-pix18",:action=>"#{url_for(:controller => 'user', :action => 'authenticate')}",:method=>"post"}
+	%fieldset
+		.control-group
+			%label{:class=>"control-label",:for=>"login"}
+				= User.human_attribute_name('login')
+			.controls
+				%input{:id=>"user_login",:name=>"user[login]"}
+		.control-group
+			%label{:class=>"control-label",:for=>"password"}
+				= User.human_attribute_name('password')
+			.controls
+				%input{:id=>"user_password",:name=>"user[password]"}
+		.control-group
+			.controls
+				%button{:class=>"btn btn-primary",:type=>"submit"}
+					= t(:please_login,:scope=>:user)
+			
+					

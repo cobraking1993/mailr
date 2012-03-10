@@ -1,0 +1,9 @@
+- content_for :title do
+	\-
+	= t(:setup,:scope=>:user)
+
+%form{:class=>"form-horizontal top-pix18",:action=>"#{url_for(:controller => 'user', :action => 'create')}",:method=>"post"}
+	%legend
+		= t(:setup,:scope=>:user)
+	%fieldset
+		= render :partial => "common/input_form_desc_field",:locals => {:object => @user,:attr => 'login',:label => nil,:example => 'joe doe',:value => params[:user].nil? ? params[:login] : params[:user][:login]}

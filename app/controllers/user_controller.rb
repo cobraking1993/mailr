@@ -13,13 +13,19 @@ class UserController < ApplicationController
 	end
 
 	def authenticate
+	
+		users = User.all
+		if users.count.zero?
+			redirect_to :controller => 'user', :action => 'setup'
+			return false
+		end
 
-        if not $defaults["only_can_logins"].nil?
-            if not $defaults["only_can_logins"].include?(params[:user][:login])
-                redirect_to :controller => 'internal', :action => 'onlycanlogins'
-                return false
-            end
-        end
+		if not $defaults["only_can_logins"].nil?
+				if not $defaults["only_can_logins"].include?(params[:user][:login])
+						redirect_to :controller => 'internal', :action => 'onlycanlogins'
+						return false
+				end
+		end
 
 		user = User.find_by_login(params[:user][:login])
 		if user.nil?

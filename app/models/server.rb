@@ -12,9 +12,13 @@ class Server < ActiveRecord::Base
         where(:for_smtp=>true).first
     end
 
-    def self.create_defaults(user)
+    def self.create_default(user)
+        create_server(user,"localhost")
+    end
+    
+    def self.create_server(user,server)
         create( :user_id=>user.id,
-                :name=>"localhost",
+                :name=>server,
                 :port=>$defaults['imap_port'],
                 :use_ssl=>false,
                 :use_tls=>false,
@@ -22,7 +26,7 @@ class Server < ActiveRecord::Base
                 :for_imap=>true
                 )
         create( :user_id=>user.id,
-                :name=>"localhost",
+                :name=>server,
                 :port=>$defaults['smtp_port'],
                 :use_ssl=>false,
                 :use_tls=>false,

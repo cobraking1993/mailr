@@ -1,19 +1,25 @@
 module FolderHelper
 
-    def folder_link(folder)
+    def folder_link(options={})
+			
+				folder = options[:folder]
+				active = ""
+				if options[:active]
+					active = "icon-white"
+				end
 
         folder.parent.empty? ? name = folder.name : name = folder.parent.gsub(/\./,'#') + "#" + folder.name
 
         if folder.isInbox?
-            name_shown = t(:inbox_name,:scope => :folder)
+            name_shown = "<i class=\"icon-inbox #{active}\"></i>" + t(:inbox_name,:scope => :folder)
         elsif folder.isSent?
-            name_shown = t(:sent_name,:scope => :folder)
+            name_shown = "<i class=\"icon-plane #{active}\"></i>" + t(:sent_name,:scope => :folder)
         elsif folder.isDrafts?
-            name_shown = t(:drafts_name,:scope => :folder)
+            name_shown = "<i class=\"icon-book #{active}\"></i>" + t(:drafts_name,:scope => :folder)
         elsif folder.isTrash?
-            name_shown = t(:trash_name,:scope => :folder)
+            name_shown = "<i class=\"icon-trash #{active}\"></i>" +t(:trash_name,:scope => :folder)
         else
-            name_shown = folder.name.capitalize
+            name_shown = "<i class=\"icon-none\"></i>" + folder.name.capitalize
         end
         
         if folder.isTrash?

@@ -80,7 +80,7 @@ class UserController < ApplicationController
 			#@server.user_id = @user.id
 			#@server.save
 			Prefs.create_default(@user)
-			Server.create_defaults(@user)
+			Server.create_server(@user,@server.name)
 			flash[:success] = t(:setup_done,:scope=>:user)
 			redirect_to :action => 'login'
 		else

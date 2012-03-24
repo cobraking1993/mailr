@@ -8,9 +8,9 @@
 		\:
 		= @messages.total_entries
 
-= will_paginate @messages
+= will_paginate @messages, :class => "custom_pagination bottom-pix18"
 
-%table{:class=>"table table-bordered"}
+%table{:class=>"table table-bordered records"}
 	%thead
 		%tr
 			%th
@@ -18,15 +18,12 @@
 			%th
 				%i{:class=>"icon-file"}
 			= raw headers_links
-			%th
-				&nbsp;
 	%tbody
 		- @messages.each do |m|
 			- m.unseen == true ? unseen = "unseen" : unseen = ""
 			%tr{:class=>"#{unseen}"}
 				= render :partial => 'messages/message', :locals => {:message => m}
 
-
-= will_paginate @messages
+= will_paginate @messages , :class => "custom_pagination bottom-pix18"
 
 

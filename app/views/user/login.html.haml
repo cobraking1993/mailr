@@ -8,7 +8,7 @@
 		= render :partial => "common/input_password_form_field",:locals => { :model => 'user',:attr => 'password'}
 		.control-group
 			.controls
-				= render :partial => "common/button",:locals => { :name=>'login', :caption => t(:please_login,:scope=>:user), :icon =>'icon-lock icon-white'}
-		
+				= render :partial => "common/button",:locals => { :name=>'login_button', :caption => t(:please_login,:scope=>:user), :icon =>'icon-lock icon-white'}
+%hr/		
 			
 					

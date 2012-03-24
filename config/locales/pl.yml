@@ -1,4 +1,8 @@
 pl:
+  will_paginate:
+    previous_label: "&#8592; Poprzednia"
+    next_label: "Następna &#8594;"
+    page_gap: "&hellip;"
   date:
     day_names: [Niedziela, Poniedziałek, Wtorek, Środa, Czwartek, Piątek, Sobota]
     abbr_day_names: [Ni, Po, Wt, Śr, Cz, Pi, So]
@@ -192,7 +196,7 @@ pl:
     logout: Wyloguj
     has_no_domain: Użytkownik nie ma ustawionej domeny
     send_config: Wyślij
-    no_config: W bazie nie znaleziono żadnego użytkownika. Prawdopodobnie aplikacja nie została jeszcze skonfigurowana. Wypełnij poniższy formularz, aby dokonać podtsawowej konfiguracji.
+    no_config: W bazie nie znaleziono żadnego użytkownika. Prawdopodobnie aplikacja nie została jeszcze skonfigurowana. Wypełnij poniższy formularz, aby dokonać podstawowej konfiguracji.
 
   internal:
     imap_error: Błąd protokołu IMAP

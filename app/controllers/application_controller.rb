@@ -90,12 +90,6 @@ class ApplicationController < ActionController::Base
 
     ##################################### private section ##########################################
 
-    private
-
-    def plugins_configuration
-        WillPaginate::ViewHelpers.pagination_options[:previous_label] = t(:previous_page,:scope=>:common)
-        WillPaginate::ViewHelpers.pagination_options[:next_label] = t(:next_page,:scope=>:common)
-    end
 
 end
 

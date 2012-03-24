@@ -98,6 +98,9 @@ module MessagesHelper
             html << link_to(Message.human_attribute_name(f), {:controller => 'messages',:action => 'index',:sort_field => f,:sort_dir => dir}, {:class=>"header"})
             html << "</th>"
         end
+				if @current_folder == @drafts_folder
+					html << "<th>&nbsp;</th>"
+				end
         html
     end
 

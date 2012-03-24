@@ -1,0 +1,52 @@
+= content_for :sidebar do
+	= render :partial => "sidebar/sidebar"
+
+= content_for :title do
+	= t(:about,:scope=>:internal)
+
+= render :partial => 'common/main_navigation', :locals => { :about => :active }
+
+.well{:style=>"padding: 5px 3pt;"}
+	%h3
+		= t(:current_version,:scope=>:internal) + ": " + $defaults["version"]
+.well
+	= raw BlueCloth::new(render :file => 'README.markdown').to_html
+.well
+	= raw BlueCloth::new(render :file => 'CHANGES.markdown').to_html
+.well
+	= raw BlueCloth::new(render :file => 'TODO.markdown').to_html
+	
+-#	
+	<% content_for :title do %>
+	- <%= t(:about,:scope=>:internal) %>
+	<% end %>
+	
+	<% content_for :sidebar do %>
+	<%= content_for_sidebar %>
+	<% end %>
+	
+	<div class="block">
+	<div class="navigation-tabs clearfix">
+	<%= raw single_navigation(:about,:internal) %>
+	</div>
+	<div class="content">
+	
+	<h4>
+	<%= t(:current_version,:scope=>:internal) + ": " + $defaults["version"] %>
+	</h4>
+	
+	<div class="md">
+	<%= raw BlueCloth::new(render :file => 'README.markdown').to_html %>
+	</div>
+	
+	<div class="md">
+	<%= raw BlueCloth::new(render :file => 'CHANGES').to_html %>
+	</div>
+	
+	<div class="md">
+	<%= raw BlueCloth::new(render :file => 'TODO').to_html %>
+	</div>
+	
+	
+	</div>
+

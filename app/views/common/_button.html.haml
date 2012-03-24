@@ -1,0 +1,19 @@
+
+- size ||= "btn-small"
+- type ||= "btn-primary"
+- icon ||= ""
+- onclick ||= 'empty'
+
+- def isOnclick(value)
+	- if value != 'empty'
+		- {:onclick => "#{value}"}
+	- else
+		- {}
+
+%button{isOnclick(onclick),:class=>"btn #{size} #{type}",
+				:type=>"submit",
+				:name=>"#{name}"}
+	- if !icon.empty?
+		%i{:class=>"#{icon}"}
+	= caption
+

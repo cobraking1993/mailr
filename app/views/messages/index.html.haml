@@ -1,0 +1,20 @@
+= content_for :sidebar do
+	= render :partial => "sidebar/sidebar"
+
+= content_for :title do
+	\-
+	= t(:messages,:scope=>:message)
+
+= render :partial => 'common/main_navigation', :locals => { :messages => :active }
+
+%form{:class=>"form-horizontal top-pix18",:action=>"#{messages_ops_multi_path}",:method=>"post"}
+	- if @current_folder.nil?
+		.alert
+			= t(:no_selected,:scope=>:folder)
+
+	- if @messages.size.zero?
+		.alert
+			= t(:no_in,:scope=>:message)
+	- else
+		= render :partial => 'multi_ops'
+		= render :partial => 'messages' 

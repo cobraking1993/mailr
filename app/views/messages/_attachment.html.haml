@@ -1,0 +1,14 @@
+%td
+	= attachment.filename_charseted
+%td
+	= attachment.main_type
+	\/
+	= attachment.sub_type
+%td
+	= attachment.charset
+%td
+	= attachment.content_transfer_encoding
+%td
+	= size_formatter(attachment.getSize)
+%td
+	= link_to "<i class=\"icon-download-alt\"></i>".html_safe, attachment_download_path(attachment.parent_id,attachment.idx)

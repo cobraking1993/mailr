@@ -1,0 +1,38 @@
+%td
+	= check_box_tag "uids[]", message.uid
+%td
+	= raw attachment_formatter(message)
+%td
+	- if @current_folder == @sent_folder || @current_folder == @drafts_folder
+		= address_formatter(message.to_addr,:index)
+	- else
+		= address_formatter(message.from_addr,:index)
+%td
+	= subject_formatter(message,:index)
+%td
+	= date_formatter(message.date)
+%td
+	= size_formatter(message.size)
+%td
+	- if @current_folder == @drafts_folder
+		= link_to(t(:edit,:scope=>:message),edit_path(message.uid))
+	- else
+		&nbsp;
+		
+	
+-#
+	<td><%= check_box_tag "uids[]", message.uid %></td>
+	<td><%= attachment_formatter(message) %></td>
+	<% if @current_folder == @sent_folder || @current_folder == @drafts_folder %>
+	<td nowrap="nowrap"><%= address_formatter(message.to_addr,:index) %></td>
+	<% else %>
+	<td nowrap="nowrap"><%= address_formatter(message.from_addr,:index) %></td>
+	<% end %>
+	<td nowrap="nowrap"><%= subject_formatter(message,:index) %></td>
+	<td nowrap="nowrap"><%= date_formatter(message.date) %></td>
+	</td><td nowrap="nowrap"><%= size_formatter(message.size) %></td>
+	<% if @current_folder == @drafts_folder %>
+	<td><%= link_to(t(:edit,:scope=>:message),edit_path(message.uid)) %></td>
+	<% else %>
+	<td><%= raw('&nbsp;') %></td>
+	<% end %>

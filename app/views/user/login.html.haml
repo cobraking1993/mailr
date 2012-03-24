@@ -5,8 +5,10 @@
 %form{:class=>"form-horizontal top-pix18",:action=>"#{url_for(:controller => 'user', :action => 'authenticate')}",:method=>"post"}
 	%fieldset
 		= render :partial => "common/input_form_field",:locals => { :model => 'user',:attr => 'login'}
-		= render :partial => "common/input_form_field",:locals => { :model => 'user',:attr => 'password'}
-		= render :partial => "common/form_button",:locals => { :text => t(:please_login,:scope=>:user)}
+		= render :partial => "common/input_password_form_field",:locals => { :model => 'user',:attr => 'password'}
+		.control-group
+			.controls
+				= render :partial => "common/button",:locals => { :name=>'login', :caption => t(:please_login,:scope=>:user), :icon =>'icon-lock icon-white'}
 		
 			
 					

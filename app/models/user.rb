@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
     #acts_as_notes_owner
 
-    validates_presence_of :first_name,:last_name
+    validates_presence_of :first_name,:last_name,:login
 	validates_uniqueness_of :login
 	has_many :servers, :dependent => :destroy
 	has_one :prefs, :dependent => :destroy

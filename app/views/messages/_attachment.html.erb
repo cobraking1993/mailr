@@ -1,0 +1,19 @@
+<td>
+<%= link_to attachment.filename_charseted, attachment_download_path(attachment.parent_id,attachment.idx) %>
+</td>
+<td>
+<%= attachment.main_type %>/<%= attachment.sub_type %>
+</td>
+<td>
+<%= attachment.charset %>
+</td>
+<td>
+<%= attachment.content_transfer_encoding %>
+</td>
+<td>
+<%= size_formatter(attachment.getSize) %>
+</td>
+<td>
+<%= link_to image_tag(current_theme_image_path('download.png')), attachment_download_path(attachment.parent_id,attachment.idx) %>
+</td>
+

@@ -1,0 +1,22 @@
+- messages ||= ""
+- compose ||= ""
+- folders ||= ""
+- contacts ||= ""
+- prefs ||= ""
+- links ||= ""
+
+%ul{:class=>"nav nav-pills"}
+	%li{:class=>"#{messages}"}
+		%a{:href=>messages_path}
+			= t(:messages,:scope=>:message)
+	%li{:class=>"#{compose}"}
+		= link_to( t(:compose,:scope=>:compose), compose_path )
+	%li{:class=>"#{folders}"}
+		= link_to( t(:folders,:scope=>:folder), folders_path )
+	%li{:class=>"#{contacts}"}
+		= link_to( t(:contacts,:scope=>:contact), contacts_path )
+	%li{:class=>"#{prefs}"}
+		= link_to( t(:prefs,:scope=>:prefs), prefs_look_path )
+	%li{:class=>"#{links}"}
+		= link_to( t(:links,:scope=>:link), links_path )
+			

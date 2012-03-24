@@ -1,0 +1,16 @@
+.well{:style=>"padding: 8px 3pt;"}
+	- if @folders_shown.nil? or @folders_shown.size.zero?
+		%p
+			= t(:no_shown,:scope=>:folder) 
+			= link_to t(:folders,:scope=>:folder), folders_path
+	- else
+		%ul{:class=>"nav nav-list"}
+			%li{:class=>"nav-header"}
+				=t(:folders,:scope=>:folder)
+			- @folders_shown.each do |folder|
+				- if folder == @current_folder
+					%li{:class=>"active"}
+						= folder_link(folder)
+				- else
+					%li
+						= folder_link(folder)

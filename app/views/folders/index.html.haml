@@ -1,0 +1,16 @@
+= content_for :sidebar do
+	= render :partial => "sidebar/sidebar"
+
+= content_for :title do
+	\-
+	= t(:folders,:scope=>:folder)
+
+= render :partial => 'common/main_navigation', :locals => { :folders => :active }
+
+.row
+	.span9
+		= render :partial => "refresh"
+		= render :partial => "create"
+		= render :partial => "delete"
+		= render :partial => "system"
+	

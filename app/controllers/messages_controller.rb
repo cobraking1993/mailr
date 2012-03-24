@@ -16,9 +16,9 @@ class MessagesController < ApplicationController
 	before_filter :prepare_compose_buttons, :only => [:compose]
 	before_filter :get_system_folders, :only => [:index]
 	before_filter :create_message_with_params, :only => [:compose]
-	before_filter :prepare_multi1_buttons, :only => [:index,:show]
-	before_filter :prepare_multi2_buttons, :only => [:index]
-	before_filter :prepare_multi3_buttons, :only => [:show]
+	#before_filter :prepare_multi1_buttons, :only => [:index,:show]
+	#before_filter :prepare_multi2_buttons, :only => [:index]
+	#before_filter :prepare_multi3_buttons, :only => [:show]
 	after_filter :close_imap_session
 
 	#theme :theme_resolver
@@ -129,7 +129,9 @@ class MessagesController < ApplicationController
                 end
             end
         else
-            part = Mail::Part.new(mail)
+						logger.custom('mail',mail.inspect)
+						part = mail
+            #part = Mail::Part.new(mail)
             part.idx = 0
             part.parent_id = @message.uid
             if part.isText?
@@ -175,7 +177,8 @@ class MessagesController < ApplicationController
         if mail.multipart? == true
             attachments = mail.attachments
         else
-            attachments << Mail::Part.new(mail)
+            #attachments << Mail::Part.new(mail)
+            attachments << mail
         end
         a = attachments[params[:idx].to_i]
         headers['Content-type'] = a.main_type + "/" +  a.sub_type
@@ -188,23 +191,23 @@ class MessagesController < ApplicationController
 
     protected
 
-    def prepare_multi2_buttons
-        @multi2_buttons = []
-        @multi2_buttons << {:text => 'trash',:scope=>:message,:image => 'trash.png'}
-        @multi2_buttons << {:text => 'set_unread',:scope=>:message,:image => 'unseen.png'}
-        @multi2_buttons << {:text => 'set_read',:scope=>:message,:image => 'seen.png'}
-    end
+    #def prepare_multi2_buttons
+        #@multi2_buttons = []
+        #@multi2_buttons << {:text => 'trash',:scope=>:message,:image => 'trash.png'}
+        #@multi2_buttons << {:text => 'set_unread',:scope=>:message,:image => 'unseen.png'}
+        #@multi2_buttons << {:text => 'set_read',:scope=>:message,:image => 'seen.png'}
+    #end
 
-    def prepare_multi1_buttons
-        @multi1_buttons = []
-        @multi1_buttons << {:text => 'copy',:scope=>:message,:image => 'copy.png'}
-        @multi1_buttons << {:text => 'move',:scope=>:message,:image => 'move.png'}
-    end
+    #def prepare_multi1_buttons
+        #@multi1_buttons = []
+        #@multi1_buttons << {:text => 'copy',:scope=>:message,:image => 'copy.png'}
+        #@multi1_buttons << {:text => 'move',:scope=>:message,:image => 'move.png'}
+    #end
 
-    def prepare_multi3_buttons
-        @multi3_buttons = []
-        @multi3_buttons << {:text => 'show_header',:scope=>:show,:image => 'zoom.png'}
-        @multi3_buttons << {:text => 'trash',:scope=>:show,:image => 'trash.png'}
-        @multi3_buttons << {:text => 'reply',:scope=>:show,:image => 'reply.png'}
-    end
+    #def prepare_multi3_buttons
+        #@multi3_buttons = []
+        #@multi3_buttons << {:text => 'show_header',:scope=>:show,:image => 'zoom.png'}
+        #@multi3_buttons << {:text => 'trash',:scope=>:show,:image => 'trash.png'}
+        #@multi3_buttons << {:text => 'reply',:scope=>:show,:image => 'reply.png'}
+    #end
 end

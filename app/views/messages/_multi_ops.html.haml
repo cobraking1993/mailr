@@ -1,0 +1,20 @@
+%p
+	= render :partial => "common/button", :locals => {:name=>'copy',
+																									:caption=>t('copy',:scope=>'message'),
+																									:icon=>'icon-tags icon-white'}
+	= render :partial => "common/button", :locals => {:name=>'move',
+																									:caption=>t('move',:scope=>'message'),
+																									:icon=>'icon-chevron-right icon-white'}
+
+	= t(:to_folder,:scope=>:folder) + " " 
+	= raw simple_select_for_folders("folder","target",@folders_shown,'',true)
+%p
+	= render :partial => "common/button", :locals => {:name=>'trash',
+																									:caption=>t('trash',:scope=>'message'),
+																									:icon=>'icon-trash icon-white'}
+	= render :partial => "common/button", :locals => {:name=>'set_unread',
+																									:caption=>t('set_unread',:scope=>'message'),
+																									:icon=>'icon-eye-close icon-white'}
+	= render :partial => "common/button", :locals => {:name=>'set_read',
+																									:caption=>t('set_read',:scope=>'message'),
+																									:icon=>'icon-eye-open icon-white'}

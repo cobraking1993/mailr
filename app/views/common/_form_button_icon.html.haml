@@ -1,0 +1,6 @@
+- size ||= "btn-small"
+- type ||= "btn-primary"
+
+%button{:class=>"btn #{size} #{type}",:type=>"submit", :name=>"#{name}"}
+	%i{:class=>"#{icon_class}"}
+	= text

@@ -3,16 +3,16 @@ require 'imap_session'
 
 class FoldersController < ApplicationController
 
-    include ImapMailboxModule
+	include ImapMailboxModule
 	include ImapSessionModule
 
-    before_filter :check_current_user,:selected_folder, :get_current_folders
+	before_filter :check_current_user,:selected_folder, :get_current_folders
 
 	before_filter :open_imap_session, :except => [:index,:show_hide,:system]
 	after_filter :close_imap_session, :except => [:index,:show_hide,:system]
 
 	before_filter :get_folders
-	before_filter :prepare_buttons_to_folders
+	#before_filter :prepare_buttons_to_folders
 
 	#theme :theme_resolver
 
@@ -153,16 +153,16 @@ class FoldersController < ApplicationController
 
     protected
 
-    def prepare_buttons_to_folders
-		@buttons = []
-        @buttons << {:text => 'show_hide',:scope=>'folder',:image => 'flag.png'}
-        @buttons << {:text => 'refresh',:scope=>'folder',:image => 'refresh.png'}
-	end
+    #def prepare_buttons_to_folders
+		#@buttons = []
+        #@buttons << {:text => 'show_hide',:scope=>'folder',:image => 'flag.png'}
+        #@buttons << {:text => 'refresh',:scope=>'folder',:image => 'refresh.png'}
+	#end
 
     def get_folders
         @folders = @current_user.folders
         @folders_shown = @current_user.folders.shown
-        #@folders_system = @current_user.folders.sys
+        @folders_system = @current_user.folders.sys
         @current_user.folders.inbox.first.nil? ? @folder_inbox = "" : @folder_inbox = @current_user.folders.inbox.first.id
         @current_user.folders.drafts.first.nil? ? @folder_drafts = "" : @folder_drafts = @current_user.folders.drafts.first.id
         @current_user.folders.sent.first.nil? ? @folder_sent = "" : @folder_sent = @current_user.folders.sent.first.id

@@ -1,0 +1,30 @@
+!!!
+%html
+	%head
+		%title
+			=t(:mailr,:scope=>:common)
+			= yield :title
+		= stylesheet_link_tag "application", :media => "all"
+		= javascript_include_tag "application"
+		= csrf_meta_tags
+	%body{:class=>"application"}
+		.container
+			.row
+				.span3#sidebar
+					= yield :sidebar
+				.span9#main
+					- if flash[:error]
+						.alert.alert-error
+							= flash[:error]
+					- elsif flash[:info]
+						.alert.alert-info
+							= flash[:info]
+					- elsif flash[:success]
+						.alert.alert-success
+							= flash[:success]
+					= yield
+			%hr/
+			.row
+				#footer-simple
+					%a{:href=>"https://github.com/musashimm/mailr"} MailR
+					\- open source web mail client

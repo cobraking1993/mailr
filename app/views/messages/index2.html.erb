@@ -1,0 +1,33 @@
+<% content_for :sidebar do %>
+<%= content_for_sidebar %>
+<% end %>
+
+<% content_for :title do %>
+- <%= t(:messages,:scope=>:message) %>
+<% end %>
+
+<div class="block">
+    <div class="navigation-tabs clearfix">
+        <%= raw main_navigation(:messages_tab) %>
+    </div>
+    <div class="content">
+        <%= form_tag({:controller=>'messages_ops', :action=>'multi'},{:name=>'messages'})%>
+
+            <% if @current_folder.nil? %>
+                <h2><%= t(:no_selected,:scope=>:folder) %></h2>
+            <% end %>
+
+            <% if @messages.size.zero? %>
+                <div class="actions-bar wat-cf">
+                    <div class="header_info"><%= t(:no_in,:scope=>:message) %></div>
+                </div>
+            <% else %>
+                <%= render :partial => 'multi_ops' %>
+                <%= render :partial => 'messages' %>
+            <% end %>
+
+        </form>
+    </div>
+</div>
+
+

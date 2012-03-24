@@ -1,0 +1,32 @@
+.well{:style=>"padding: 5px 3pt;"}
+	%h3
+		= t(:current,:scope=>:folder)
+		\:
+		= pretty_folder_name(@current_folder)
+	%h5
+		= t(:total,:scope=>:message)
+		\:
+		= @messages.total_entries
+
+= will_paginate @messages
+
+%table{:class=>"table table-bordered"}
+	%thead
+		%tr
+			%th
+				%input{:id=>"toggleall",:type=>"checkbox",:name=>"allbox"}
+			%th
+				%i{:class=>"icon-file"}
+			= raw headers_links
+			%th
+				&nbsp;
+	%tbody
+		- @messages.each do |m|
+			- m.unseen == true ? unseen = "unseen" : unseen = ""
+			%tr{:class=>"#{unseen}"}
+				= render :partial => 'messages/message', :locals => {:message => m}
+
+
+= will_paginate @messages
+
+

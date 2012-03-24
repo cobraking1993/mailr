@@ -43,11 +43,12 @@ Mailr::Application.routes.draw do
         get "imaperror"
         get "loginfailure"
         get "onlycanlogins"
+        get "allready_configured"
     end
     match "/internal/about" => 'internal#about' ,:as => :about
 
     match "/messages_ops/single" => 'messages_ops#single'
-    match "/messages_ops/multi" => 'messages_ops#multi'
+    match "/messages_ops/multi" => 'messages_ops#multi', :as => :messages_ops_multi
     match "/messages_ops/sendout_or_save" => 'messages_ops#sendout_or_save' ,:as =>:sendout_or_save
     match "/messages_ops/upload" => 'messages_ops#upload',:as => :upload
     match "/messages_ops/edit/:id" => 'messages_ops#edit', :as => :edit

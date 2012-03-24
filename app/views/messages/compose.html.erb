@@ -1,0 +1,23 @@
+<% content_for :sidebar do %>
+<%= content_for_sidebar %>
+<% end %>
+
+<% content_for :title do %>
+- <%= t(:compose,:scope=>:compose) %>
+<% end %>
+
+<div class="block">
+    <div class="navigation-tabs clearfix">
+        <%= raw main_navigation(:compose_tab) %>
+    </div>
+    <div class="content">
+    <h2><%= t(:new_message,:scope=>:compose) %></h2>
+    <div class="inner">
+        <%= form_tag(composed_path, :multipart => true) %>
+        <%= render :partial => 'messages/new' %>
+        <%= render :partial=> 'messages/file_attachs' %>
+        <%= render :partial => 'messages/file_select' %>
+        </form>
+    </div>
+</div>
+

@@ -2,8 +2,9 @@ require 'yaml'
 
 class ApplicationController < ActionController::Base
 
-	protect_from_forgery
-
+	#logger.custom("session",session.inspect)
+	#protect_from_forgery
+	
 	before_filter :load_settings,:current_user,:set_locale
 	#before_filter :plugins_configuration
 
@@ -32,13 +33,14 @@ class ApplicationController < ActionController::Base
 	end
 
 	def current_user
-		@current_user ||= User.find(session[:user_id]) if session[:user_id]
+		@current_user ||= User.find(session[:user_id]) if session[:user_id]	
+		logger.custom("current_user",@current_user.inspect)
 	end
 
 	def check_current_user
 		if @current_user.nil?
 			session["return_to"] = request.fullpath
-            redirect_to :controller => 'user', :action => 'login'
+      redirect_to :controller => 'user', :action => 'login'
 			return false
 		end
 	end

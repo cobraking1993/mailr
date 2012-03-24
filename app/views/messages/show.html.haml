@@ -1,0 +1,29 @@
+= content_for :sidebar do
+	= render :partial => "sidebar/sidebar"
+
+= content_for :title do
+	\-
+	= subject_formatter(@message,:show)
+
+= render :partial => 'common/main_navigation', :locals => { :show => :active }
+
+%form{:class=>"form-horizontal top-pix18",:action=>"#{messages_ops_multi_path}",:method=>"post"}
+	= render :partial => 'header'
+	= render :partial => 'single_ops'
+	- if not @attachments.size.zero?
+		= render :partial => 'attachments'
+	- if not @images.size.zero?
+		render :partial => 'images'
+	- if not @html_part.nil?
+		= render :partial => 'html_part'
+	- else
+		- if @text_part.nil?
+			.alert
+				= t(:no_content,:scope => :message)
+		- else
+			%pre
+				= @text_part
+
+
+
+

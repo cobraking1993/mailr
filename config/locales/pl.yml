@@ -60,6 +60,9 @@ pl:
         for_imap: IMAP?
         for_smtp: SMTP?
         auth: Metoda autoryzacji
+      folder:
+        name: Nazwa folderu
+      
 
   contact:
     compose_to_selected: Napisz do wybranych
@@ -99,7 +102,7 @@ pl:
   folder:
     folder: Folder
     folders: Foldery
-    no_shown: Nie prezentowany jest żaden folder. Skonfiguruj widok folderów w zakładce
+    no_shown: Nie jest prezentowany żaden folder. Skonfiguruj widok folderów w zakładce
     parent: Folder nadrzędny
     to_create: Folder do utworzenia
     to_delete: Folder do usunięcia
@@ -127,6 +130,7 @@ pl:
     not_configured_inbox: Folder Odebrane nie został przypisany
     show_hide: Pokaż/Ukryj
     refresh: Odśwież
+    presentation: Prezentacja folderów
 
   message:
     messages: Wiadomości
@@ -171,9 +175,10 @@ pl:
     delete: Usuń
     reply_string: "Odp: "
     trash: Usuń
+    forward: Przekaż
 
   user:
-    login_failure: Nieudane logowanie. Podano błędny e-mail lub hasło.
+    login_failure: Nieudane logowanie. Podano błędny login lub hasło.
     logged_out: Użytkownik wylogowany
     setup_done: Konfiguracja zakończona. Proszę się zalogować.
     please_login: Logowanie
@@ -186,6 +191,8 @@ pl:
     only_can_logins: Podany identyfikator użytkownika nie uprawnia do korzystania z aplikacji
     logout: Wyloguj
     has_no_domain: Użytkownik nie ma ustawionej domeny
+    send_config: Wyślij
+    no_config: W bazie nie znaleziono żadnego użytkownika. Prawdopodobnie aplikacja nie została jeszcze skonfigurowana. Wypełnij poniższy formularz, aby dokonać podtsawowej konfiguracji.
 
   internal:
     imap_error: Błąd protokołu IMAP
@@ -196,6 +203,7 @@ pl:
     about: Informacje o programie
     current_version: Aktualna wersja
     general_error: Błąd aplikacji
+    allready_configured: Podstawowe parametry aplikacji zostały już skonfigurowane. Zaloguj się na utworzonego użytkownika i dokonaj dodatkowej konfiguracji. 
 
   common:
     false_answer: Nie
@@ -204,7 +212,7 @@ pl:
     no_tmp_dir: Brak katalogu tymczasowego
     must_be_unique: musi być unikalny
     some_add_info: jakieś dodatkowe informacje
-    example: przykład
+    example: "przykład:"
     create: Utwórz
     delete: Usuń
     mailr: MailR

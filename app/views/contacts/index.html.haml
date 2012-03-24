@@ -1,0 +1,8 @@
+= content_for :sidebar do
+	= render :partial => "sidebar/sidebar"
+
+= content_for :title do
+	\-
+	= t(:contacts,:scope=>:contact)
+
+= render :partial => 'common/main_navigation', :locals => { :contacts => :active }

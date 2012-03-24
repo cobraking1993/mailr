@@ -1,0 +1,10 @@
+<div class="ops clearfix">
+<%= raw group_action_text(@multi1_buttons,t(:to_folder,:scope=>:folder)+ " " + simple_select_for_folders("folder","target",@folders_shown,'',true)) %>
+<%= raw group_action(@multi3_buttons) %>
+
+    <div id="header_source" title="<%= t(:header_source,:scope=>:message)%>">
+    <pre>
+        <%= @plain_header %>
+    </pre>
+    </div>
+</div>

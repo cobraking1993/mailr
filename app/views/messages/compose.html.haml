@@ -6,39 +6,45 @@
 
 = render :partial => 'common/main_navigation', :locals => { :compose => :active }
 
-%form{:multipart => 'true',:class=>"form-horizontal",:action=>composed_path,:method=>"post"}
+%form{:enctype=>"multipart/form-data",:class=>"form-horizontal",:action=>composed_path,:method=>"post"}
 	.well{:style=>"padding: 5px 3pt;"}
 		%h3
 			= t(:new_message,:scope=>:compose)
 	%fieldset
-		= render :partial => "common/input_form_desc_field",:locals => {:object => @user,:attr => 'login',:label => nil,:example => 'joe.doe',:value => params[:user] ? params[:user][:login] : "" }
+		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'to_addr',:label => nil,:example => 'joe@domain.com',:value => address_formatter(@message.to_addr,@operation),:to_class=>"span6" }
+		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'cc_addr',:label => nil,:example => 'joe@domain.com',:value => "",:to_class=>"span6" }
+		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'subject',:label => nil,:example => t(:subject_of_the_message,:scope=>:compose),:value => subject_formatter(@message.subject,@operation),:to_class=>"span6" }
+		= render :partial => "common/area_form_desc_field",:locals => {:object => @message,:attr => 'body',:label => nil,:example => t(:write_your_message_here,:scope=>:compose),:value => body_formatter(@message.body,@operation),:to_class=>"span6",:rows=>20 }
+	- if !@olduid.nil?
+		= hidden_field_tag 'olduid', @olduid
+	.control-group
+		.controls
+			%h1
+				%small
+					= t(:attachments,:scope=>:message)
+					- if not @attachments.size.zero?
+						%table{:class=>"table table-bordered"}
+							%tbody
+								- @attachments.each do |a|
+									= render :partial => "messages/file_attach", :locals => {:file_attach => a }
+						= render :partial => "common/button", :locals => {:name=>'delete_marked',
+																									:caption=>t('delete_marked',:scope=>'compose'),
+																									:icon=>'icon-minus icon-white'} 
+	= render :partial => "common/file_select", :locals => { :model_label =>  t(:select_file,:scope=>:compose),
+																											:model_string => "file",
+																											:attr => "data"}
+	.control-group
+		.controls
+			= render :partial => "common/button", :locals => {:name=>'upload',
+																									:caption=>t('upload',:scope=>'compose'),
+																									:icon=>'icon-upload icon-white'} 
+	.control-group
+		.controls
+			= render :partial => "common/button", :locals => {:name=>'sendout',
+																									:caption=>t('sendout',:scope=>'compose'),
+																									:icon=>'icon-envelope icon-white'}
+			= render :partial => "common/button", :locals => {:name=>'save',
+																									:caption=>t('save',:scope=>'compose'),
+																									:icon=>'icon-folder-open icon-white'}
 
 
-
--#
-	<div class="params">
-	<%= raw form_field(	@message,
-	"to_addr",
-	nil,
-	"joe@domain.com"+', '+ t(:not_contain_at,:scope=>:compose),
-	address_formatter(@message.to_addr,@operation)
-	) %>
-	<%= raw form_field(	@message,
-	"subject",
-	nil,
-	t(:subject_of_the_message,:scope=>:compose),
-	subject_formatter(@message.subject,@operation)
-	) %>
-	<%= raw area_field(	@message,
-	"body",
-	nil,
-	t(:write_your_message_here,:scope=>:compose),
-	body_formatter(@message.body,@operation),
-	80,
-	20
-	) %>
-	</div>
-	<% if !@olduid.nil? %>
-	<%= hidden_field_tag 'olduid', @olduid %>
-	<% end %>
-	<%= raw group_action(@buttons) %>

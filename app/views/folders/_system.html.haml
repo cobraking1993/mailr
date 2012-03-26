@@ -5,5 +5,5 @@
 		= render :partial => "common/select_for_folders",:locals => { :label=> t(:folder,:scope => :folder) + " " + t(:sent_name,:scope=>:folder), :name => "folder", :id => "mailbox_sent", :collection => @folders, :choice => @folder_sent, :blank => true}
 		= render :partial => "common/select_for_folders",:locals => { :label=> t(:folder,:scope => :folder) + " " + t(:drafts_name,:scope=>:folder), :name => "folder", :id => "mailbox_drafts", :collection => @folders, :choice => @folder_drafts, :blank => true}
 		.control-group
-			.form-actions
+			.controls
 				= render :partial => "common/button",:locals => { :name=>:set, :caption => t(:set,:scope=>:common), :icon =>'icon-cog icon-white'}

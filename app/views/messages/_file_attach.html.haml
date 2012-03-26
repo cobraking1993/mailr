@@ -1,0 +1,10 @@
+%tr
+	%td
+		= check_box_tag "files[]", file_attach[:name]
+	%td
+		= file_attach[:name]
+	%td
+		= size_formatter(file_attach[:size])
+	%td 
+		&nbsp;
+

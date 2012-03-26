@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
 
     #set_primary_key :uid
     self.primary_key = :uid
-    attr_accessible :unseen, :to_addr, :size, :content_type, :folder_id, :subject, :date, :uid, :from_addr, :user_id, :msg_id, :body,:cc_addr,:bcc_addr
+    attr_accessible :unseen, :to_addr, :size, :content_type, :folder_id, :subject, :date, :uid, :from_addr, :user_id, :msg_id, :body, :cc_addr, :bcc_addr
     attr_accessor :body
 
     def self.addr_to_db(addr)

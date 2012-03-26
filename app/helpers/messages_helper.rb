@@ -33,9 +33,9 @@ module MessagesHelper
                     #fs[0].size.zero? ? s = fs[1] : s << fs[0] + " <" + fs[1] + ">"
                     s = h(addr)
                     return s
-				when :reply
-					return h(addr)
-            end
+								when :reply
+										return addr
+								end
     end
 
     def body_formatter(body,op)

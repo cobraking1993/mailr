@@ -11,7 +11,9 @@ class Prefs < ActiveRecord::Base
 					 :theme => $defaults['theme'],
 					 :locale => $defaults['locale'],
 					 :msgs_per_page => $defaults['msgs_per_page'],
-					 :msg_send_type => $defaults['msg_send_type']
+					 :msg_send_type => $defaults['msg_send_type'],
+					 :msg_image_view_as => 'attachment',
+					 :msg_image_thumbnail_size => '192x144'
 					 )
 	end
 end

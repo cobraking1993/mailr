@@ -6,6 +6,6 @@
 			.controls
 				= render :partial=>"common/multiselect",:locals => {:objects => @folders, :selected_objects => @folders_shown,:style=>"",:id=>"multiselect_form",:name=>"folders_to_show[]",:value=>:id,:joiner=>"",:text=>[:parent,:delim,:name]}
 		.control-group
-			.form-actions
+			.controls
 				= render :partial => "common/button",:locals => { :name=>:show_hide, :caption => t(:show_hide,:scope=>:folder), :icon =>'icon-eye-open icon-white'}
 				= render :partial => "common/button",:locals => { :name=>:refresh, :caption => t(:refresh,:scope=>:folder), :icon =>'icon-refresh icon-white'}

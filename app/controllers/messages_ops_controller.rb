@@ -292,7 +292,7 @@ class MessagesOpsController < ApplicationController
             @message.body = mail.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         end
         @attachments = []
-		@operation = :reply
+				@operation = :reply
         render 'messages/compose'
     end
     ###################################### protected section #######################################

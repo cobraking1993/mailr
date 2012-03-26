@@ -1,7 +1,7 @@
 pl:
   will_paginate:
-    previous_label: "&#8592; Poprzednia"
-    next_label: "Następna &#8594;"
+    previous_label: "« Poprzednia"
+    next_label: "Następna »"
     page_gap: "&hellip;"
   date:
     day_names: [Niedziela, Poniedziałek, Wtorek, Środa, Czwartek, Piątek, Sobota]
@@ -170,7 +170,7 @@ pl:
     select_file: Wybierz plik
     delete_marked: Usuń zaznaczone
     upload: Wyślij plik
-    sendout: Wyślij
+    sendout: Wyślij wiadomość
     save: Zapisz w katalogu roboczym
 
   show:

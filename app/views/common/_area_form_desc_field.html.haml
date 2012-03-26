@@ -4,11 +4,13 @@
 - val = value || object.instance_eval(attr) || ""
 - if object.errors[attr.to_sym].empty?
 - to_class ||= ""
+- rows ||= 5
 	.control-group
 		%label{:class=>"control-label",:for=>"#{attr}"}
 			= model_label
 		.controls
-			%input{:class=>"#{to_class}",:id=>"#{model_string}_#{attr}",:name=>"#{model_string}[#{attr}]",:value=>"#{val}"}
+			%textarea{:rows=>"#{rows}",:class=>"#{to_class}",:id=>"#{model_string}_#{attr}",:name=>"#{model_string}[#{attr}]"}
+				= val
 			%p{:class=>"help-block"} 
 				= t(:example,:scope=>:common)
 				= example
@@ -23,5 +25,3 @@
 			%p{:class=>"help-block"} 
 				= t(:example,:scope=>:common)
 				= example
-	
--#= render :partial => "common/input_form_desc_field",:locals => {:object => @user,:attr => 'login',:label => nil,:example => 'joe.doe',:value => params[:user] ? params[:user][:login] : "" }

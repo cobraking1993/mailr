@@ -1,12 +1,3 @@
-.well{:style=>"padding: 5px 3pt;"}
-	%h3
-		= t(:current,:scope=>:folder)
-		\:
-		= pretty_folder_name(@current_folder)
-	%h5
-		= t(:total,:scope=>:message)
-		\:
-		= @messages.total_entries
 
 = will_paginate @messages, :class => "custom_pagination bottom-pix18"
 

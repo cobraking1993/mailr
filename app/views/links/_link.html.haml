@@ -1,0 +1,9 @@
+%tr
+	%td
+		= check_box_tag "items_ids[]", link.id
+		\/
+		= link_to "<i class=\"icon-edit\"></i>".html_safe,edit_link_path(link)
+	%td{:nowrap=>"nowrap"}
+		= link_to link.url,"http://"+link.url
+	%td{:nowrap=>"nowrap"}
+		= link.info

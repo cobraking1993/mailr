@@ -16,11 +16,12 @@ module MessagesHelper
 
     def address_formatter(addr,op)
         s = ""
-        return s if addr.nil?
+        return t(:no_address,:scope=>:message) if addr.empty?
         length = $defaults["msg_address_length"].to_i
 
             case op
                 when :index
+										logger.custom('addr',addr)
                     fs = addr.gsub(/\"/,"").split(/</)
                     fs[0].size.zero? ? s = fs[1] : s = fs[0]
                     s.length >= length ? s = s[0,length]+"..." : s
@@ -42,13 +43,20 @@ module MessagesHelper
 		case op
 			when :reply
 				s = "\n\n\n"
-				body.gsub(/^\s+/,"").split(/\n/).each do |line|
-					s += ">" + line + "\n"
+				body.split(/\n/).each do |line|
+					s += '>' + line.strip	+ "\n"
 				end
 				s
 			when :edit
 				return body
-		end
+			when :plain
+				safe_body = h(body)
+				s = ""
+				safe_body.split(/\n/).each do |line|
+					s += line.gsub(/^\s+/,"") + "<br/>"
+				end
+				s.html_safe
+			end
     end
 
     def subject_formatter(message,op)

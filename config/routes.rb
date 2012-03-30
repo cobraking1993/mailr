@@ -9,22 +9,19 @@ Mailr::Application.routes.draw do
     match "prefs/identity" => "prefs#identity", :as => :prefs_identity
     match "prefs/servers" => "prefs#servers", :as => :prefs_servers
 
-    namespace :contacts do
-        post "ops"
-        get "export"
-    end
-    match "/external" => "contacts#external", :as => :contacts_external
-
     resources :contacts
-
-    namespace :links do
+    
+    namespace :contacts do
+        post "import_export"
         post "ops"
-        get "export"
     end
-    #match "/external" => "contacts#external", :as => :contacts_external
-
 
     resources :links
+    
+    namespace :links do
+        post "import_export"
+        #post "ops"
+    end
 
     namespace :folders do
         post "create"
@@ -63,6 +60,8 @@ Mailr::Application.routes.draw do
     match "/messages/html_body/:id" => 'messages#html_body' , :as => :html_body
     match "/messages/attachment/:id/:idx" => 'messages#attachment', :as => :attachment_download
 
+    match "/user/autheniticate" => 'user#authenticate', :as => :user_authenticate
+    match "/user/setup/:login" => 'user#setup'
     namespace :user do
         get "logout"
         post "authenticate"
@@ -71,7 +70,8 @@ Mailr::Application.routes.draw do
         get "setup"
         get "unknown"
     end
-    match "/user/setup/:login" => 'user#setup'
+    
+    
 
 	#themes_for_rails
 

@@ -6,38 +6,9 @@ class LinksController < ApplicationController
 
 	before_filter :get_links, :only => [:index]
 
-	before_filter :prepare_ops_buttons, :only => [:index]
-
-	#, :prepare_export_import_buttons,:only => [:index]
-
-	#theme :theme_resolver
-
     def index
 
     end
-
-    def ops
-        if params["create_new"]
-            redirect_to(new_link_path)
-            return
-        end
-        if !params["ids"]
-            flash[:warning] = t(:no_selected,:scope=>:link)
-        else
-            if params["delete_selected"]
-                params["ids"].each do |id|
-                    @current_user.links.find_by_id(id).destroy
-                end
-            end
-        end
-        redirect_to(links_path)
-    end
-
-    #problem http://binary10ve.blogspot.com/2011/05/migrating-to-rails-3-got-stuck-with.html
-    #def destroy
-    #    @current_user.contacts.find(params[:id]).destroy
-    #    redirect_to(contacts_path)
-    #end
 
     def new
         @link = Link.new
@@ -49,6 +20,15 @@ class LinksController < ApplicationController
     end
 
     def create
+				if params["delete_selected"]
+					if params["items_ids"]
+						params["items_ids"].each do |id|
+							@current_user.links.find_by_id(id).destroy
+						end
+					end
+					redirect_to(links_path)
+					return
+        end
         @link = @current_user.links.build(params[:link])
         if @link.valid?
             @link.save
@@ -68,10 +48,17 @@ class LinksController < ApplicationController
         end
     end
 
-    def external
+    def import_export
         if params["export"]
-            redirect_to :action => 'export'
-            return
+					links = @current_user.links
+					s = ""
+					links.each do |l|
+            s += l.export + "\r\n"
+					end
+					headers['Content-type'] = "text/csv"
+					headers['Content-Disposition'] = %(attachment; filename="links.csv")
+					render :text => s
+					return
         elsif params["import"]
             begin
                 raise t(:no_file_chosen,:scope=>:common) if not params[:upload]
@@ -81,46 +68,23 @@ class LinksController < ApplicationController
                 tmp_file.flush
                 tmp_file.rewind
                 tmp_file.readlines.each do |line|
-					next if line =~ /^#/
-                    Contact.import(@current_user,line)
+									next if line =~ /^#/
+                  Link.import(@current_user,line)
                 end
             rescue ActiveRecord::RecordInvalid => e
                 flash[:error] = {:title => e.to_s,:info => e.record.inspect + e.record.errors.inspect}
 			rescue Exception => e
 				flash[:error] = e.to_s
             else
-				flash[:success] = t(:were_imported,:scope=>:contact)
+				flash[:success] = t(:were_imported,:scope=>:link)
             end
         end
         redirect_to :action => 'index'
     end
 
-    def export
-        contacts = @current_user.contacts
-        s = ""
-        contacts.each do |c|
-            s += c.export + "\r\n"
-        end
-        headers['Content-type'] = "text/csv"
-        headers['Content-Disposition'] = %(attachment; filename="contacts.csv")
-        render :text => s
-    end
-
     ####################################### protected section ################################
 
     protected
-
-    def prepare_ops_buttons
-        @buttons = []
-        @buttons << {:text => 'create_new',:scope=> 'link', :image => 'plus.png'}
-        @buttons << {:text => 'delete_selected',:scope=>'link',:image => 'minus.png'}
-    end
-
-    def prepare_export_import_buttons
-        @ei_buttons = []
-        @ei_buttons << {:text => 'import',:scope=>'link',:image => 'right.png'}
-        @ei_buttons << {:text => 'export',:scope=>'link',:image => 'left.png'}
-    end
 
     ####################################### private section ##################################
 

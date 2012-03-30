@@ -6,32 +6,8 @@ class ContactsController < ApplicationController
 
 	before_filter :get_contacts, :only => [:index]
 
-	before_filter :prepare_ops_buttons, :prepare_export_import_buttons,:only => [:index]
-
-	#theme :theme_resolver
-
     def index
 
-    end
-
-    def ops
-        if params["create_new"]
-            redirect_to(new_contact_path)
-            return
-        end
-        if !params["cids"]
-            flash[:warning] = t(:no_selected,:scope=>:contact)
-        else
-            if params["delete_selected"]
-                params["cids"].each do |id|
-                    @current_user.contacts.find_by_id(id).destroy
-                end
-            elsif params["compose_to_selected"]
-                redirect_to :controller=>'messages',:action=>'compose',:cids=>params["cids"]
-                return
-            end
-        end
-        redirect_to(contacts_path)
     end
 
     #problem http://binary10ve.blogspot.com/2011/05/migrating-to-rails-3-got-stuck-with.html
@@ -50,6 +26,21 @@ class ContactsController < ApplicationController
     end
 
     def create
+				if params["compose_to_selected"]
+					if params["items_ids"]
+						redirect_to compose_path(:cids => params["items_ids"])
+						return
+					end
+        end
+				if params["delete_selected"]
+					if params["items_ids"]
+						params["items_ids"].each do |id|
+							@current_user.contacts.find_by_id(id).destroy
+						end
+					end
+					redirect_to(contacts_path)
+					return
+        end
         @contact = @current_user.contacts.build(params[:contact])
         if @contact.valid?
             @contact.save
@@ -69,10 +60,17 @@ class ContactsController < ApplicationController
         end
     end
 
-    def external
+    def import_export
         if params["export"]
-            redirect_to :action => 'export'
-            return
+					contacts = @current_user.contacts
+					s = ""
+					contacts.each do |c|
+            s += c.export + "\r\n"
+					end
+					headers['Content-type'] = "text/csv"
+					headers['Content-Disposition'] = %(attachment; filename="contacts.csv")
+					render :text => s
+					return
         elsif params["import"]
             begin
                 raise t(:no_file_chosen,:scope=>:common) if not params[:upload]
@@ -82,8 +80,8 @@ class ContactsController < ApplicationController
                 tmp_file.flush
                 tmp_file.rewind
                 tmp_file.readlines.each do |line|
-					next if line =~ /^#/
-                    Contact.import(@current_user,line)
+									next if line =~ /^#/
+                  Contact.import(@current_user,line)
                 end
             rescue ActiveRecord::RecordInvalid => e
                 flash[:error] = {:title => e.to_s,:info => e.record.inspect + e.record.errors.inspect}
@@ -96,33 +94,9 @@ class ContactsController < ApplicationController
         redirect_to :action => 'index'
     end
 
-    def export
-        contacts = @current_user.contacts
-        s = ""
-        contacts.each do |c|
-            s += c.export + "\r\n"
-        end
-        headers['Content-type'] = "text/csv"
-        headers['Content-Disposition'] = %(attachment; filename="contacts.csv")
-        render :text => s
-    end
-
     ####################################### protected section ################################
 
     protected
-
-    def prepare_ops_buttons
-        @buttons = []
-        @buttons << {:text => 'compose_to_selected',:scope=> 'contact', :image => 'email.png'}
-        @buttons << {:text => 'create_new',:scope=> 'contact', :image => 'plus.png'}
-        @buttons << {:text => 'delete_selected',:scope=>'contact',:image => 'minus.png'}
-    end
-
-    def prepare_export_import_buttons
-        @ei_buttons = []
-        @ei_buttons << {:text => 'import',:scope=>'contact',:image => 'right.png'}
-        @ei_buttons << {:text => 'export',:scope=>'contact',:image => 'left.png'}
-    end
 
     ####################################### private section ##################################
 

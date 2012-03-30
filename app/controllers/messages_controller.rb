@@ -103,8 +103,8 @@ class MessagesController < ApplicationController
         #@to = mail.To.addrs.presence
         @from = @message.from_addr
         @to = @message.to_addr
-        @cc = mail.Cc.presence
-        @bcc = mail.Bcc.presence
+        @cc = mail.cc
+        @bcc = mail.bcc
         #@subject = mail.Subject
         @date = mail.date.presence
 

@@ -44,3 +44,4 @@ gem "calendar_view"
 gem 'bluecloth'
 gem 'sass'
 gem 'haml'
+#gem 'twitter_bootstrap_form_for'

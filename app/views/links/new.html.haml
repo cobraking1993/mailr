@@ -1,0 +1,19 @@
+= content_for :sidebar do
+	= render :partial => "sidebar/sidebar"
+
+= content_for :title do
+	\-
+	= t(:links,:scope=>:link)
+
+= render :partial => 'common/main_navigation', :locals => { :links => :active }
+
+.well{:style=>"padding: 5px 3pt;"}
+	%h3
+		= t(:create_new,:scope=>:link)
+
+%form{:class=>"form-horizontal",:action=>url_for(@link),:method=>"post"}
+	%fieldset
+		= render :partial => "attrs"
+		.control-group
+			.controls
+				= render :partial => "common/button",:locals => { :name=>:save, :caption => t(:save,:scope=>:common), :icon =>'icon-cog icon-white'}

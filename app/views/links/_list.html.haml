@@ -1,0 +1,13 @@
+= will_paginate @links , :class => "custom_pagination bottom-pix18"
+
+%table{:class=>"table table-bordered records"}
+	%thead
+		%tr
+			%th
+				%input{:id=>"toggleall",:type=>"checkbox",:name=>"allbox"}
+			= raw links_table_header
+	%tbody
+		- @links.each do |l|
+			= render :partial => 'link', :locals => {:link => l}
+
+= will_paginate @links , :class => "custom_pagination bottom-pix18"

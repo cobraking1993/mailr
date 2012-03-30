@@ -1,0 +1,13 @@
+= will_paginate @contacts
+
+%table{:class=>"table table-bordered records"}
+	%thead
+		%tr
+			%th
+				%input{:id=>"toggleall",:type=>"checkbox",:name=>"allbox"}
+			= raw contacts_table_header
+	%tbody
+		- @contacts.each do |c|
+			= render :partial => 'contact', :locals => {:contact => c}
+
+= will_paginate @contacts

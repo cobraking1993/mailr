@@ -10,13 +10,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120325115720) do
+ActiveRecord::Schema.define(:version => 20120303202800) do
 
   create_table "contacts", :force => true do |t|
-    t.string   "nick"
+    t.string   "name"
     t.string   "email"
-    t.string   "first_name"
-    t.string   "last_name"
     t.string   "info"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -53,7 +51,6 @@ ActiveRecord::Schema.define(:version => 20120325115720) do
   create_table "links", :force => true do |t|
     t.integer "user_id"
     t.integer "lgroup_id"
-    t.string  "name"
     t.string  "url"
     t.string  "info"
   end
@@ -64,6 +61,8 @@ ActiveRecord::Schema.define(:version => 20120325115720) do
     t.string   "msg_id"
     t.string   "from_addr"
     t.string   "to_addr"
+    t.string   "cc_addr"
+    t.string   "bcc_addr"
     t.string   "subject"
     t.string   "content_type"
     t.integer  "uid"
@@ -72,7 +71,6 @@ ActiveRecord::Schema.define(:version => 20120325115720) do
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "cc_addr"
   end
 
   create_table "prefs", :force => true do |t|

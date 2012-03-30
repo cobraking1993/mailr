@@ -7,11 +7,21 @@
 
 = render :partial => 'common/main_navigation', :locals => { :messages => :active }
 
+.well{:style=>"padding: 5px 3pt;"}
+	%h3
+		= t(:current,:scope=>:folder)
+		\:
+		= pretty_folder_name(@current_folder)
+	%h5
+		= t(:total,:scope=>:message)
+		\:
+		= @messages.total_entries
+
+
 %form{:class=>"form-horizontal top-pix18",:action=>"#{messages_ops_multi_path}",:method=>"post"}
 	- if @current_folder.nil?
 		.alert
 			= t(:no_selected,:scope=>:folder)
-
 	- if @messages.size.zero?
 		.alert
 			= t(:no_in,:scope=>:message)

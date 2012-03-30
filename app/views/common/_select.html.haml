@@ -1,0 +1,22 @@
+- model = eval(object.class.model_name)
+- model_string = object.class.model_name.downcase
+- model_label = model.human_attribute_name(attr)
+- translation_scope ||= false
+
+.control-group
+	%label{:class=>"control-label",:for=>"#{attr}"}
+		= model_label
+	.controls
+		- if translation_scope
+			- t = []
+			- choices.each do |c|
+				- t << [t(c.to_sym,:scope=>translation_scope),c.to_s]
+			= select(model_string, attr, options_for_select(t,choice), {:include_blank => blank})
+		- else
+			= select(model_string, attr, options_for_select(choices,choice), {:include_blank => blank})
+
+
+
+		
+-# select(model.downcase, attr, options_for_select(choices,choice), {:include_blank => blank})
+

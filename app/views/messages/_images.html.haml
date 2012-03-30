@@ -1,0 +1,3 @@
+%ul{:class=>"thumbnails"}
+	- for idx in 0..@images.size-1
+		= render :partial => 'image', :locals => { :image => @images[idx] }

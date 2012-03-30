@@ -1,4 +1,4 @@
-namespace :db do
+namespace :mailr do
 
 	desc "Removes all users data from db"
     task :remove_all_data => :environment do

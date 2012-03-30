@@ -1,0 +1,8 @@
+- size ||= "btn-small"
+- type ||= "btn-primary"
+- icon ||= ""
+
+%a{:class=>"btn #{size} #{type}",:href=>"#{href}"}
+	- if !icon.empty?
+		%i{:class=>"#{icon}"}
+	= caption

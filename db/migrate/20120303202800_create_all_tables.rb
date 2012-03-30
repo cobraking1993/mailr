@@ -1,10 +1,8 @@
 class CreateAllTables < ActiveRecord::Migration
   def up
 	  create_table "contacts", :force => true do |t|
-	    t.string   "nick"
+	    t.string   "name"
 	    t.string   "email"
-	    t.string   "first_name"
-	    t.string   "last_name"
 	    t.string   "info"
 	    t.integer  "user_id"
 	    t.datetime "created_at"
@@ -44,6 +42,8 @@ class CreateAllTables < ActiveRecord::Migration
 	    t.string   "msg_id"
 	    t.string   "from_addr"
 	    t.string   "to_addr"
+	    t.string   "cc_addr"
+	    t.string   "bcc_addr"
 	    t.string   "subject"
 	    t.string   "content_type"
 	    t.integer  "uid"
@@ -91,7 +91,6 @@ class CreateAllTables < ActiveRecord::Migration
 	  create_table :links, :force => true do |t|
 			t.integer :user_id
 			t.integer :lgroup_id
-			t.string :name
 			t.string :url
 			t.string :info
 	  end

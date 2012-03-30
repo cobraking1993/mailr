@@ -22,6 +22,7 @@
 					- elsif flash[:success]
 						.alert.alert-success
 							= flash[:success]
+					= render :partial => "common/main_header"
 					= yield
 			%hr/
 			.row

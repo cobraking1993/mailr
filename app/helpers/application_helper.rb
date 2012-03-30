@@ -327,8 +327,8 @@ module ApplicationHelper
     #s
 #end
 
-#def boolean_answer(answer)
-	#answer == true ? t(:true_answer,:scope=>:common) : t(:false_answer,:scope=>:common)
-#end
+def boolean_answer(answer)
+	answer == true ? t(:true_answer,:scope=>:common) : t(:false_answer,:scope=>:common)
+end
 
 end

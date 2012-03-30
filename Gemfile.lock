@@ -31,7 +31,7 @@ GEM
     arel (3.0.2)
     bluecloth (2.2.0)
     builder (3.0.0)
-    calendar_view (0.0.6)
+    calendar_view (0.0.7)
       rails (>= 3.0.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)

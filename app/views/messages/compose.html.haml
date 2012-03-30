@@ -2,17 +2,15 @@
 	= render :partial => "sidebar/sidebar"
 
 = content_for :title do
+	\-
 	= t(:compose,:scope=>:compose)
 
 = render :partial => 'common/main_navigation', :locals => { :compose => :active }
 
 %form{:enctype=>"multipart/form-data",:class=>"form-horizontal",:action=>composed_path,:method=>"post"}
-	.well{:style=>"padding: 5px 3pt;"}
-		%h3
-			= t(:new_message,:scope=>:compose)
 	%fieldset
 		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'to_addr',:label => nil,:example => 'joe@domain.com',:value => address_formatter(@message.to_addr,@operation),:to_class=>"span6" }
-		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'cc_addr',:label => nil,:example => 'joe@domain.com',:value => "",:to_class=>"span6" }
+		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'cc_addr',:label => nil,:example => 'joe@domain.com',:value => address_formatter(@message.cc_addr,@operation),:to_class=>"span6" }
 		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'subject',:label => nil,:example => t(:subject_of_the_message,:scope=>:compose),:value => subject_formatter(@message.subject,@operation),:to_class=>"span6" }
 		= render :partial => "common/area_form_desc_field",:locals => {:object => @message,:attr => 'body',:label => nil,:example => t(:write_your_message_here,:scope=>:compose),:value => body_formatter(@message.body,@operation),:to_class=>"span6",:rows=>20 }
 	- if !@olduid.nil?

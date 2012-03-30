@@ -1,7 +1,7 @@
 en:
   will_paginate:
-    previous_label: "&#8592; Previous"
-    next_label: "Next &#8594;"
+    previous_label: "« Previous"
+    next_label: "Next »"
     page_gap: "&hellip;"
   activerecord:
     attributes:
@@ -44,6 +44,10 @@ en:
     to_delete_empty: No folder to delete
     can_not_delete: Can not delete folder
     was_deleted: Folder was deleted
+    inbox_name: Inbox
+    sent_name: Sent
+    trash_name: Trash
+    drafts_name: Drafts
 
   message:
     messages: Messages
@@ -65,3 +69,31 @@ en:
   show_hide: Show/Hide
   mailr: Mailr
   save: Save
+  
+  common:
+    false_answer: No
+    true_answer: Yes
+    file_format_error: File format error
+    no_tmp_dir: No temporary directory
+    must_be_unique: must be unique
+    some_add_info: some additional info
+    example: "example:"
+    create: Create
+    delete: Delete
+    mailr: MailR
+    save: Save
+    copy: Copy
+    move: Move
+    to: to
+    previous_page: Previous
+    next_page: Next
+    bytes: B
+    kbytes: kB
+    mbytes: MB
+    no_data: No data
+    download: Download
+    view: Show
+    version: Version
+    set: Set
+    no_file_chosen: No file was chosen
+    calendar: Calendar

@@ -9,7 +9,7 @@
 	= t(:to_folder,:scope=>:folder) + " " 
 	= raw simple_select_for_folders("folder","target",@folders_shown,'',true)
 
-%p
+%p{:class=>"bottom-pix18"}
 	= render :partial => "common/button", :locals => {:name=>'show_header',
 																									:caption=>t('show_header',:scope=>'show'),
 																									:icon=>'icon-zoom-in icon-white'}
@@ -19,6 +19,9 @@
 	= render :partial => "common/button", :locals => {:name=>'reply',
 																									:caption=>t('reply',:scope=>'show'),
 																									:icon=>'icon-arrow-left icon-white'}
+	= render :partial => "common/button", :locals => {:name=>'reply_all',
+																									:caption=>t('reply_all',:scope=>'show'),
+																									:icon=>'icon-backward icon-white'}
 	= render :partial => "common/button", :locals => {:name=>'forward',
 																									:caption=>t('forward',:scope=>'show'),
 																									:icon=>'icon-arrow-right icon-white'}

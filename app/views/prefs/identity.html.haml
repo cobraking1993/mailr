@@ -1,0 +1,30 @@
+= content_for :sidebar do
+	= render :partial => "sidebar/sidebar"
+
+= content_for :title do
+	\-
+	= t(:identity,:scope=>:prefs)
+
+= render :partial => 'common/main_navigation', :locals => { :prefs => :active }
+= render :partial => 'common/prefs_navigation', :locals => { :identity => :active }
+
+%form{:class=>"form-horizontal",:action=>prefs_update_identity_path,:method=>"post"}
+	%fieldset
+		= render :partial => "common/input_form_desc_field",:locals => {:object => @current_user,
+																																		:attr => 'first_name',
+																																		:label => nil,
+																																		:example => 'Joe',
+																																		:value => @current_user.first_name }
+		= render :partial => "common/input_form_desc_field",:locals => {:object => @current_user,
+																																		:attr => 'last_name',
+																																		:label => nil,
+																																		:example => 'Doe',
+																																		:value => @current_user.last_name }																																		
+		= render :partial => "common/input_form_desc_field",:locals => {:object => @current_user,
+																																		:attr => 'domain',
+																																		:label => nil,
+																																		:example => 'domain.com',
+																																		:value => @current_user.domain }
+		.control-group
+			.controls
+				= render :partial => "common/button",:locals => { :name=>:save, :caption => t(:save,:scope=>:common), :icon =>'icon-cog icon-white'}

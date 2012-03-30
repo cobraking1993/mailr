@@ -2,6 +2,7 @@
 	= render :partial => "sidebar/sidebar"
 
 = content_for :title do
+	\-
 	= t(:about,:scope=>:internal)
 
 = render :partial => 'common/main_navigation', :locals => { :about => :active }

@@ -1,0 +1,22 @@
+%li{:class=>"span3"}
+	.thumbnail
+		%a{:href=>"#"}
+			%img{:alt=>image.filename,:src=>attachment_download_path(image.parent_id,image.idx),:size => @current_user.prefs.msg_image_thumbnail_size,:title=>image.filename}
+		.caption
+			%h5
+				= link_to "<i class=\"icon-download-alt\"></i>".html_safe, attachment_download_path(image.parent_id,image.idx)
+				= image.filename
+				%small
+					= size_formatter(image.getSize)
+				
+
+-#
+	<div class="image">
+	<%= image_tag(attachment_download_path(image.parent_id,image.idx), :size => @current_user.prefs.msg_image_thumbnail_size, :alt=>image.filename, :title=>image.filename) %>
+	<div class="desc">
+	<span class="name"><%= link_to (image.filename,attachment_download_path(image.parent_id,image.idx)) %></span>
+	<span class="size"><%= size_formatter(image.getSize) %></span>
+	</div>
+	</div>
+	= link_to "<i class=\"icon-download-alt\"></i>".html_safe, "#"
+				

@@ -25,9 +25,9 @@ pl:
       link: Sznurek
     attributes:
       link:
-        name: Nazwa
         url: Adres
         info: Informacje
+        goto: Idź do
       contact:
         nick: Pseudonim
         first_name: Imię
@@ -93,6 +93,10 @@ pl:
     no_entries: Brak sznurków
     total_entries: Liczba sznurków
     delete_selected: Usuń wybrane
+    modifying: Modyfikacja sznurka
+    was_created: Sznurek został utworzony
+    were_imported: Sznurki zostały zaimportowane
+    goto: Idź do
 
   prefs:
     prefs: Ustawienia
@@ -157,6 +161,7 @@ pl:
     copy: Skopiuj
     trash: Usuń zaznaczone
     no_date: Brak daty
+    no_address: Brak adresu
 
   compose:
     compose: Nowa wiadomość
@@ -175,6 +180,7 @@ pl:
 
   show:
     reply: Odpowiedz
+    reply_all: Odpowiedz wszystkim
     show_header: Pokaż nagłówek
     delete: Usuń
     reply_string: "Odp: "

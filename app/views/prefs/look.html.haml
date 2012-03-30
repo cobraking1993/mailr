@@ -6,3 +6,58 @@
 	= t(:look,:scope=>:prefs)
 
 = render :partial => 'common/main_navigation', :locals => { :prefs => :active }
+= render :partial => 'common/prefs_navigation', :locals => { :look => :active }
+
+%form{:class=>"form-horizontal",:action=>prefs_update_look_path,:method=>"post"}
+	%fieldset
+		= render :partial => "common/select",:locals => {:object => @prefs,
+																									:attr => 'msgs_per_page',
+																									:choices => $defaults["msgs_per_page_table"],
+																									:choice => @prefs.msgs_per_page,
+																									:blank => false }
+		= render :partial => "common/select",:locals => {:object => @prefs,
+																									:attr => 'theme',
+																									:choices => $defaults["themes"],
+																									:choice => $defaults["themes"],
+																									:blank => false }
+		= render :partial => "common/select",:locals => {:object => @prefs,
+																									:attr => 'locale',
+																									:choices => $defaults["locales"],
+																									:choice => @prefs.locale,
+																									:blank => false }
+		= render :partial => "common/select",:locals => {:object => @prefs,
+																									:attr => 'msg_send_type',
+																									:choices => $defaults["msg_send_type"],
+																									:choice => @prefs.msg_send_type,
+																									:blank => false }
+		= render :partial => "common/select",:locals => {:object => @prefs,
+																									:attr => 'msg_image_thumbnail_size',
+																									:choices => $defaults["msg_image_thumbnail_size"],
+																									:choice => @prefs.msg_image_thumbnail_size,
+																									:blank => false,
+																									}
+		= render :partial => "common/select",:locals => {:object => @prefs,
+																									:attr => 'msg_image_view_as',
+																									:choices => $defaults["msg_image_view_as"],
+																									:choice => @prefs.msg_image_view_as,
+																									:blank => false,
+																									:translation_scope => :prefs}
+		.control-group
+			.controls
+				= render :partial => "common/button",:locals => { :name=>:save, :caption => t(:save,:scope=>:common), :icon =>'icon-cog icon-white'}
+
+-#
+	<div class="params">
+	<%= raw select_field_table(@prefs, "msgs_per_page", $defaults["msgs_per_page_table"],@prefs.msgs_per_page,false) %>
+	<%= raw select_field_table(@prefs, "theme", $defaults["themes"],$defaults["themes"],false) %>
+	<%= raw select_field_table(@prefs, "locale", $defaults["locales"],@prefs.locale,false) %>
+	<%= raw select_field_table(@prefs, "msg_send_type", $defaults["msg_send_type"],@prefs.msg_send_type,false) %>
+	</div>
+	<%= raw single_action('save','common','save.png') %>
+
+		
+	<div class="params">
+	<%= raw select_field_table_t(@prefs, "msg_image_view_as", $defaults["msg_image_view_as"],@prefs.msg_image_view_as,false) %>
+	<%= raw select_field_table(@prefs, "msg_image_thumbnail_size", $defaults["msg_image_thumbnail_size"],@prefs.msg_image_thumbnail_size,false) %>
+	</div>
+	

@@ -25,7 +25,7 @@ class MessagesOpsController < ApplicationController
     ############################################### single #####################################
 
     def single
-        if params[:reply]
+        if params[:reply] or params[:reply_all]
             reply
             return
         elsif params[:trash]
@@ -281,11 +281,19 @@ class MessagesOpsController < ApplicationController
     def reply
         old_message = @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,params[:uids].first).first
         @message = Message.new
-        @message.to_addr = old_message.from_addr
-        @message.subject = old_message.subject
+        #@message.to_addr = old_message.from_addr
+        #@message.to_addr = old_message.from.first
+        #@message.subject = old_message.subject
 
         imap_message = @mailbox.fetch_body(old_message.uid)
         mail = Mail.new(imap_message)
+        @message.to_addr = mail.from.first
+        @message.subject = mail.subject
+        
+        if params[:reply_all]
+					@message.cc_addr = mail.cc.join('; ')
+				end
+        
         if mail.multipart?
             @message.body = mail.text_part.nil? ? "" : mail.text_part.decoded_and_charseted.gsub(/<\/?[^>]*>/, "")
         else
@@ -295,6 +303,7 @@ class MessagesOpsController < ApplicationController
 				@operation = :reply
         render 'messages/compose'
     end
+    
     ###################################### protected section #######################################
 
     protected
@@ -315,6 +324,7 @@ class MessagesOpsController < ApplicationController
         @mail.from = @current_user.full_id
         #TODO check if email address is valid if not get address from contacts
         @mail.to = params[:message][:to_addr]
+        @mail.cc = params[:message][:cc_addr]
         @mail.body = params[:message][:body]
         @attachments = Dir.glob(File.join($defaults["msg_upload_dir"],@current_user.username + "*"))
         @attachments.each do |a|

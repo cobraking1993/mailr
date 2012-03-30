@@ -1,5 +1,4 @@
 class Link < ActiveRecord::Base
-	validates_length_of :name, :within => 5..30
 	validates_length_of :url, :within => 5..150
 	validates_length_of :info, :maximum => 50
 	belongs_to :user
@@ -16,4 +15,19 @@ class Link < ActiveRecord::Base
 
         Link.paginate :page => page , :per_page => $defaults["links_per_page"], :conditions=> ['user_id = ?', user.id],:order => order
     end
+    
+    def export
+        fields = []
+        fields << url || ""
+        fields << info || ""
+        fields.join(';')
+    end
+
+    def self.import(user,line)
+        fields = line.split(/;/)
+        contact = user.links.build(	:url => fields[0].strip,
+                                    :info => fields[1].strip)
+        contact.save!
+    end
+    
 end

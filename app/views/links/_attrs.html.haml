@@ -1,0 +1,12 @@
+= render :partial => "common/input_form_desc_field",:locals => {:object => @link,
+																																		:attr => 'url',
+																																		:label => nil,
+																																		:example => 'www.example.com',
+																																		:value => @link.url,
+																																		:to_class=>"span6" }
+= render :partial => "common/input_form_desc_field",:locals => {:object => @link,
+																																		:attr => 'info',
+																																		:label => nil,
+																																		:example => t(:some_add_info,:scope=>:common),
+																																		:value => @link.info,
+																																		:to_class=>"span6" }

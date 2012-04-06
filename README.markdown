@@ -1,3 +1,5 @@
+[![Dependency Status](https://gemnasium.com/musashimm/mailr)](https://gemnasium.com/musashimm/mailr)
+
 **NOTE** The last stable version is 0.8.6. Now I try to moved code to Rails 3.2.2 and add Boostrap from Tweeter as default theme. Not all sources that you can find in _MASTER_ branch were already moved, so some views can be broken.
 
 ## Introduction

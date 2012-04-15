@@ -70,7 +70,7 @@ pl:
 
   contact:
     compose_to_selected: Napisz do wybranych
-    delete_selected: Usuń wybrane
+    sdelete_selected: Usuń wybrane
     modifying: Modyfikacja kontaktu
     creating_new: Nowy kontakt
     create_new: Utwórz nowy kontakt
@@ -85,6 +85,7 @@ pl:
     import: Import
     were_imported: Kontakty zostały zaimportowane
     format_error: Nieprawidłowy format kontaktu
+    select_file: Wybierz plik
 
   link:
     link: Sznurek
@@ -97,6 +98,7 @@ pl:
     was_created: Sznurek został utworzony
     were_imported: Sznurki zostały zaimportowane
     goto: Idź do
+    select_file: Wybierz plik
 
   prefs:
     prefs: Ustawienia

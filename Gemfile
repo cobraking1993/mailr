@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -40,7 +40,7 @@ gem 'jquery-rails'
 
 gem 'will_paginate'
 gem "ezcrypto"
-gem "calendar_view"
+gem "calendar_view" , '~> 0.0.7'
 gem 'bluecloth'
 gem 'sass'
 gem 'haml'

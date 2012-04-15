@@ -34,5 +34,5 @@
 		= render :partial => 'list'
 
 = render :partial => 'common/import_export',:locals=>{:im_ex_path => contacts_import_export_path,
-																					:im_ex_label => t(:select_file,:scope=>:compose),
+																					:im_ex_label => t(:select_file,:scope=>:contact),
 																					:im_ex_size => @contacts.total_entries }

@@ -15,6 +15,7 @@ module MessagesHelper
     end
 
     def address_formatter(addr,op)
+        return "" if addr.nil?
         s = ""
         return t(:no_address,:scope=>:message) if addr.empty?
         length = $defaults["msg_address_length"].to_i

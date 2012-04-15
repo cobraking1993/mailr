@@ -30,4 +30,6 @@
 																									:icon=>'icon-minus icon-white'}
 		= render :partial => 'list'
 
-
+= render :partial => 'common/import_export',:locals=>{:im_ex_path => links_import_export_path,
+																					:im_ex_label => t(:select_file,:scope=>:link),
+																					:im_ex_size => @links.total_entries }

@@ -1,6 +1,6 @@
 [![Dependency Status](https://gemnasium.com/musashimm/mailr.png?travis)](https://gemnasium.com/musashimm/mailr)
 
-**NOTE** The last stable version is 0.8.6. Now I try to moved code to Rails 3.2.2 and add Boostrap from Tweeter as default theme. Not all sources that you can find in _MASTER_ branch were already moved, so some views can be broken.
+**NOTE** The last stable version is 0.8.6. Now I try to moved code to Rails 3.2.3 and add Boostrap from Tweeter as default theme. 
 
 ## Introduction
 _MailR_ is a IMAP mail client based on _Ruby on Rails_ platform.

@@ -1,4 +1,4 @@
-[![Dependency Status](https://gemnasium.com/musashimm/mailr.png?travis)](https://gemnasium.com/musashimm/mailr)
+[![Dependency Status](https://gemnasium.com/musashimm/mailr.png)](https://gemnasium.com/musashimm/mailr)
 
 ## Introduction
 _MailR_ is a IMAP mail client based on _Ruby on Rails_ platform.

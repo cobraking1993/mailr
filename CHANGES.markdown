@@ -1,5 +1,11 @@
 ## Changes
 
+#### 0.9.0
+
+	* switch to Rails 3.2.x
+	* Tweeter Bootstrap as default theme
+	* many fixes
+
 #### 0.8.6
 
   * new calendar view

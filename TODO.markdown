@@ -1,9 +1,11 @@
 ## Todo
 
+ * add themes
+
 app/controllers/folders_controller.rb:
 
-  * [ 30] [TODO] recreate local copy of folders
-  * [ 99] [TODO] save system folders
+  * [ 29] [TODO] recreate local copy of folders
+  * [ 98] [TODO] save system folders
 
 app/controllers/messages_controller.rb:
 
@@ -11,10 +13,9 @@ app/controllers/messages_controller.rb:
 
 app/controllers/messages_ops_controller.rb:
 
-  * [249] [FIXME] edit does not support attachments
-  * [304] [TODO] check if email address is valid if not get address from contacts
+  * [261] [FIXME] edit does not support attachments
+  * [325] [TODO] check if email address is valid if not get address from contacts
 
 app/models/prefs.rb:
 
-  * [ 19] [TODO] move refresh to prefs and make refresh page with messages
-
+  * [ 21] [TODO] move refresh to prefs and make refresh page with messages

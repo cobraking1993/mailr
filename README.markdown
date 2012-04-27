@@ -1,7 +1,5 @@
 [![Dependency Status](https://gemnasium.com/musashimm/mailr.png?travis)](https://gemnasium.com/musashimm/mailr)
 
-**NOTE** The last stable version is 0.8.6. Now I try to moved code to Rails 3.2.3 and add Boostrap from Tweeter as default theme. 
-
 ## Introduction
 _MailR_ is a IMAP mail client based on _Ruby on Rails_ platform.
 
@@ -9,7 +7,7 @@ _MailR_ is a IMAP mail client based on _Ruby on Rails_ platform.
 
 ## Requirements
 
-In _Rails 3_ all dependencies should be defined in file _Gemfile_. All needed gems can be installed using bundler.
+In _Rails 3_ and above all dependencies should be defined in file _Gemfile_. All needed gems can be installed using bundler.
 
 ## Installation procedure
 
@@ -20,7 +18,7 @@ In _Rails 3_ all dependencies should be defined in file _Gemfile_. All needed ge
 bundle install
 ```
 
-* Check _config/defaults.yml_ for proper values.
+* Check _config/settings.yml_ for proper values. (see _config/settings.yml.example_).
 * Prepare config/database.yml file (see _config/database.yml.example_).
 * Migrate database (rake db:migrate)
 * Start rails server if applicable
@@ -37,10 +35,4 @@ rake db:clear_data
 
 ## Specific configuration
 
-For themes: if server sends files with no content in production mode comment out
-
-```ruby
-config.action_dispatch.x_sendfile_header = "X-Sendfile"
-```
-
-in _config/environments/production.rb_ file.
+None

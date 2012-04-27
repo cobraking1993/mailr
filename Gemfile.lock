@@ -117,7 +117,7 @@ DEPENDENCIES
   jquery-rails
   json
   mysql2
-  rails (= 3.2.3)
+  rails (~> 3.2.1)
   sass
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)

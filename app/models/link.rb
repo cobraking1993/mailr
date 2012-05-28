@@ -2,7 +2,7 @@ class Link < ActiveRecord::Base
 	validates_length_of :url, :within => 5..150
 	validates_length_of :info, :maximum => 50
 	belongs_to :user
-	default_scope :order => 'name asc'
+	default_scope :order => 'url asc'
 
 	def self.getPageForUser(user,page,sort_field,sort_dir)
 

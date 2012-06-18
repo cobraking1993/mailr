@@ -1,5 +1,5 @@
 %tr
-	%td
+	%td{:nowrap=>"nowrap"}
 		= check_box_tag "items_ids[]", contact.id
 		\/
 		= link_to "<i class=\"icon-edit\"></i>".html_safe,edit_contact_path(contact)

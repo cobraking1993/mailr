@@ -1,5 +1,9 @@
 ## Changes
 
+#### 0.9.2
+	
+  * fixes in handling draft folder
+
 #### 0.9.1
 
   * nowrap to edit column in contacts & links

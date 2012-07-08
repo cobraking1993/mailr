@@ -250,7 +250,7 @@ class MessagesOpsController < ApplicationController
             flash[:error] = t(:general_error,:scope=>:internal) + " (" + e.class.name + " " + e.to_s + ")"
         else
             @attachments.each do |filename|
-                path = File.join(Rails.root,filename)
+                path = File.join(Rails.root,filename[:name])
                 File.delete(path) if File.exist?(path)
             end
             flash[:success] = t(:was_saved,:scope => :compose)
@@ -260,7 +260,10 @@ class MessagesOpsController < ApplicationController
 
     #FIXME edit does not support attachments
     def edit
-		old_message = @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,params[:uids].first).first
+    #logger.info @current_folder.inspect
+    #logger.info params.inspect
+    
+		old_message = @current_user.messages.where('folder_id = ? and uid = ?',@current_folder,params[:id]).first
         @message = Message.new
         @message.to_addr = old_message.to_addr
         @message.subject = old_message.subject

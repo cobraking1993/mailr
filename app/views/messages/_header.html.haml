@@ -15,13 +15,13 @@
 				%td{:class=>"field_name"}
 					= humanize_attr(@message,'cc_addr') + ':'
 				%td
-					= @cc.join('; ')
+					= address_formatter(@cc,:show)
 		- if not @bcc.nil?
 			%tr
 				%td{:class=>"field_name"}
 					= humanize_attr(@message,'bcc_addr') + ':'
 				%td
-					= @bcc.join('; ')
+					= address_formatter(@bcc,:show)
 		%tr
 			%td{:class=>"field_name"}
 				= humanize_attr(@message,'subject') + ':'

@@ -1,5 +1,7 @@
 ## Changes
 
+  * handle Cc & Bcc adresses fix
+
 #### 0.9.2
 	
   * fixes in handling draft folder

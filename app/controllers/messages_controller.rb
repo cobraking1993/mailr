@@ -95,6 +95,7 @@ class MessagesController < ApplicationController
         imap_message = @mailbox.fetch_body(@message.uid)
 
         mail = Mail.new(imap_message)
+        @mail = Mail.new(imap_message)
         @plain_header = mail.header.to_s
 
 
@@ -103,8 +104,8 @@ class MessagesController < ApplicationController
         #@to = mail.To.addrs.presence
         @from = @message.from_addr
         @to = @message.to_addr
-        @cc = mail.cc
-        @bcc = mail.bcc
+        #@cc = mail.cc
+        #@bcc = mail.bcc
         #@subject = mail.Subject
         @date = mail.date.presence
 

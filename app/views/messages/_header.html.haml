@@ -1,37 +1,38 @@
-%table{:class=>"header bottom-pix18"}
-	%tbody
-		%tr
-			%td{:class=>"field_name"}
-				= humanize_attr(@message,'from_addr') + ':'
-			%td
-				= address_formatter(@from,:show)
-		%tr
-			%td{:class=>"field_name"}
-				= humanize_attr(@message,'to_addr') + ':'
-			%td
-				= address_formatter(@to,:show)
-		- if not @cc.nil?
+%div{:class=>"well",:style=>"padding: 7px 5pt;"}
+	%table{:class=>"header"}
+		%tbody
 			%tr
 				%td{:class=>"field_name"}
-					= humanize_attr(@message,'cc_addr') + ':'
+					= humanize_attr(@message,'from_addr') + ':'
 				%td
-					= address_formatter(@cc,:show)
-		- if not @bcc.nil?
+					= address_formatter(@from,:show)
 			%tr
 				%td{:class=>"field_name"}
-					= humanize_attr(@message,'bcc_addr') + ':'
+					= humanize_attr(@message,'to_addr') + ':'
 				%td
-					= address_formatter(@bcc,:show)
-		%tr
-			%td{:class=>"field_name"}
-				= humanize_attr(@message,'subject') + ':'
-			%td
-				= subject_formatter(@message,:show)
-		%tr
-			%td{:class=>"field_name"}
-				= humanize_attr(@message,'date') + ':'
-			%td
-				= date_formatter(@date)
+					= address_formatter(@to,:show)
+			- if not @mail.cc.nil?
+				%tr
+					%td{:class=>"field_name"}
+						= humanize_attr(@message,'cc_addr') + ':'
+					%td
+						= address_formatter(@mail.Cc.to_s,:show)
+			- if not @mail.bcc.nil?
+				%tr
+					%td{:class=>"field_name"}
+						= humanize_attr(@message,'bcc_addr') + ':'
+					%td
+						= address_formatter(@mail.Bcc.to_s,:show)
+			%tr
+				%td{:class=>"field_name"}
+					= humanize_attr(@message,'subject') + ':'
+				%td
+					= subject_formatter(@message,:show)
+			%tr
+				%td{:class=>"field_name"}
+					= humanize_attr(@message,'date') + ':'
+				%td
+					= date_formatter(@date)
 
 = hidden_field_tag 'uids[]', @message.uid
 = hidden_field_tag 'source', 'show'

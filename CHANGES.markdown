@@ -1,5 +1,9 @@
 ## Changes
 
+#### 0.9.5
+
+  * favicon added
+
 #### 0.9.4
 
   * bump gems

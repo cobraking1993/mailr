@@ -116,9 +116,9 @@ DEPENDENCIES
   ezcrypto
   haml
   jquery-rails
-  json
+  json (>= 1.7.6)
   mysql2
-  rails (>= 3.2.9)
+  rails (>= 3.2.11)
   sass
   sass-rails
   uglifier

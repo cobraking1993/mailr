@@ -1,20 +1,23 @@
-version: 0.9.5
+version: 0.10.0
 
 theme: olive
 locale: pl
 
-themes: [olive]
+themes: [bootstrap_tweeter]
 locales: [en, pl]
 msgs_per_page_table: [15, 20, 25, 30, 35, 40, 45, 50]
 msg_send_type: [html, text]
 msg_image_view_as: [attachment, thumbnail]
 msg_image_thumbnail_size: [128x128, 128x96, 192x192, 192x144, 256x256, 256x192]
 
-contacts_table_fields: [nick, first_name, last_name, email, info]
+contacts_table_fields: [name, email, info]
 contacts_per_page: 25
 
-links_table_fields: [name, url, info]
+links_table_fields: [url, info]
 links_per_page: 30
+
+notes_table_fields: [title]
+notes_per_page: 10
 
 servers_table_fields: [name, port, use_ssl, use_tls, for_imap, for_smtp, auth]
 
@@ -31,6 +34,7 @@ msg_search_fields: [subject, from, to]
 msg_upload_dir: "tmp/uploads"
 
 contact_tmp_filename: contact_import
+link_tmp_filename: link_import
 
 # if encoding can not be get from data
 msg_unknown_charset: ISO-8859-2
@@ -50,4 +54,4 @@ session_password: asDD3s2@sAdc983#
 mailbox_max_parent_folder_depth: 3
 
 # array of logins which only can login to application, comment it to allow everyone to login
-only_can_logins: ['somelogin1']
+only_can_logins: ['john']

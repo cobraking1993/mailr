@@ -9,8 +9,11 @@
 		%label{:class=>"control-label",:for=>"#{attr}"}
 			= model_label
 		.controls
-			%textarea{:rows=>"#{rows}",:class=>"#{to_class}",:id=>"#{model_string}_#{attr}",:name=>"#{model_string}[#{attr}]"}
-				= val
+			= render :partial => 'common/text_area', :locals => { :val => val,
+																														:rows => rows,
+																														:to_class => to_class,
+																														:id => "#{model_string}_#{attr}",
+																														:name => "#{model_string}[#{attr}]" }
 			%p{:class=>"help-block"} 
 				= t(:example,:scope=>:common)
 				= example

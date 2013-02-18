@@ -1,0 +1,20 @@
+= content_for :sidebar do
+	= render :partial => "sidebar/sidebar"
+
+= content_for :title do
+	\-
+	= t(:notes,:scope=>:note)
+
+= render :partial => 'common/main_navigation', :locals => { :notes => :active }
+
+.well{:style=>"padding: 5px 3pt;"}
+	%h3
+		= t(:modifying,:scope=>:note)
+
+%form{:class=>"form-horizontal",:action=>url_for(@note),:method=>"post"}
+	%input{:name=>"_method",:type=>"hidden",:value=>"put"}
+	%fieldset
+		= render :partial => "attrs"
+		.control-group
+			.controls
+				= render :partial => "common/button",:locals => { :name=>:save, :caption => t(:save,:scope=>:common), :icon =>'icon-cog icon-white'}

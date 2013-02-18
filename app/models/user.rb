@@ -2,9 +2,9 @@ require 'ezcrypto'
 
 class User < ActiveRecord::Base
 
-    #acts_as_notes_owner
+  attr_accessible :login, :first_name, :last_name, :domain
 
-    validates_presence_of :first_name,:last_name,:login
+  validates_presence_of :first_name,:last_name,:login
 	validates_uniqueness_of :login
 	has_many :servers, :dependent => :destroy
 	has_one :prefs, :dependent => :destroy
@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 	has_many :messages, :dependent => :destroy
 	has_many :contacts, :dependent => :destroy
 	has_many :links, :dependent => :destroy
+  has_many :notes, :dependent => :destroy
 
 	def set_cached_password(session,password)
 		if $defaults['session_encryption']

@@ -1,0 +1,12 @@
+= render :partial => "common"
+
+.well{:style=>"padding: 5px 3pt;"}
+	%h3
+		= t(:create_new,:scope=>:note)
+
+%form{:class=>"form-horizontal",:action=>url_for(@note),:method=>"post"}
+	%fieldset
+		= render :partial => "attrs"
+		.control-group
+			.controls
+				= render :partial => "common/button",:locals => { :name=>:save, :caption => t(:save,:scope=>:common), :icon =>'icon-cog icon-white'}

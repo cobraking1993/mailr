@@ -1,0 +1,13 @@
+= render :partial => "common/input_form_desc_field",:locals => {  :object => @note,
+                                                                  :attr => 'title',
+                                                                  :label => nil,
+                                                                  :example => t(:example_title,:scope=>:note),
+                                                                  :value => @note.title,
+                                                                  :to_class=>"span7" }
+= render :partial => "common/area_form_desc_field", :locals => {  :object => @note,
+																																  :attr => 'body',
+																																  :label => nil,
+																																  :example => t(:example_body,:scope=>:note),
+																																  :value => @note.body,
+																																  :to_class => "span7",
+																																  :rows=>20 }

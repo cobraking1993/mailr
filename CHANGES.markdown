@@ -1,5 +1,10 @@
 ## Changes
 
+#### 0.10.0
+
+  * notes added
+  * more tests
+
 #### 0.9.5
 
   * favicon added

@@ -1,3 +1,4 @@
+
 pl:
   will_paginate:
     previous_label: "« Poprzednia"
@@ -23,7 +24,11 @@ pl:
       contact: Kontakt
       server: Serwer
       link: Sznurek
+      note: Notka
     attributes:
+      note:
+        body: Treść
+        title: Tytuł
       link:
         url: Adres
         info: Informacje
@@ -65,7 +70,21 @@ pl:
         auth: Metoda autoryzacji
       folder:
         name: Nazwa folderu
-      
+
+  note:
+    note: Notka
+    notes: Notki
+    create_new: Utwórz nową notkę
+    no_entries: Brak notek
+    total_entries: Liczba notek
+    delete_selected: Usuń wybrane
+    modifying: Modyfikacja notki
+    was_created: Notka została utworzona
+    were_imported: Notki zostały zaimportowane
+    goto: Idź do
+    select_file: Wybierz plik
+    example_body: Treść twojej notki
+    example_title: Tytuł Twojej notki
 
   contact:
     compose_to_selected: Napisz do wybranych

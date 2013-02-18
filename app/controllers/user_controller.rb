@@ -31,6 +31,8 @@ class UserController < ApplicationController
 
 		user = User.find_by_login(params[:user][:login])
 		if user.nil?
+
+			logger.info "XXXXXX"
 			
 			flash[:error] = t(:login_failure,:scope=>:user)
 			redirect_to :action => 'login'

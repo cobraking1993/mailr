@@ -17,11 +17,15 @@ Mailr::Application.routes.draw do
     end
 
     resources :links
-    
     namespace :links do
         post "import_export"
         #post "ops"
     end
+
+    resources :notes
+    namespace :notes do
+        post "import_export"
+    end    
 
     namespace :folders do
         post "create"

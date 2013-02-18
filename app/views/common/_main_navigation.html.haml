@@ -4,6 +4,7 @@
 - contacts ||= ""
 - prefs ||= ""
 - links ||= ""
+- notes ||= ""
 
 %ul{:class=>"nav nav-pills"}
 	%li{:class=>"#{messages}"}
@@ -14,6 +15,8 @@
 		= link_to( t(:folders,:scope=>:folder), folders_path )
 	%li{:class=>"#{contacts}"}
 		= link_to( t(:contacts,:scope=>:contact), contacts_path )
+	%li{:class=>"#{notes}"}
+		= link_to( t(:notes,:scope=>:note), notes_path )
 	%li{:class=>"#{links}"}
 		= link_to( t(:links,:scope=>:link), links_path )
 	%li{:class=>"#{prefs}"}

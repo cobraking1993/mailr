@@ -18,8 +18,8 @@ In _Rails 3_ and above all dependencies should be defined in file _Gemfile_. All
 bundle install
 ```
 
-* Check _config/settings.yml_ for proper values. (see _config/settings.yml.example_).
-* Prepare config/database.yml file (see _config/database.yml.example_).
+* Check _config/settings.yml_ for proper values.
+* Prepare config/database.yml file.
 * Migrate database (rake db:migrate)
 * Start rails server if applicable
 * Point your browser to application URL:

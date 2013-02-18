@@ -70,6 +70,7 @@ pl:
         auth: Metoda autoryzacji
       folder:
         name: Nazwa folderu
+        target: Nazwa folderu
 
   note:
     note: Notka

@@ -2,7 +2,7 @@ class Note < ActiveRecord::Base
   attr_accessible :body, :user_id, :title
   belongs_to :user
   validates_presence_of :body
-  validates_length_of :body, :maximum => 1000
+  validates_length_of :body, :maximum => 5000
   validates_presence_of :title
   validates_length_of :title, :minimum => 3, :maximum => 50
 

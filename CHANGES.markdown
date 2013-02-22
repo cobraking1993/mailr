@@ -1,5 +1,10 @@
 ## Changes
 
+#### 0.10.1
+
+  * view fixes
+  * markdown for notes
+
 #### 0.10.0
 
   * notes added

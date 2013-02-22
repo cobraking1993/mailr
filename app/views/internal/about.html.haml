@@ -7,17 +7,17 @@
 
 = render :partial => 'common/main_navigation', :locals => { :about => :active }
 
-.well{:style=>"padding: 5px 3pt;"}
+.well.narrow
 	%h3
 		= t(:current_version,:scope=>:internal) + ": " + $defaults["version"]
-.well
+.well.narrow
 	= raw BlueCloth::new(render :file => 'README.markdown').to_html
-.well
+.well.narrow
 	= raw BlueCloth::new(render :file => 'CHANGES.markdown').to_html
-.well
+.well.narrow
 	= raw BlueCloth::new(render :file => 'TODO.markdown').to_html
-.well
+.well.narrow
 	= raw BlueCloth::new(render :file => 'AUTHORS.markdown').to_html
-.well
+.well.narrow
 	= raw BlueCloth::new(render :file => 'UNLICENSE.markdown').to_html
 

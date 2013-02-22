@@ -1,0 +1,15 @@
+= content_for :sidebar do
+  = render :partial => "sidebar/sidebar"
+
+= content_for :title do
+  \-
+  = t(:notes,:scope=>:note)
+
+= render :partial => 'common/main_navigation', :locals => { :notes => :active }
+%p{:class=>"bottom-pix18"}
+  = render :partial => "common/anchor", :locals => {:caption=>t('modifying',:scope=>'note'), :icon=>'icon-edit icon-white', :href=>edit_note_path(@note)}
+.well.narrow
+  %h3
+    = @note.title
+.well.narrow
+  = raw BlueCloth::new(@note.body).to_html

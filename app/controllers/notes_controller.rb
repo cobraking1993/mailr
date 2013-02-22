@@ -14,7 +14,10 @@ class NotesController < ApplicationController
 
     def edit
         @note = @current_user.notes.find(params[:id])
-        render 'edit'
+    end
+
+    def show
+        @note = @current_user.notes.find(params[:id])
     end
 
     def create
@@ -40,7 +43,7 @@ class NotesController < ApplicationController
     def update
         @note = @current_user.notes.find(params[:id])
         if @note.update_attributes(params[:note])
-            redirect_to(notes_path)
+            redirect_to note_path @note
         else
             render 'edit'
         end

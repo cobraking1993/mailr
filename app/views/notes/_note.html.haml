@@ -4,4 +4,4 @@
     \/
     = link_to "<i class=\"icon-edit\"></i>".html_safe,edit_note_path(note)
   %td{:nowrap=>"nowrap"}
-    = link_to note.title, edit_note_path(note)
+    = link_to note.title, note_path(note)

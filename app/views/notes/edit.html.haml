@@ -11,7 +11,7 @@
 	%h3
 		= t(:modifying,:scope=>:note)
 
-%form{:class=>"form-horizontal",:action=>url_for(@note),:method=>"post"}
+%form{:class=>"well form-horizontal",:action=>url_for(@note),:method=>"post"}
 	%input{:name=>"_method",:type=>"hidden",:value=>"put"}
 	%fieldset
 		= render :partial => "attrs"

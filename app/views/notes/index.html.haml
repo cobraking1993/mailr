@@ -9,8 +9,8 @@
 																												:icon=>'icon-plus icon-white',
 																												:href=>new_note_path}
 	- else
-		.well.narrow
-			%h5
+		.well
+			%h3
 				= t(:total_entries,:scope=>:note)
 				\:
 				= @notes.total_entries

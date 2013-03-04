@@ -1,4 +1,4 @@
-%form{:class=>"form-horizontal",:action=>folders_create_path,:method=>"post"}
+%form{:class=>"well form-horizontal",:action=>folders_create_path,:method=>"post"}
 	%fieldset
 		= render :partial => "common/select_for_folders",:locals => { :label=> t(:parent,:scope=>:folder), :name => "folder", :id => "parent", :collection => @folders, :choice => "", :blank => true}
 		= render :partial => "common/input_form_field",:locals => { :model => 'folder',:attr => 'target'}		

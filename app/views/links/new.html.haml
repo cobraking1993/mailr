@@ -11,7 +11,7 @@
 	%h3
 		= t(:create_new,:scope=>:link)
 
-%form{:class=>"form-horizontal",:action=>url_for(@link),:method=>"post"}
+%form{:class=>"well form-horizontal",:action=>url_for(@link),:method=>"post"}
 	%fieldset
 		= render :partial => "attrs"
 		.control-group

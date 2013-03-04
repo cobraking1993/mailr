@@ -7,7 +7,7 @@
 
 = render :partial => 'common/main_navigation', :locals => { :compose => :active }
 
-%form{:enctype=>"multipart/form-data",:class=>"form-horizontal",:action=>composed_path,:method=>"post"}
+%form{:enctype=>"multipart/form-data",:class=>"well form-horizontal",:action=>composed_path,:method=>"post"}
 	%fieldset
 		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'to_addr',:label => nil,:example => 'joe@domain.com',:value => address_formatter(@message.to_addr,@operation),:to_class=>"span7" }
 		= render :partial => "common/input_form_desc_field",:locals => {:object => @message,:attr => 'cc_addr',:label => nil,:example => 'joe@domain.com',:value => address_formatter(@message.cc_addr,@operation),:to_class=>"span7" }

@@ -16,8 +16,8 @@
 																												:icon=>'icon-plus icon-white',
 																												:href=>new_contact_path}
 	- else
-		.well.narrow
-			%h5
+		.well
+			%h4
 				= t(:total_entries,:scope=>:contact)
 				\:
 				= @contacts.total_entries

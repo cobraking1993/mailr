@@ -7,11 +7,11 @@
 
 = render :partial => 'common/main_navigation', :locals => { :links => :active }
 
-.well.narrow
+.well
 	%h3
 		= t(:modifying,:scope=>:link)
 
-%form{:class=>"form-horizontal",:action=>url_for(@link),:method=>"post"}
+%form{:class=>"well form-horizontal",:action=>url_for(@link),:method=>"post"}
 	%input{:name=>"_method",:type=>"hidden",:value=>"put"}
 	%fieldset
 		= render :partial => "attrs"

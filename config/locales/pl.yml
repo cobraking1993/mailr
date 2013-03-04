@@ -9,7 +9,6 @@ pl:
     abbr_day_names: [Ni, Po, Wt, Śr, Cz, Pi, So]
     month_names: [~, Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień]
     abbr_month_names: [~, Sty, Lut, Mar, Kwi, Maj, Czer, Lip, Sier, Wrze, Paź, Lis, Grudz]
-    order: [ :year, :month, :day ]
   activerecord:
     errors:
       messages:

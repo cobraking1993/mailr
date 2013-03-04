@@ -1,4 +1,4 @@
-%form{:class=>"form-horizontal",:action=>folders_delete_path,:method=>"post"}
+%form{:class=>"well form-horizontal",:action=>folders_delete_path,:method=>"post"}
 	%fieldset
 		= render :partial => "common/select_for_folders",:locals => { :label=> t(:to_delete,:scope=>:folder), :name => "folder", :id => "delete", :collection => @folders, :choice => "", :blank => true}
 		.control-group

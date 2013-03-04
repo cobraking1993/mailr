@@ -34,7 +34,7 @@ class NotesController < ApplicationController
         if @note.valid?
             @note.save
             flash[:success] = t(:was_created,:scope=>:note)
-            redirect_to(notes_path)
+            redirect_to note_path @note
         else
             render 'new'
         end

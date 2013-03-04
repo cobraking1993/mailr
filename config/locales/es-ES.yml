@@ -1,14 +1,14 @@
 es-ES:
   mailr:          Mailr
   email:          Email
-  password:       Contrase&ntilde;a 
-  log_in:         Iniciar sesi&oacute;n
-  wrong_email_or_password:  Email o contrase&ntilde;a incorrecta
+  password:       "Contrase&ntilde;a"
+  log_in:         "Iniciar sesi&oacute;n"
+  wrong_email_or_password:  "Email o contrase&ntilde;a incorrecta"
   mailbox:        Buzon de Correo
   folders:        Carpetas
   folder:         Carpeta
   empty:          Vaciar
-  logout:         Cerrar sesi&oacute;n
+  logout:         "Cerrar sesi&oacute;n"
   compose:        Redactar
   preferences:    Opciones
   filters:        Filtros
@@ -33,14 +33,14 @@ es-ES:
   to:             Para
   subject:        Asunto
   date:           Fecha
-  size:           Tama&ntilde;o
+  size:           "Tama&ntilde;o"
   from:           De
   show_all:       Mostrar todos
-  pages:          P&aacute;ginas
+  pages:          "P&aacute;ginas"
   first:          Primero
   prev:           Previo
   next:           Siguiente
-  last:           &Uacute;ltimo
+  last:           "&Uacute;ltimo"
   back_to_list:   Volver a la lista
   back_to_message:  Volver al mensaje
   reply:          Responder
@@ -50,7 +50,7 @@ es-ES:
   cc:             CC
   bcc:            BCC
   send:           Enviar
-  choose_address: Elegir direcci&oacute;n desde contactos
+  choose_address: "Elegir direcci&oacute;n desde contactos"
   choose:         Elegir
   compose_txt:    Componer nuevo correo
   groups:         Grupos
@@ -59,7 +59,7 @@ es-ES:
   first_name:     Nombre
   last_name:      Apellido
   send_type:      Enviar mensaje tipo
-  messages_per_page:    Mensajes por p&aacute;gina
+  messages_per_page:    "Mensajes por p&aacute;gina"
   check_external_mail:  Comprobar correos externos?
   check_external_mail_txt:  Note that by selecting this option webmail system will try to log you using your original email on a local server.
   save:           Guardar
@@ -74,11 +74,11 @@ es-ES:
   unseen:         No leidos
   edit_create_contact: Editar o crear contacto
   back_to_contacts: Volver a contactos
-  email_exists: Una cuenta con ese correo electr&oacute;nico ya existe.
+  email_exists: "Una cuenta con ese correo electr&oacute;nico ya existe."
   delete_contact_question: "Desea borrar este contacto? {{name}} - {{email}}"
-  validate_fname_error: Por favor, ingrese un nombre (2 a 20 caracteres)
-  validate_lname_error: Por favor, ingrese un apellido (2 a 20 caracteres)
-  validate_email_error: Por favor, ingrese una direcci&oacute;n email v&aacute;lida.
+  validate_fname_error: "Por favor, ingrese un nombre (2 a 20 caracteres)"
+  validate_lname_error: "Por favor, ingrese un apellido (2 a 20 caracteres)"
+  validate_email_error: "Por favor, ingrese una direcci&oacute;n email v&aacute;lida."
   contact_cannot_be_changed: El email del contacto no puede ser cambiado
   csv_file: Archivo separado por comas(CSV)
   tab_file: Archivo separado por tabulaciones
@@ -86,6 +86,6 @@ es-ES:
   import: Importar
   back_to_folders: Volver a carpetas
   add_edit_folder: agregar/editar
-  user_logged_out: Sesi&oacute;n cerrada correctamente
-  please_login: Por favor, inicie sesi&oacute;n
+  user_logged_out: "Sesi&oacute;n cerrada correctamente"
+  please_login: "Por favor, inicie sesi&oacute;n"
   want_to_empty_trash_message: ¿Realmente quieres vaciar la papelera?

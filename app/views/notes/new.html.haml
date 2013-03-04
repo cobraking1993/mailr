@@ -4,7 +4,7 @@
 	%h3
 		= t(:create_new,:scope=>:note)
 
-%form{:class=>"form-horizontal",:action=>url_for(@note),:method=>"post"}
+%form{:class=>"well form-horizontal",:action=>url_for(@note),:method=>"post"}
 	%fieldset
 		= render :partial => "attrs"
 		.control-group

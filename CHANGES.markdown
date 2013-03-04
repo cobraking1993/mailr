@@ -1,5 +1,9 @@
 ## Changes
 
+#### 0.10.2 upcoming
+
+  * view fixes
+
 #### 0.10.1
 
   * view fixes

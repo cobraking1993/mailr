@@ -8,7 +8,7 @@
 = render :partial => 'common/main_navigation', :locals => { :prefs => :active }
 = render :partial => 'common/prefs_navigation', :locals => { :identity => :active }
 
-%form{:class=>"form-horizontal",:action=>prefs_update_identity_path,:method=>"post"}
+%form{:class=>"well form-horizontal",:action=>prefs_update_identity_path,:method=>"post"}
 	%fieldset
 		= render :partial => "common/input_form_desc_field",:locals => {:object => @current_user,
 																																		:attr => 'first_name',

@@ -16,8 +16,8 @@
 																												:icon=>'icon-plus icon-white',
 																												:href=>new_link_path}
 	- else
-		.well.narrow
-			%h5
+		.well
+			%h4
 				= t(:total_entries,:scope=>:link)
 				\:
 				= @links.total_entries

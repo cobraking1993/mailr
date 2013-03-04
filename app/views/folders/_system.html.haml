@@ -1,4 +1,4 @@
-%form{:class=>"form-horizontal",:action=>folders_system_path,:method=>"post"}
+%form{:class=>"well form-horizontal",:action=>folders_system_path,:method=>"post"}
 	%fieldset
 		= render :partial => "common/select_for_folders",:locals => { :label=> t(:folder,:scope => :folder) + " " + t(:inbox_name,:scope=>:folder), :name => "folder", :id => "mailbox_inbox", :collection => @folders, :choice => @folder_inbox, :blank => true}
 		= render :partial => "common/select_for_folders",:locals => { :label=> t(:folder,:scope => :folder) + " " + t(:trash_name,:scope=>:folder), :name => "folder", :id => "mailbox_trash", :collection => @folders, :choice => @folder_trash, :blank => true}

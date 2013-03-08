@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 
 	def current_user
 		@current_user ||= User.find(session[:user_id]) if session[:user_id]	
-		logger.custom("current_user",@current_user.inspect)
+		#logger.custom("current_user",@current_user.inspect)
 	end
 
 	def check_current_user
@@ -60,11 +60,11 @@ class ApplicationController < ActionController::Base
 	def get_current_folders
         @system_folders = []
         @other_folders = []
-        order = $defaults["system_folders_order"]
+        folder_order = $defaults["system_folders_order"]
     	folders_shown = @current_user.folders.shown.order("name asc")
         folders_shown.each do |f|
           if f.isSystem?
-            @system_folders[order[f.sys-1]] = f 
+            @system_folders[folder_order[f.sys-1].to_i] = f 
           else
             @other_folders << f
           end

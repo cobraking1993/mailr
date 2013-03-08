@@ -43,11 +43,11 @@ class MessagesController < ApplicationController
         folder_status['MESSAGES'].zero? ? uids_remote = [] : uids_remote = @mailbox.fetch_uids
         uids_local = @current_user.messages.where(:folder_id => @current_folder).collect(&:uid)
 
-        logger.custom('current_folder',@current_folder.inspect)
-        logger.custom('uids_local',uids_local.join(","))
-        logger.custom('uids_remote',uids_remote.join(","))
-        logger.custom('to_delete',(uids_local-uids_remote).join(","))
-        logger.custom('to_fetch',(uids_remote-uids_local).join(","))
+        # logger.custom('current_folder',@current_folder.inspect)
+        # logger.custom('uids_local',uids_local.join(","))
+        # logger.custom('uids_remote',uids_remote.join(","))
+        # logger.custom('to_delete',(uids_local-uids_remote).join(","))
+        # logger.custom('to_fetch',(uids_remote-uids_local).join(","))
 
         (uids_local-uids_remote).each do |uid|
             @current_folder.messages.find_by_uid(uid).destroy

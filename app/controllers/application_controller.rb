@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
     	folders_shown = @current_user.folders.shown.order("name asc")
         folders_shown.each do |f|
           if f.isSystem?
-            @system_folders[folder_order[f.sys-1].to_i] = f 
+            @system_folders[folder_order[f.sys-1]] = f 
           else
             @other_folders << f
           end

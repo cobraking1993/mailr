@@ -97,3 +97,6 @@ en:
     set: Set
     no_file_chosen: No file was chosen
     calendar: Calendar
+
+  internal:
+    settings_error: "Settings error: Check settings.yml and my_settings.yml files."

@@ -7,15 +7,15 @@
 
 = render :partial => 'common/main_navigation', :locals => { :messages => :active }
 
-.well
-	%h3
+.alert.alert-info
+	%strong
 		= t(:current,:scope=>:folder)
 		\:
 		= pretty_folder_name(@current_folder)
-	%h5
-		= t(:total,:scope=>:message)
-		\:
-		= @messages.total_entries
+		%br/
+	= t(:total,:scope=>:message)
+	\:
+	= @messages.total_entries
 
 
 %form{:class=>"form-horizontal top-pix18",:action=>"#{messages_ops_multi_path}",:method=>"post"}

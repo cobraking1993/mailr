@@ -1,0 +1,13 @@
+- unless folders.empty?
+  .well.narrow
+    %ul{:class=>"nav nav-list"}
+      %li{ :class => "nav-header" }
+        = desc
+      - folders.each do |folder|
+        - unless folder.nil?
+          - if folder == @current_folder
+            %li{:class=>"active"}
+              = folder_link(:folder=>folder,:active=>true)
+          - else
+            %li
+              = folder_link(:folder=>folder,:active=>false)

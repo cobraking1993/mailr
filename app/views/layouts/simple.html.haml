@@ -16,15 +16,16 @@
 					%a{:href=>"/"}
 						= image_tag "logo.png"
 				.row
-					- if flash[:error]
-						.alert.alert-error
-							= flash[:error]
-					- elsif flash[:info]
-						.alert.alert-info
-							= flash[:info]
-					- elsif flash[:success]
-						.alert.alert-success
-							= flash[:success]
+					%p
+						- if flash[:error]
+							.alert.alert-error
+								= flash[:error]
+						- elsif flash[:info]
+							.alert.alert-info
+								= flash[:info]
+						- elsif flash[:success]
+							.alert.alert-success
+								= flash[:success]
 					= yield
 				.row
 					#footer-simple

@@ -1,20 +1,21 @@
 require 'yaml'
 
 class ApplicationController < ActionController::Base
-
-	#logger.custom("session",session.inspect)
-	#protect_from_forgery
 	
-	before_filter :load_settings,:current_user,:set_locale
-	#before_filter :plugins_configuration
-
-  def load_settings
-		$defaults ||= YAML::load(File.open(Rails.root.join('config','settings.yml')))
-	end
-
-    ################################# protected section ###########################################
-
+	before_filter :load_settings, :current_user, :set_locale
+    
 	protected
+
+    def load_settings
+        begin
+            $defaults ||= YAML::load(File.open(Rails.root.join('config','settings.yml')))
+            my_settings = YAML::load(File.open(Rails.root.join('config','my_settings.yml')))
+            $defaults.merge!(my) unless my_settings.nil?
+        rescue Exception
+            flash[:error] = t(:settings_error, :scope => :internal)
+            render 'internal/error', :layout => 'simple'
+        end
+    end
 
 	def theme_resolver
 		if @current_user.nil?
@@ -57,10 +58,21 @@ class ApplicationController < ActionController::Base
 	end
 
 	def get_current_folders
-		@folders_shown = @current_user.folders.shown.order("name asc")
-		if not @selected_folder.nil?
-            @current_folder = @current_user.folders.find_by_full_name(@selected_folder)
-        end
+    @system_folders = []
+    @other_folders = []
+    order = $defaults["system_folders_order"]
+		folders_shown = @current_user.folders.shown.order("name asc")
+    folders_shown.each do |f|
+      if f.isSystem?
+        @system_folders[order[f.sys-1]] = f 
+      else
+        @other_folders << f
+      end
+    end
+    @folders_shown = @system_folders.compact + @other_folders
+    unless @selected_folder.nil?
+      @current_folder = @current_user.folders.find_by_full_name(@selected_folder)
+    end
 	end
 
     def prepare_compose_buttons

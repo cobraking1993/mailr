@@ -9,11 +9,10 @@
 																												:icon=>'icon-plus icon-white',
 																												:href=>new_note_path}
 	- else
-		.well
-			%h3
-				= t(:total_entries,:scope=>:note)
-				\:
-				= @notes.total_entries
+		.alert.alert-info
+			= t(:total_entries,:scope=>:note)
+			\:
+			= @notes.total_entries
 		%p{:class=>"bottom-pix18"}
 			= render :partial => "common/anchor", :locals => {:caption=>t('create_new',:scope=>'note'),
 																												:icon=>'icon-plus icon-white',

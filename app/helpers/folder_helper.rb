@@ -30,7 +30,7 @@ module FolderHelper
             end
         else
             if !folder.unseen.zero?
-                name_shown += ' (' + folder.unseen.to_s + ')'
+                name_shown += " <span class=\"label label-important\">#{folder.unseen.to_s}</span>"
             end
         end
         

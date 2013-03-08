@@ -16,11 +16,10 @@
 																												:icon=>'icon-plus icon-white',
 																												:href=>new_link_path}
 	- else
-		.well
-			%h4
-				= t(:total_entries,:scope=>:link)
-				\:
-				= @links.total_entries
+		.alert.alert-info
+			= t(:total_entries,:scope=>:link)
+			\:
+			= @links.total_entries
 		%p{:class=>"bottom-pix18"}
 			= render :partial => "common/anchor", :locals => {:caption=>t('create_new',:scope=>'link'),
 																												:icon=>'icon-plus icon-white',

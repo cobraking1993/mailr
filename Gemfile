@@ -21,10 +21,6 @@ gem 'quiet_assets'
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
-
   gem 'uglifier'
 end
 

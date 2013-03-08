@@ -16,11 +16,10 @@
 																												:icon=>'icon-plus icon-white',
 																												:href=>new_contact_path}
 	- else
-		.well
-			%h4
-				= t(:total_entries,:scope=>:contact)
-				\:
-				= @contacts.total_entries
+		.alert.alert-info
+			= t(:total_entries,:scope=>:contact)
+			\:
+			= @contacts.total_entries
 		%p{:class=>"bottom-pix18"}
 			= render :partial => "common/anchor", :locals => {:caption=>t('create_new',:scope=>'contact'),
 																												:icon=>'icon-plus icon-white',

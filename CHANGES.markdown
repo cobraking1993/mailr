@@ -1,8 +1,10 @@
 ## Changes
 
-#### 0.10.2 upcoming
+#### 0.10.2
 
   * view fixes
+  * separate view of system folders
+  * separete specific configuration (config/my_settings.yml)
 
 #### 0.10.1
 

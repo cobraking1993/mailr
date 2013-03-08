@@ -160,6 +160,8 @@ pl:
     show_hide: Pokaż/Ukryj
     refresh: Odśwież
     presentation: Prezentacja folderów
+    system_folders: Systemowe
+    others_folders: Pozostałe
 
   message:
     messages: Wiadomości
@@ -226,6 +228,7 @@ pl:
     no_config: W bazie nie znaleziono żadnego użytkownika. Prawdopodobnie aplikacja nie została jeszcze skonfigurowana. Wypełnij poniższy formularz, aby dokonać podstawowej konfiguracji.
 
   internal:
+    settings_error: Błąd konfiguracyjny. Sprawdź pliki settings.yml i my_settings.yml
     imap_error: Błąd protokołu IMAP
     unspecified_error: Nieoczekiwany błąd
     not_found: Nie znaleziono żądanej strony

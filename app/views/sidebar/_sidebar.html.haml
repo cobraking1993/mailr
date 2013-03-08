@@ -1,11 +1,13 @@
 = render :partial => "common/logo"
 = render :partial => "common/version"
 = render :partial => "folders/list"
-%p
-	= render :partial => "common/button", :locals => {:name=>'logout',
-																										:type=>"btn-danger",
-																										:caption=>t('logout',:scope=>'user'),
-																										:icon=>'icon-off icon-white',
-																										:onclick=>"window.location='#{user_logout_path}'"}
+
+
+= render :partial => "common/button", :locals => {:name=>'logout',
+																									:type=>"btn-danger",
+																									:caption=>t('logout',:scope=>'user'),
+																									:icon=>'icon-off icon-white',
+                                                  :klass=>'logout',
+																									:onclick=>"window.location='#{user_logout_path}'"}
 = render :partial => "sidebar/calendar_view"
 

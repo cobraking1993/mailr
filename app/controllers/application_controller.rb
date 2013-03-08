@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
         begin
             $defaults ||= YAML::load(File.open(Rails.root.join('config','settings.yml')))
             my_settings = YAML::load(File.open(Rails.root.join('config','my_settings.yml')))
-            $defaults.merge!(my) unless my_settings.nil?
+            $defaults.merge!(my_settings) unless my_settings.nil?
         rescue Exception
             flash[:error] = t(:settings_error, :scope => :internal)
             render 'internal/error', :layout => 'simple'
@@ -58,21 +58,21 @@ class ApplicationController < ActionController::Base
 	end
 
 	def get_current_folders
-    @system_folders = []
-    @other_folders = []
-    order = $defaults["system_folders_order"]
-		folders_shown = @current_user.folders.shown.order("name asc")
-    folders_shown.each do |f|
-      if f.isSystem?
-        @system_folders[order[f.sys-1]] = f 
-      else
-        @other_folders << f
-      end
-    end
-    @folders_shown = @system_folders.compact + @other_folders
-    unless @selected_folder.nil?
-      @current_folder = @current_user.folders.find_by_full_name(@selected_folder)
-    end
+        @system_folders = []
+        @other_folders = []
+        order = $defaults["system_folders_order"]
+    	folders_shown = @current_user.folders.shown.order("name asc")
+        folders_shown.each do |f|
+          if f.isSystem?
+            @system_folders[order[f.sys-1]] = f 
+          else
+            @other_folders << f
+          end
+        end
+        @folders_shown = @system_folders.compact + @other_folders
+        unless @selected_folder.nil?
+          @current_folder = @current_user.folders.find_by_full_name(@selected_folder)
+        end
 	end
 
     def prepare_compose_buttons

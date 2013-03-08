@@ -8,10 +8,11 @@ class ApplicationController < ActionController::Base
 
     def load_settings
         begin
-            $defaults ||= YAML::load(File.open(Rails.root.join('config','settings.yml')))
-            my_settings = YAML::load(File.open(Rails.root.join('config','my_settings.yml')))
+            $defaults ||= YAML::load_file(Rails.root.join('config','settings.yml'))
+            my_settings = YAML::load_file(Rails.root.join('config','my_settings.yml'))
             $defaults.merge!(my_settings) unless my_settings.nil?
-        rescue Exception
+        rescue Exception => e
+            logger.custom "Settings Error", e.to_s
             flash[:error] = t(:settings_error, :scope => :internal)
             render 'internal/error', :layout => 'simple'
         end

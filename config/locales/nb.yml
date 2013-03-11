@@ -1,0 +1,102 @@
+nb:
+  will_paginate:
+    previous_label: "« Forrige"
+    next_label: "Neste »"
+    page_gap: "&hellip;"
+  activerecord:
+    attributes:
+      prefs:
+        theme: Tema
+        locale: Språkinnstillinger
+        msgs_per_page: Meldinger pr. side
+        msg_send_type: Format for nye meldinger
+  contact:
+    compose_to_selected: Ny epost til kontakt
+    delete_selected: Slett kontakt
+    modifying: Rediger kontakt
+    creating_new: Oppretter ny kontakt
+    create_new: Opprett ny kontakt
+    contacts: Kontakter
+    contact: Kontakt
+    no_selected: Ingen kontakter valgt
+    total_entries: Totalt antall kontakter
+    no_entries: Ingen kontakter
+    was_created: Kontakten ble opprettet
+    are_you_sure_to_delete_contact: Vil du virkelig slette kontakten?
+
+  prefs:
+    prefs: Innstillinger
+
+  folder:
+    folders: Mapper
+    no_shown: Ingen mapper i visning
+    parent: Modermappe
+    to_create: Mappe du vil opprette
+    to_delete: Mappe du vil slette
+    shown: Viste mapper
+    emptybin: Tøm
+    current: Nåværende mappe
+    no_selected: Ingen mapper valgt
+    to_create_empty: Mappenavn mangler
+    max_depth: Maximum folder depth reached
+    can_not_create: Kan ikke opprette mappe
+    was_created: Mappen ble opprettet
+    to_delete_empty: Ingen mappe å slette
+    can_not_delete: Kan ikke slette mappen
+    was_deleted: Mappen ble sletter
+    inbox_name: Innboks
+    sent_name: Sendte
+    trash_name: Søppelkurv
+    drafts_name: Utkast
+
+  message:
+    messages: Meldinger
+
+  compose:
+    compose: Ny epost
+
+  user:
+    login_failure: Innlogging feilet. Feil epostadresse eller passord
+    logged_out: Brukeren ble logget ut
+    setup_done: Oppsett ferdig. Vær vennlig og logg inn
+
+  must_be_unique: må være unik
+  some_add_info: noe ekstra informasjon
+  example: eksempel
+  refresh: Frisk opp
+  create: Opprett
+  delete: Slett
+  show_hide: Vis/Skjul
+  mailr: Mailr
+  save: Lagre
+
+  common:
+    false_answer: Nei
+    true_answer: Ja
+    file_format_error: File i filformat
+    no_tmp_dir: midlertidig katalog mangler
+    must_be_unique: må være unik
+    some_add_info: noe ekstra informasjon
+    example: "eksempel:"
+    create: Opprett
+    delete: Slett
+    mailr: MailR
+    save: Lagre
+    copy: Kopier
+    move: Flytt
+    to: til
+    previous_page: Forrige
+    next_page: Neste
+    bytes: B
+    kbytes: kB
+    mbytes: MB
+    no_data: Ingen data
+    download: Last ned
+    view: Vis
+    version: Versjon
+    set: Set
+    no_file_chosen: Ingen fil valgt
+    calendar: Kalender
+
+  internal:
+    settings_error: "Settings error: Check settings.yml and my_settings.yml files."

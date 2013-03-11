@@ -4,7 +4,7 @@ theme: bootstrap_tweeter
 locale: pl
 
 themes: [bootstrap_tweeter]
-locales: [en, pl]
+locales: [en, nb, pl]
 msgs_per_page_table: [15, 20, 25, 30, 35, 40, 45, 50]
 msg_send_type: [html, text]
 msg_image_view_as: [attachment, thumbnail]

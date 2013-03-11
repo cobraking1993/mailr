@@ -267,3 +267,8 @@ pl:
     set: Ustaw
     no_file_chosen: Nie wybrano żadnego pliku
     calendar: Kalendarz
+
+  locales:
+    en: Angielski
+    nb: Norweski (Bokmål)
+    pl: Polski

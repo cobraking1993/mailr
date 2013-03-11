@@ -24,7 +24,8 @@
 																									:attr => 'locale',
 																									:choices => $defaults["locales"],
 																									:choice => @prefs.locale,
-																									:blank => false }
+																									:blank => false,
+																									:translation_scope => :locales }
 		= render :partial => "common/select",:locals => {:object => @prefs,
 																									:attr => 'msg_send_type',
 																									:choices => $defaults["msg_send_type"],
@@ -45,19 +46,3 @@
 		.control-group
 			.controls
 				= render :partial => "common/button",:locals => { :name=>:save, :caption => t(:save,:scope=>:common), :icon =>'icon-cog icon-white'}
-
--#
-	<div class="params">
-	<%= raw select_field_table(@prefs, "msgs_per_page", $defaults["msgs_per_page_table"],@prefs.msgs_per_page,false) %>
-	<%= raw select_field_table(@prefs, "theme", $defaults["themes"],$defaults["themes"],false) %>
-	<%= raw select_field_table(@prefs, "locale", $defaults["locales"],@prefs.locale,false) %>
-	<%= raw select_field_table(@prefs, "msg_send_type", $defaults["msg_send_type"],@prefs.msg_send_type,false) %>
-	</div>
-	<%= raw single_action('save','common','save.png') %>
-
-		
-	<div class="params">
-	<%= raw select_field_table_t(@prefs, "msg_image_view_as", $defaults["msg_image_view_as"],@prefs.msg_image_view_as,false) %>
-	<%= raw select_field_table(@prefs, "msg_image_thumbnail_size", $defaults["msg_image_thumbnail_size"],@prefs.msg_image_thumbnail_size,false) %>
-	</div>
-	

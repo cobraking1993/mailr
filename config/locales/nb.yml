@@ -3,13 +3,88 @@ nb:
     previous_label: "« Forrige"
     next_label: "Neste »"
     page_gap: "&hellip;"
+  date:
+    day_names: [Sunday, Monday, Thuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Su, Mo, Tu, We, Th, Fr, Su]
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
   activerecord:
+    errors:
+      messages:
+        blank: "can't be blank"
+        too_short: "too short (min. %{count} chars)"
+        too_long: "too long (max. %{count} chars)"
+        invalid: "invalid format"
+        not_unique: "must be unique"
+        taken: "is taken"
+        record_invalid: "Invalid data format"
+    models:
+      contact: Contact
+      server: Server
+      link: Link
+      note: Note
     attributes:
+      note:
+        body: Body
+        title: Title
+      link:
+        url: URL
+        info: Information
+        goto: Go to
+      contact:
+        nick: Nickname
+        name: Name
+        email: Email
+        info: Additional information
       prefs:
         theme: Tema
         locale: Språkinnstillinger
         msgs_per_page: Meldinger pr. side
         msg_send_type: Format for nye meldinger
+        msg_image_view_as: Shows images as
+        msg_image_thumbnail_size: Thumbnail size
+      message:
+        from_addr: From
+        to_addr: To
+        subject: Subject
+        size: Size
+        date: Date
+        body: Body
+        cc_addr: CC
+        bcc_addr: BCC
+      user:
+        email: Email
+        password: Password
+        first_name: Firstname
+        last_name: Lastname
+        domain: Domain
+      server:
+        name: Server name
+        port: Port
+        use_ssl: SSL?
+        use_tls: TLS?
+        for_imap: IMAP?
+        for_smtp: SMTP?
+        auth: Authetication method
+      folder:
+        name: Folder name
+        target: Folder name
+
+  note:
+    note: Note
+    notes: Notes
+    create_new: Create new note
+    no_entries: No notes
+    total_entries: Notes number
+    delete_selected: Delete selected
+    modifying: Note editing
+    was_created: Note was created
+    were_imported: Notes were imported
+    goto: Go to
+    select_file: Select file
+    example_body: Body of Your note
+    example_title: Title of Your note
+
   contact:
     compose_to_selected: Ny epost til kontakt
     delete_selected: Slett kontakt
@@ -23,11 +98,36 @@ nb:
     no_entries: Ingen kontakter
     was_created: Kontakten ble opprettet
     are_you_sure_to_delete_contact: Vil du virkelig slette kontakten?
+    export: Export
+    import: Import
+    were_imported: Contacts were imported
+    format_error: Invalid contact format
+    select_file: Select file
+
+  link:
+    link: Link
+    links: Links
+    create_new: Create new link
+    no_entries: No links
+    total_entries: Links number
+    delete_selected: Delete selected
+    modifying: Link editing
+    was_created: Links was created
+    were_imported: Links were imported
+    goto: Go to
+    select_file: Select file
 
   prefs:
     prefs: Innstillinger
+    look: Look
+    identity: Idetnity
+    servers: Servers
+    were_saved: Settings were saved
+    thumbnail: Thumbnail
+    attachment: Attachment
 
   folder:
+    folder: Folder
     folders: Mapper
     no_shown: Ingen mapper i visning
     parent: Modermappe
@@ -44,31 +144,98 @@ nb:
     to_delete_empty: Ingen mappe å slette
     can_not_delete: Kan ikke slette mappen
     was_deleted: Mappen ble sletter
+    to_folder: to folder
+    system: System folder
+    not_all_configured: Not all system folders were configured
     inbox_name: Innboks
     sent_name: Sendte
     trash_name: Søppelkurv
     drafts_name: Utkast
+    not_configured_drafts: Draft folder was not assigned
+    not_configured_sent: Sent folder was not assigned
+    not_configured_trash: Trash folder was not assigned
+    not_configured_inbox: Inbox folder was not assigned
+    show_hide: Vis/Skjul
+    refresh: Refresh
+    presentation: Folders presentation
+    system_folders: System
+    others_folders: Others
 
   message:
     messages: Meldinger
+    no_selected: No message was selected
+    total: Total number of messages
+    checked: checked messages
+    set_read: Set as read
+    set_unread: Set as unread
+    no_in: No message in current folder
+    no_subject: No subject
+    no_content: Message has no body
+    attachments: Attachments
+    content: Message body
+    header_source: Message header
+    show_header: Show header
+    edit: Edit
+    images: Images
+    delete: Delete selected
+    move: Move
+    copy: Copy
+    trash: Delete selected
+    no_date: No date
+    no_address: No address
 
   compose:
     compose: Ny epost
+    new_message: New message
+    not_contain_at: ", if does not contains @ sign, address will be searched in contacts"
+    subject_of_the_message: Subject
+    write_your_message_here: Write Your message here
+    was_sent: Message was sent
+    was_saved: Message was saved in Draft folder
+    not_configured_smtp: No SMTP server was configured
+    select_file: Select file
+    delete_marked: Delete selected
+    upload: Upload file
+    sendout: Send
+    save: Save in Draft folder
+
+  show:
+    reply: Replay
+    reply_all: Replay to all
+    show_header: Show header
+    delete: Delete
+    reply_string: "Rep: "
+    trash: Delete
+    forward: Forward
 
   user:
     login_failure: Innlogging feilet. Feil epostadresse eller passord
     logged_out: Brukeren ble logget ut
     setup_done: Oppsett ferdig. Vær vennlig og logg inn
+    please_login: Login
+    unknown_title: Unknown user
+    unknown_flash: Your id was not found in database
+    unknown_login: Go to login page and login once again
+    unknown_setup: Got to setup page and configure Your access
+    setup: Configuration
+    login: Login
+    only_can_logins: You are not allowed to use this application
+    logout: Logout
+    has_no_domain: User has no domain set
+    send_config: Send
+    no_config: No user in database. Probably application was not configured properly. Fill in form to do basic configuration.
 
-  must_be_unique: må være unik
-  some_add_info: noe ekstra informasjon
-  example: eksempel
-  refresh: Frisk opp
-  create: Opprett
-  delete: Slett
-  show_hide: Vis/Skjul
-  mailr: Mailr
-  save: Lagre
+  internal:
+    settings_error: Settings error. Check settings.yml and my_settings.yml files
+    imap_error: IMAP error
+    unspecified_error: Unexpected error
+    not_found: Requested page was not found
+    internal_server_error: Internal server error
+    unprocessable_entity: Processing error
+    about: About
+    current_version: Current version
+    general_error: Application error
+    allready_configured: Basic configuration was already done. Please login and do additional configuration.
 
   common:
     false_answer: Nei
@@ -98,5 +265,7 @@ nb:
     no_file_chosen: Ingen fil valgt
     calendar: Kalender
 
-  internal:
-    settings_error: "Settings error: Check settings.yml and my_settings.yml files."
+  locales:
+    en: English
+    nb: Norwegian (Bokmål)
+    pl: Polish

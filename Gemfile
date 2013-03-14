@@ -20,6 +20,7 @@ gem 'quiet_assets'
 # in production environments by default.
 group :assets do
   gem 'sass-rails'
+  gem 'bootstrap-sass'
   gem 'coffee-rails'
   gem 'uglifier'
 end

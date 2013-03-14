@@ -4,28 +4,28 @@
 		%title
 			=t(:mailr,:scope=>:common)
 			= yield :title
-		%li{:rel=>"shortcut icon", :href=>"/favicon.ico"}/
+		%link{:rel=>"shortcut icon", :href=>"/favicon.ico"}/
 		= stylesheet_link_tag "application", :media => "all"
 		= javascript_include_tag "application"
 		= csrf_meta_tags
-	%body{:class=>"simple"}
+	%body
 		.container
 			.row
 			.span6.offset3
 				.row
 					%a{:href=>"/"}
 						= image_tag "logo.png"
+				.row.flash
+					- if flash[:error]
+						.alert.alert-error
+							= flash[:error]
+					- elsif flash[:info]
+						.alert.alert-info
+							= flash[:info]
+					- elsif flash[:success]
+						.alert.alert-success
+							= flash[:success]
 				.row
-					%p
-						- if flash[:error]
-							.alert.alert-error
-								= flash[:error]
-						- elsif flash[:info]
-							.alert.alert-info
-								= flash[:info]
-						- elsif flash[:success]
-							.alert.alert-success
-								= flash[:success]
 					= yield
 				.row
 					#footer-simple

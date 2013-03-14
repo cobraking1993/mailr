@@ -30,6 +30,8 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     bluecloth (2.2.0)
+    bootstrap-sass (2.3.0.1)
+      sass (~> 3.2)
     builder (3.0.4)
     calendar_view (0.0.7)
       rails (>= 3.0.0)
@@ -171,6 +173,7 @@ PLATFORMS
 
 DEPENDENCIES
   bluecloth
+  bootstrap-sass
   calendar_view
   capybara
   coffee-rails

@@ -4,10 +4,50 @@ pl:
     next_label: "Następna »"
     page_gap: "&hellip;"
   date:
-    day_names: [Niedziela, Poniedziałek, Wtorek, Środa, Czwartek, Piątek, Sobota]
-    abbr_day_names: [Ni, Po, Wt, Śr, Cz, Pi, So]
-    month_names: [~, Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień]
-    abbr_month_names: [~, Sty, Lut, Mar, Kwi, Maj, Czer, Lip, Sier, Wrze, Paź, Lis, Grudz]
+    day_names:
+      - Niedziela
+      - Poniedziałek
+      - Wtorek
+      - Środa
+      - Czwartek
+      - Piątek
+      - Sobota
+    abbr_day_names:
+      - Ni
+      - Po
+      - Wt
+      - Śr
+      - Cz
+      - Pi
+      - So
+    month_names:
+      - ~
+      - Styczeń
+      - Luty
+      - Marzec
+      - Kwiecień
+      - Maj
+      - Czerwiec
+      - Lipiec
+      - Sierpień
+      - Wrzesień
+      - Październik
+      - Listopad
+      - Grudzień
+    abbr_month_names:
+      - ~
+      - Sty
+      - Lut
+      - Mar
+      - Kwi
+      - Maj
+      - Czer
+      - Lip
+      - Sier
+      - Wrze
+      - Paź
+      - Lis
+      - Grudz
   activerecord:
     errors:
       messages:

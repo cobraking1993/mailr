@@ -6,8 +6,8 @@
       - folders.each do |folder|
         - unless folder.nil?
           - if folder == @current_folder
-            %li{:class=>"active"}
+            %li{:class=>"active", :style => "position: relative;"}
               = folder_link(:folder=>folder,:active=>true)
           - else
-            %li
+            %li{:style => "position: relative;"}
               = folder_link(:folder=>folder,:active=>false)

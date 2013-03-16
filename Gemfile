@@ -9,7 +9,7 @@ gem 'mysql2'
 gem 'json', '>= 1.7.7'
 gem 'will_paginate'
 gem "ezcrypto"
-gem 'calendar_view'
+gem 'calendar_view', '>= 0.0.8'
 gem 'bluecloth'
 gem 'sass'
 gem 'haml', '~> 3.0'

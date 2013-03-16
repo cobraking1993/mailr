@@ -33,7 +33,7 @@ GEM
     bootstrap-sass (2.3.0.1)
       sass (~> 3.2)
     builder (3.0.4)
-    calendar_view (0.0.7)
+    calendar_view (0.0.8)
       rails (>= 3.0.0)
     capybara (2.0.2)
       mime-types (>= 1.16)
@@ -174,7 +174,7 @@ PLATFORMS
 DEPENDENCIES
   bluecloth
   bootstrap-sass
-  calendar_view
+  calendar_view (>= 0.0.8)
   capybara
   coffee-rails
   ezcrypto

@@ -130,11 +130,11 @@ en:
     delete_selected: Delete selected
     modifying: Contact editing
     creating_new: New contact
-    create_new: Create new contakt
+    create_new: Create new contact
     contacts: Contacts
     contact: Contact
     no_selected: No contact was selected
-    total_entries: Contacts number
+    total_entries: Number of contacts
     no_entries: No contacts
     was_created: Contact was created
     are_you_sure_to_delete_contact: Are You sure to delete contact?
@@ -160,7 +160,7 @@ en:
   prefs:
     prefs: Settings
     look: Look
-    identity: Idetnity
+    identity: Identity
     servers: Servers
     were_saved: Settings were saved
     thumbnail: Thumbnail
@@ -169,14 +169,14 @@ en:
   folder:
     folder: Folder
     folders: Folders
-    no_shown: None folder is presented. Please configure shown folders in Folder tab.
+    no_shown: No folder is presented. Please configure shown folders in Folder tab.
     parent: Parent folder
     to_create: Folder to create
     to_delete: Folder to delete
     shown: Shown folders
     emptybin: Empty bin
     current: Current folder
-    no_selected: None folder was selected
+    no_selected: No folder was selected
     to_create_empty: No folder name
     max_depth: Maximum folder depth was reached
     can_not_create: Can't create folder
@@ -244,19 +244,19 @@ en:
     reply_all: Replay to all
     show_header: Show header
     delete: Delete
-    reply_string: "Rep: "
+    reply_string: "Re: "
     trash: Delete
     forward: Forward
 
   user:
     login_failure: Login failed. Wrong user or password.
     logged_out: User was logged out
-    setup_done: Configuration sucessfull. Please login.
+    setup_done: Configuration successful. Please login.
     please_login: Login
     unknown_title: Unknown user
-    unknown_flash: Your id was not found in database
-    unknown_login: Go to login page and login once again
-    unknown_setup: Got to setup page and configure Your access
+    unknown_flash: Your id was not found in the database
+    unknown_login: Go to login page and login again
+    unknown_setup: Go to setup page and configure your access
     setup: Configuration
     login: Login
     only_can_logins: You are not allowed to use this application

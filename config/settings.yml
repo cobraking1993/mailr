@@ -81,8 +81,8 @@ msgs_send_type: html
 msgs_update_time: 600
 
 msgs_inbox_view_fields:
-  - from_addr,
-  - subject-
+  - from_addr
+  - subject
   - date
   - size
 

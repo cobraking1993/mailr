@@ -24,7 +24,7 @@ describe User do
   it "creating prefs config" do
     @user = User.create!(:first_name => 'John', :last_name => 'Doe', :login => 'john3')
     Prefs.create_default(@user)
-    @user.prefs.theme.should == 'olive'
+    @user.prefs.theme.should == 'bootstrap_tweeter'
   end
 
 end

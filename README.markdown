@@ -18,7 +18,7 @@ In _Rails 3_ and above all dependencies should be defined in file _Gemfile_. All
 bundle install
 ```
 
-* Check _config/settings.yml_ for proper values. Don't change _config/settings.yml_. Your specific configuration put into _config/my\_settings.yml_. Values from _config/my\_settings.yml_ overrides values in _config/settings.yml_ file.
+* Check **config/settings.yml** for proper values. **Don't change config/settings.yml**. Your specific configuration put into **config/my_settings.yml**. Values from **config/my_settings.yml** overrides values in **config/settings.yml** file.
 * Prepare config/database.yml file.
 * Migrate database (rake db:migrate)
 * Start rails server if applicable

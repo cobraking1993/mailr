@@ -1,5 +1,3 @@
-require 'iconv'
-
 module ApplicationHelper
 
 #def form_field(object,field,flabel,example,val)

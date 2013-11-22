@@ -1,4 +1,3 @@
-require 'iconv'
 require 'mail'
 
 class Message < ActiveRecord::Base

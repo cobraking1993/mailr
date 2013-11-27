@@ -11,6 +11,7 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'haml-rails'
 gem 'foundation-rails'
 gem 'ember-rails'
+gem 'ember-source'
 gem 'quiet_assets'
 
 gem 'sqlite3', :group => [:test, :development, :staging]

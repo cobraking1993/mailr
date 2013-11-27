@@ -259,6 +259,7 @@ DEPENDENCIES
   database_cleaner
   email_spec
   ember-rails
+  ember-source
   foundation-rails
   guard-rspec
   guard-spring

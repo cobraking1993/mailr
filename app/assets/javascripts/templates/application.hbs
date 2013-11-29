@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="large-12">
+    <h1>MailR</h1>
+    {{outlet}}
+  </div>
+  {{ controller }}
+  <nav>
+  {{#link-to 'index'}}Root{{/link-to}}
+  {{#link-to 'about'}}About{{/link-to}}
+  {{#link-to 'folders'}}Folders{{/link-to}}
+  {{#link-to 'folders.new'}}Folders new{{/link-to}}
+  {{#link-to 'folder.index' 1}}Folder One{{/link-to}}
+</nav>
+</div>

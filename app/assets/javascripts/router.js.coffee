@@ -1,5 +1,9 @@
-# For more information see: http://emberjs.com/guides/routing/
-
-App.Router.map ()->
-  # @resource('posts')
+App.Router.map( () ->
+  @route('about')
+  @resource('folders', () ->
+    @route('new')
+    @resource('folder', { path: '/:folder_id' }, () ->
+    )
+  )
+)
 

@@ -8,8 +8,19 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require foundation_and_overrides
+ *= require_self
 
  *= require_tree .
  */
+
+.sub-nav dt a.active, .sub-nav dd a.active, .sub-nav li a.active {
+
+    border-radius: 3px 3px 3px 3px;
+    font-weight: normal;
+    background: none repeat scroll 0% 0% rgb(0, 140, 186);
+    padding: 0.16667rem 0.88889rem;
+    cursor: default;
+    color: white;
+
+}

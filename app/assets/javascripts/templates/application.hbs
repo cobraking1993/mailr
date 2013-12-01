@@ -1,19 +1,20 @@
 <div class="row">
-  <div class="large-12">
-    <h1>MailR</h1>
+  <div class="large-3 columns">
+    {{ partial 'logo' }}
+    {{ partial 'version' }}
+    {{ outlet sidebar }}
   </div>
-</div>
-<div class="row">
-  <dl class="sub-nav">
-    <dd>{{#link-to 'index'}}Index{{/link-to}}</dd>
-    <dd>{{#link-to 'about'}}About{{/link-to}}</dd>
-    <dd>{{#link-to 'folders'}}Folders{{/link-to}}</dd>
-    <dd>{{#link-to 'folders.new'}}New folder{{/link-to}}</dd>
-    <dd>{{#link-to 'settings'}}Settings{{/link-to}}</dd>
-  </dl>
-</div>
-<div class="row">
-  <div class="large-12">
-    {{outlet}}
+  <div class="large-9 columns">
+    <div class="row">
+      <dl class="sub-nav top-menu">
+        <dd>New message</dd>
+        <dd>Messages</dd>
+        <dd>{{#link-to 'folders'}}Folders{{/link-to}}</dd>
+        <dd>{{#link-to 'settings'}}Settings{{/link-to}}</dd>
+      </dl>
+    </div>
+    <div class="row">
+      {{ outlet main }}
+    </div>
   </div>
 </div>

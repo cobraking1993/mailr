@@ -1,11 +1,10 @@
-App.MessagesController = Ember.ArrayController.extend(
+App.NewmessageRoute = Ember.Route.extend(
   renderTemplate: () ->
     @render('folders',
       controller: 'folders'
       outlet: 'sidebar'
     )
-    @render('messages',
-      controller: 'messages'
+    @render('newmessage',
       outlet: 'main'
     )
 )

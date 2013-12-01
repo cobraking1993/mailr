@@ -1,14 +1,6 @@
-<div class="row">
-  <div class="large-3 columns panel">
-    Number of folders: {{length}}
-    <ul>
-      {{#each}}
-      <li>{{#link-to 'messages' this}} {{ name }} {{/link-to}}</li>
-      {{/each}}
-    </ul>
-  </div>
-  <div class="large-9 columns">
-    {{outlet}}
-  </div>
-</div>
-{{controller}}
+<ul class="side-nav">
+  {{#each}}
+  <li>{{#link-to 'messages' this}} {{ name }} {{/link-to}}</li>
+  {{/each}}
+</ul>
+{{ outlet }}

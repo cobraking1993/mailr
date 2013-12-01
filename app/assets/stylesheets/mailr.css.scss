@@ -1,14 +1,8 @@
-.sub-nav dt a.active, .sub-nav dd a.active, .sub-nav li a.active {
-    border-radius: 3px 3px 3px 3px;
-    font-weight: normal;
-    background: none repeat scroll 0% 0% rgb(0, 140, 186);
-    padding: 0.16667rem 0.88889rem;
-    cursor: default;
-    color: white;
-}
+
+$primary-color: #DF3A01;
 
 span.logo {
-  color: orange;
+  color: $primary-color;
   font-weight: bold;
 }
 
@@ -20,3 +14,20 @@ span.logo {
   margin-top: 10px;
 }
 
+.side-nav li a.active {
+    border-radius: 3px 3px 3px 3px;
+    font-weight: normal;
+    background: none repeat scroll 0% 0% $primary-color;
+    padding: 0.16667rem 0.88889rem;
+    cursor: default;
+    color: white;
+}
+
+.sub-nav dt a.active, .sub-nav dd a.active, .sub-nav li a.active {
+    border-radius: 3px 3px 3px 3px;
+    font-weight: normal;
+    background: none repeat scroll 0% 0% $primary-color;
+    padding: 0.16667rem 0.88889rem;
+    cursor: default;
+    color: white;
+}

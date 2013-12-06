@@ -1,6 +1,7 @@
 <ul class="side-nav">
   {{#each}}
-  <li>{{#link-to 'messages' this}} {{ name }} {{/link-to}}</li>
+  <li>{{#link-to 'messages' this}} {{ name }} <span class="label round right">10</span> {{/link-to}}</li>
   {{/each}}
 </ul>
-{{ outlet }}
+{{!--{{ partial 'debug' }} --}}
+

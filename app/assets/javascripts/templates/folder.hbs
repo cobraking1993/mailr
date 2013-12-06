@@ -2,6 +2,14 @@
 {{ name }}
 {{ ident }}
 {{ id }}
-{{ controller }}
+{{ partial 'debug' }}
 </div>
-{{outlet}}
+<div class="outlet">
+Outlet header
+{{outlet header}}
+</div>
+<div class="outlet">
+Outlet local
+{{outlet local}}
+</div>
+{{!-- {{ log App.Router.router.currentParams.folder_id }} --}}

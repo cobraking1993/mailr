@@ -14,20 +14,48 @@ span.logo {
   margin-top: 10px;
 }
 
-.side-nav li a.active {
-    border-radius: 3px 3px 3px 3px;
+a.active .label {
+  background-color: white;
+  color: $primary-color;
+}
+
+.side-nav li a {
+    padding: 0.16667em 0.88889em;
     font-weight: normal;
-    background: none repeat scroll 0% 0% $primary-color;
-    padding: 0.16667rem 0.88889rem;
     cursor: default;
-    color: white;
+    &.active {
+      border-radius: 3px 3px 3px 3px;
+      background: none repeat scroll 0% 0% $primary-color;
+      color: white;
+    }
 }
 
 .sub-nav dt a.active, .sub-nav dd a.active, .sub-nav li a.active {
     border-radius: 3px 3px 3px 3px;
     font-weight: normal;
     background: none repeat scroll 0% 0% $primary-color;
-    padding: 0.16667rem 0.88889rem;
+    padding: 0.16667em 0.88889em;
     cursor: default;
     color: white;
 }
+
+.outlet-main {
+  border-color: blue;
+  border-style: solid;
+}
+
+// .outlet-sidebar {
+//   border-color: red;
+//   border-style: solid;
+// }
+
+.outlet {
+  border-color: green;
+  border-style: solid;
+}
+
+.debug , .debug li {
+  font-size: 0.5em;
+  color: grey;
+}
+

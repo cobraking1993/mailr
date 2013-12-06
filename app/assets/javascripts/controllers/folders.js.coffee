@@ -1,2 +1,2 @@
-App.FoldersController = Ember.ArrayController.extend(
-)
+# App.FoldersController = Ember.ArrayController.extend(
+# )

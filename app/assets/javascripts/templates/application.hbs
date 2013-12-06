@@ -1,10 +1,14 @@
-appName: {{ appName }}
+{{!--appName: {{ appName }}
 currentFolder: {{ currentFolder }}
+--}}
 <div class="row">
   <div class="large-3 columns">
     {{ partial 'logo' }}
     {{ partial 'version' }}
-    {{ outlet sidebar }}
+    <div class="outlet-sidebar">
+      {{ outlet sidebar }}
+      <a href="#" class="button radius tiny expand">Wyloguj</a>
+    </div>
   </div>
   <div class="large-9 columns">
     <div class="row">
@@ -15,8 +19,11 @@ currentFolder: {{ currentFolder }}
         <dd>{{#link-to 'settings'}}Ustawienia{{/link-to}}</dd>
       </dl>
     </div>
-    <div class="row">
-      {{ outlet main }}
+    <div class="row outlet-main">
+      {{ outlet }}
     </div>
   </div>
 </div>
+{{!--
+{{ log currentFolder }}
+--}}

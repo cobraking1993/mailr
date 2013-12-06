@@ -1,12 +1,10 @@
-App.MessagesController = Ember.ArrayController.extend(
-  renderTemplate: () ->
-    @render('folders',
-      controller: 'folders'
-      outlet: 'sidebar'
-    )
-    @render('messages',
-      controller: 'messages'
-      outlet: 'main'
-    )
-)
+# App.MessagesController = Ember.ArrayController.extend(
+# )
 
+# App.MessagesIndexController = Ember.ArrayController.extend(
+#   name: 'ssssss'
+# )
+
+# App.MessageController = Ember.ObjectController.extend(
+#   name: 'qwerty'
+# )

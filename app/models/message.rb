@@ -56,7 +56,7 @@ class Message < ActiveRecord::Base
                 :msg_id => mail.message_id,
                 :uid => message.attr['UID'].to_i,
                 :from_addr => from,
-                :to_addr => to,
+                :to_addr => to[0..254],
                 :subject => subject,
                 :content_type => mail.content_type,
                 :date => date,

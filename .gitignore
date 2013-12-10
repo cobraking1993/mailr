@@ -17,3 +17,4 @@
 # own environment
 config/deploy.rb
 public/assets
+.ruby-version

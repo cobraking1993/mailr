@@ -96,7 +96,8 @@ class MessagesController < ApplicationController
 
         mail = Mail.new(imap_message)
         @mail = Mail.new(imap_message)
-        @plain_header = mail.header.to_s
+        @plain_header = mail.header.inspect
+	#to_s.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
 
 
 		# FIXME missing fields and support arrays

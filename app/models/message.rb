@@ -42,13 +42,15 @@ class Message < ActiveRecord::Base
         mail = Mail.new(message.attr['RFC822.HEADER'])
 
 		mail.date.nil? ? date = nil : date = mail.date.to_s
-		mail.From.nil? ? from = nil : from = mail.From.charseted
-		mail.To.nil? ? to = nil : to = mail.To.charseted
-		mail.Subject.nil? ? subject = nil : subject = mail.Subject.charseted
+		mail.From.nil? ? from = '' : from = mail.From.charseted
+		mail.To.nil? ? to = '' : to = mail.To.charseted
+		mail.Subject.nil? ? subject = '' : subject = mail.Subject.charseted
 
-		#logger.custom('subject',mail.Subject.encoded)
-		#logger.custom('subject',subject)
-		#logger.custom('mail',mail.inspect)
+		logger.custom('subject',mail.Subject)
+		logger.custom('subject',subject)
+		logger.custom('from',from)
+		logger.custom('to',to)
+		logger.custom('mail',mail.inspect)
 
         create(
                 :user_id => user.id,

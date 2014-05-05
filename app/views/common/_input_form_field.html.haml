@@ -1,8 +1,0 @@
-.control-group
-	%label{:class=>"control-label",:for=>"#{attr}"}
-		= model.capitalize.constantize.human_attribute_name(attr)
-	.controls
-		%input{:type=>"text",:id=>"#{model}_#{attr}",:name=>"#{model}[#{attr}]"}
-
-
--#= render :partial => "common/input_form_field",:locals => { :model => 'user',:attr => 'login'}

@@ -1,9 +1,0 @@
-%h1
-	%small
-		= t(:attachments,:scope=>:message)
-%table{:class=>"table table-bordered"}
-	%tbody
-		- for idx in 0..@attachments.size-1
-			%tr
-				= render :partial => 'attachment', :locals => { :attachment => @attachments[idx] } 
-

@@ -1,84 +1,56 @@
-Mailr::Application.routes.draw do
+Rails.application.routes.draw do
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
 
-    namespace :prefs do
-        post "update_look"
-        post "update_identity"
-        post "update_servers"
-    end
-    match "prefs/look" => "prefs#look", :as => :prefs_look
-    match "prefs/identity" => "prefs#identity", :as => :prefs_identity
-    match "prefs/servers" => "prefs#servers", :as => :prefs_servers
+  # You can have the root of your site routed with "root"
+  # root 'welcome#index'
 
-    resources :contacts
-    
-    namespace :contacts do
-        post "import_export"
-        post "ops"
-    end
+  # Example of regular route:
+  #   get 'products/:id' => 'catalog#view'
 
-    resources :links
-    namespace :links do
-        post "import_export"
-        #post "ops"
-    end
+  # Example of named route that can be invoked with purchase_url(id: product.id)
+  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
-    resources :notes
-    namespace :notes do
-        post "import_export"
-    end    
+  # Example resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
 
-    namespace :folders do
-        post "create"
-        post "delete"
-        post "system"
-        post "show_hide"
-        post "refresh"
-        get "refresh_status"
-        get "emptybin"
-    end
-    match "/folders/index" => 'folders#index', :as => :folders
-    match "/folders/select/:id" => 'folders#select', :as => :folders_select
+  # Example resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
 
-    namespace :internal do
-        get "error"
-        get "imaperror"
-        get "loginfailure"
-        get "onlycanlogins"
-        get "allready_configured"
-    end
-    match "/internal/about" => 'internal#about' ,:as => :about
+  # Example resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
 
-    match "/messages_ops/single" => 'messages_ops#single'
-    match "/messages_ops/multi" => 'messages_ops#multi', :as => :messages_ops_multi
-    match "/messages_ops/sendout_or_save" => 'messages_ops#sendout_or_save' ,:as =>:sendout_or_save
-    match "/messages_ops/upload" => 'messages_ops#upload',:as => :upload
-    match "/messages_ops/edit/:id" => 'messages_ops#edit', :as => :edit
-    match "/messages_ops/composed" => 'messages_ops#composed', :as => :composed
+  # Example resource route with more complex sub-resources:
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', on: :collection
+  #     end
+  #   end
 
-	root :to => "messages#index"
+  # Example resource route with concerns:
+  #   concern :toggleable do
+  #     post 'toggle'
+  #   end
+  #   resources :posts, concerns: :toggleable
+  #   resources :photos, concerns: :toggleable
 
-    match "/messages/index" => 'messages#index', :as => :messages
-    match "/messages/compose" => 'messages#compose', :as => :compose
-    match "/messages/compose/:cid" => 'messages#compose', :as => :compose_contact
-    match "/messages/show/:id" => 'messages#show'
-    match "/messages/html_body/:id" => 'messages#html_body' , :as => :html_body
-    match "/messages/attachment/:id/:idx" => 'messages#attachment', :as => :attachment_download
-
-    match "/user/autheniticate" => 'user#authenticate', :as => :user_authenticate
-    match "/user/setup/:login" => 'user#setup'
-    namespace :user do
-        get "logout"
-        post "authenticate"
-        post "create"
-        get "login"
-        get "setup"
-        get "unknown"
-    end
-    
-    
-
-	#themes_for_rails
-
-    #match '*a', :to => 'internal#not_found'
-    #match ':controller(/:action(/:id(.:format)))'
+  # Example resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
 end

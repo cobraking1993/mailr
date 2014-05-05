@@ -5,5 +5,9 @@
 #= require_self
 #= require mailr
 
-window.Mailr = Ember.Application.create()
+window.Mailr = Ember.Application.create
+  LOG_TRANSITIONS: true
+  LOG_TRANSITIONS_INTERNAL: true
+  LOG_VIEW_LOOKUPS: true
+
 

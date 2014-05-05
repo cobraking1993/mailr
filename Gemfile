@@ -8,6 +8,9 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 
+gem 'ember-rails'
+gem 'ember-source', '1.5.1.1'
+
 gem 'foundation-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

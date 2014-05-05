@@ -72,6 +72,9 @@ GEM
     fastercsv (1.5.5)
     ffi (1.9.3)
     formatador (0.2.4)
+    foundation-rails (5.1.1.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     guard (2.2.4)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -240,6 +243,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   email_spec
+  foundation-rails
   guard-rspec
   guard-spring
   jbuilder (~> 2.0)

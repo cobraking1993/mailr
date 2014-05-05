@@ -112,6 +112,8 @@ GEM
     highline (1.6.21)
     hike (1.2.3)
     i18n (0.6.9)
+    i18n-js (2.1.2)
+      i18n
     jbuilder (2.0.7)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -268,6 +270,7 @@ DEPENDENCIES
   foundation-rails
   guard-rspec
   guard-spring
+  i18n-js
   jbuilder (~> 2.0)
   jquery-rails
   mina

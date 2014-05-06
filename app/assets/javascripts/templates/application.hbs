@@ -1,3 +1,18 @@
-<h1>Mailr</h1>
-<p>Read all about it!</p>
-{{outlet}}
+<div class="row">
+  <div class="small-3 columns">
+    {{ partial 'logo' }}
+    {{ partial 'version' }}
+    <div class="outlet-sidebar">
+      {{ outlet sidebar }}
+      {{ partial 'logout' }}
+    </div>
+  </div>
+  <div class="small-9 columns">
+    <div class="row">
+      {{ partial 'subnav' }}
+    </div>
+    <div class="row outlet-main">
+      {{ outlet }}
+    </div>
+  </div>
+</div>

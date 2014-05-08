@@ -5,12 +5,9 @@ Mailr.Router.map( () ->
   @resource('folders', () ->
     @route('management')
     @route('new')
-    @resource('folder', { path: ':folder_id' }, () ->
-      @resource('messages', () ->
-        @resource('message', { path: ':message_id'}, () ->
-        )
-      )
-    )
+  )
+  @resource('folder', { path: '/folder/:folder_id' }, () ->
+    @route('messages')
   )
 )
 

@@ -1,6 +1,6 @@
 Mailr.AboutRoute = Ember.Route.extend(
   renderTemplate: () ->
-    @render('about_sidebar',
+    @render('aboutSidebar',
       outlet: 'sidebar'
     )
     @render('about',

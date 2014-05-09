@@ -1,5 +1,11 @@
 <ul class="side-nav">
+  {{#if controller.folders }}
+  {{#each folder in controller.folders }}
+  <li>{{#link-to 'folder.messages' folder}} {{ folder.name }} <span class="label round right">10</span> {{/link-to}}</li>
+  {{/each}}
+  {{ else }}
   {{#each}}
   <li>{{#link-to 'folder.messages' this}} {{ name }} <span class="label round right">10</span> {{/link-to}}</li>
   {{/each}}
+  {{/if}}
 </ul>

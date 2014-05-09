@@ -25,12 +25,12 @@ Mailr.FolderMessagesRoute = Ember.Route.extend(
   ]
 
   # setupController: (controller, model) ->
-  #   @controllerFor('folders').set('model', ['21321','12321','12123'])
+  #   @controllerFor('folders').set('model', folders)
   #   @controllerFor('folders').set('currentFolder', @controllerFor('application').get('currentFolder'))
   #   @controllerFor('folder.messages').set('model', model)
 
   renderTemplate: () ->
-    @render('folder/messages',
+    @render('foldersList',
       # controller: 'folders'
       outlet: 'sidebar'
       into: 'application'

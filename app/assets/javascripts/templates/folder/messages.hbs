@@ -1,1 +1,8 @@
-Messages in folder
+<h4>Wiadomości</h4>
+<ul>
+{{#each message in model}}
+<li>{{#link-to 'message.index' message}}{{ message.title }}{{/link-to}}</li>
+{{/each}}
+</ul>
+
+{{ partial 'debug' }}

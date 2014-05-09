@@ -105,8 +105,11 @@ a.active .label {
     color: white;
 }
 
-.debug , .debug li {
-  font-size: 0.5em;
+.debug {
+  padding: 5px;
+  margin: 10px;
+  font-size: 1em;
   color: grey;
+  border: solid 1px;
 }
 

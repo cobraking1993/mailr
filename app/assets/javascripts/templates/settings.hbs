@@ -1,8 +1,9 @@
-<h4>Ustawienia</h4>
+<h4>{{i18n settings.save}}</h4>
 
-Setting 1
-{{ input value=address }}
-Setting 2
-{{ textarea value=body }}
-<button class="button radius small" {{action "saveSettings" }}>Save</button>
-{{ partial 'debug' }}
+<dl class="sub-nav top-menu">
+  <dd>{{#link-to 'settings.lookandfeel'}}<i class="fi-layout"></i>{{i18n lookandfeel.title}}{{/link-to}}</dd>
+  <dd>{{#link-to 'settings.identity'}}<i class="fi-torso"></i>{{i18n identity.title}}{{/link-to}}</dd>
+</dl>
+{{outlet}}
+<button class="button radius small" {{action "saveSettings" }}><i class="fi-save"></i>{{i18n settings.save}}</button>
+

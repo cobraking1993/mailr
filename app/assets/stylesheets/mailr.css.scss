@@ -35,7 +35,7 @@
   font-style: normal;
 }
 
-$primary-color: #DD3300;
+// $primary-color: #DD3300;
 
 body{
   font-family: 'alegreya_sansregular';
@@ -70,7 +70,6 @@ span.r {
 }
 
 a.button, button, button:hover, .button:hover, button:focus, .button:focus {
-  background-color: $primary-color;
 }
 
 p.version {
@@ -82,7 +81,6 @@ p.version {
 
 a.active .label {
   background-color: white;
-  color: $primary-color;
 }
 
 .side-nav li a {
@@ -115,4 +113,8 @@ a.active .label {
 
 i {
   margin-right: 5px;
+}
+
+.bool-switch.active {
+  color: green;
 }

@@ -6,7 +6,19 @@ I18n.translations.en = {
   messages: 'Messages',
   folder: 'Folder',
   folders: 'Folders',
-  settings: 'Settings',
+  settings: {
+    title: 'Settings',
+    save: 'Save settings'
+  },
+  identity: {
+    title: 'Identity',
+    name: 'Name',
+    domain: 'Domain'
+  },
+  lookandfeel: {
+    title: 'Look and Feel',
+    language: 'Language'
+  },
   hello: 'Hello',
     cookieCount: {
       one: 'You have {{count}} cookie.',

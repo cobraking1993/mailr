@@ -1,4 +1,4 @@
-Mailr.SettingsRoute = Ember.Route.extend(
+Mailr.SettingsRoute = Ember.Route.extend({
 
   model: () ->
     return [
@@ -9,10 +9,12 @@ Mailr.SettingsRoute = Ember.Route.extend(
       { id: 5, indent: 'folder5', name: 'Folder 5'}
     ]
 
+  afterModel: () ->
+    @transitionTo('settings.lookandfeel')
+
   renderTemplate: () ->
-    @render('foldersList',
-      outlet: 'sidebar'
-    )
+    @render('foldersList', outlet: 'sidebar')
     @render('settings')
-)
+
+})
 

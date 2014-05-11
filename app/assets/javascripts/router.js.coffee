@@ -1,6 +1,9 @@
 Mailr.Router.map( () ->
   @route('about')
-  @route('settings')
+  @resource('settings', () ->
+    @route('lookandfeel')
+    @route('identity')
+  )
   @route('newMessage')
   @resource('folders', () ->
     @route('config')

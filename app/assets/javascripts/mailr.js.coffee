@@ -9,3 +9,11 @@
 #= require ./router
 #= require_self
 
+Mailr.Settings = Ember.Object.extend({
+})
+
+Mailr.settings = Mailr.Settings.create({
+  language: 'en',
+  domain: 'example.com',
+  name: 'Joe Doe',
+})

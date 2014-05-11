@@ -1,0 +1,10 @@
+<b {{action toggleMore}}>{{name}}: </b>
+{{input type=checkbox checked=boolValue}}
+{{#if boolValue}}
+is on
+{{else}}
+is off
+{{/if}}
+{{#if isShowingMore}}
+<p>{{{more}}}</p>
+{{/if}}

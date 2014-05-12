@@ -57,6 +57,20 @@ button, .button, .label, footer{
   font-size: 1rem;
 }
 
+a .label {
+  font-size: 1rem;
+}
+
+.side-nav li a:focus:not(.button) {
+    color: white;
+}
+
+a.active {
+  & .label {
+    color: $primary-color;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "alegreya_sansregular","Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
 }

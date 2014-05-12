@@ -2,9 +2,18 @@ I18n.translations = I18n.translations || {}
 I18n.translations.en = {
   version: 'Version',
   logout: 'Logout',
-  messages: 'Messages',
+  messages: {
+    title: 'Messages'
+  },
   folder: 'Folder',
   folders: 'Folders',
+  folders: {
+    title: 'Folders',
+    config: 'Folders config',
+    create: 'Create folder',
+    to_create: 'Create',
+    management: 'Folders Management'
+  },
   compose: {
     title: 'Compose',
     address: 'Address',

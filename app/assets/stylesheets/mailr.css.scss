@@ -48,8 +48,13 @@ button, .button, .label, footer{
   }
 }
 
-.sub-nav dt, .sub-nav dd {
+.sub-nav dt, .sub-nav dd, .side-nav {
   font-family: 'alegreya_sans_scmedium';
+  font-size: 1.1rem;
+}
+
+.side-nav li {
+  font-size: 1rem;
 }
 
 h1, h2, h3, h4, h5, h6 {

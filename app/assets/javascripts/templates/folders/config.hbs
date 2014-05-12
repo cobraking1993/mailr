@@ -1,4 +1,13 @@
-<h4>Konfiguracja folderów</h4>
+<h4>{{i18n folders.config}}</h4>
+
+<h5>{{i18n folders.management}}</h5>
+<ul class="side-nav">
+{{#each}}
+<li>{{#link-to 'folder.messages' this}}{{ name }}{{/link-to}}</li>
+{{/each}}
+</ul>
+
+<h5>{{i18n folders.create}}</h5>
 {{ input value=folderName }}
-<button class="button radius small" {{action "createFolder" }}>Create folder</button>
+<button class="button radius small" {{action "createFolder"}}><i class="fi-plus"></i>{{i18n folders.to_create}}</button>
 {{ partial 'debug' }}

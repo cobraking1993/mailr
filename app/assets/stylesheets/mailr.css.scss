@@ -61,6 +61,11 @@ a .label {
   font-size: 1rem;
 }
 
+button.small, .button.small {
+  font-size: 1.2rem;
+  line-height: inherit;
+}
+
 .side-nav li a:focus:not(.button) {
     color: white;
 }

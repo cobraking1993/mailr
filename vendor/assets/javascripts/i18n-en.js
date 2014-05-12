@@ -2,10 +2,17 @@ I18n.translations = I18n.translations || {}
 I18n.translations.en = {
   version: 'Version',
   logout: 'Logout',
-  newMessage: 'New message',
   messages: 'Messages',
   folder: 'Folder',
   folders: 'Folders',
+  compose: {
+    title: 'Compose',
+    address: 'Address',
+    cc_address: 'CC Address',
+    subject: 'Subject',
+    body: 'Body',
+    send: 'Send message'
+  },
   settings: {
     title: 'Settings',
     save: 'Save settings'

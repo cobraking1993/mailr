@@ -4,7 +4,7 @@ Mailr.Router.map( () ->
     @route('lookandfeel')
     @route('identity')
   )
-  @route('newMessage')
+  @route('compose')
   @resource('folders', () ->
     @route('config')
     @route('new')

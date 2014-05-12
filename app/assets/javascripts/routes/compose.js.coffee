@@ -1,4 +1,4 @@
-Mailr.NewMessageRoute = Ember.Route.extend(
+Mailr.ComposeRoute = Ember.Route.extend(
 
   model: () ->
     return [
@@ -13,6 +13,6 @@ Mailr.NewMessageRoute = Ember.Route.extend(
     @render('foldersList',
       outlet: 'sidebar'
     )
-    @render('newMessage')
+    @render('compose')
 )
 

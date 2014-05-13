@@ -6,13 +6,10 @@
 {{#each folder in controller}}
 <li>
 
-{{#if folder.show}}
-<i class="fi-eye"></i>
-{{else}}
-<i class="fi-eye disabled"></i>
-{{/if}}
+<i {{bind-attr class=":fi-eye folder.notShown"}}></i>
 
 {{folder.name}}
+
 </li>
 {{/each}}
 </ul>

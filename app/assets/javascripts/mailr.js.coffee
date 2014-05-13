@@ -25,6 +25,8 @@ Mailr.FolderItem = Em.Object.extend({
   total: 0,
   unseen: 0,
 
+  notShown: Ember.computed.equal('show', false)
+
   isInbox: ( ->
     return @get('system') == 'inbox'
   ).property('system')

@@ -6,7 +6,7 @@
 {{#each folder in controller}}
 <li>
 
-<i {{bind-attr class=":fi-eye folder.notShown"}}></i>
+<i {{action "showToggle" folder}}{{bind-attr class=":fi-eye folder.notShown"}}></i>
 
 {{folder.name}}
 

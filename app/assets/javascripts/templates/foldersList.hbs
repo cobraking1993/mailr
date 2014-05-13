@@ -1,6 +1,10 @@
 <ul class="side-nav">
   {{#each folder in controller.system}}
   {{partial 'folderListItem'}}
+  {{else}}
+    <div data-alert class="alert-box warning radius">
+    {{i18n folders.none_shown}}
+    </div>
   {{/each}}
 </ul>
 

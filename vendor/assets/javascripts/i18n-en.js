@@ -12,7 +12,8 @@ I18n.translations.en = {
     config: 'Folders config',
     create: 'Create folder',
     to_create: 'Create',
-    management: 'Folders Management'
+    management: 'Folders Management',
+    none_shown: 'None system folders shown. Check folders settings.'
   },
   compose: {
     title: 'Compose',

@@ -4,12 +4,12 @@
   {{/each}}
 </ul>
 
-  {{#if noSystemCount}}
+{{#if notSystemCount}}
   <hr/>
-  {{/if}}
+{{/if}}
 
 <ul class="side-nav">
-  {{#each folder in controller.noSystem}}
+  {{#each folder in controller.notSystem}}
   {{partial 'folderListItem'}}
   {{/each}}
 </ul>

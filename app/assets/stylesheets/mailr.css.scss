@@ -55,6 +55,9 @@ button, .button, .label, footer{
 
 .side-nav li {
   font-size: 1rem;
+  & a {
+    font-size: 1.1rem;
+  }
 }
 
 a .label {

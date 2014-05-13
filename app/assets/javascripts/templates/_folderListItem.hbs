@@ -1,6 +1,27 @@
-<li>{{#link-to 'folder.messages' folder}}<i class="fi-mail"></i>{{folder.name}}
+<li>
+{{#link-to 'folder.messages' folder}}
+
+{{#if folder.isInbox}}
+  <i class="fi-archive"></i>
+{{/if}}
+
+{{#if folder.isSent}}
+  <i class="fi-upload"></i>
+{{/if}}
+
+{{#if folder.isTrash}}
+  <i class="fi-trash"></i>
+{{/if}}
+
+{{#if folder.isDraft}}
+  <i class="fi-pencil"></i>
+{{/if}}
+
+{{folder.name}}
+
 {{#if folder.unseen}}
   <span class="label round right alert">{{folder.unseen}}</span>
 {{/if}}
+
 {{/link-to}}
 </li>

@@ -53,8 +53,12 @@ button, .button, .label, footer{
   font-size: 1.1rem;
 }
 
+i.disabled {
+  color: grey;
+}
+
 .side-nav li {
-  font-size: 1rem;
+  font-size: 1.1rem;
   & a {
     font-size: 1.1rem;
   }

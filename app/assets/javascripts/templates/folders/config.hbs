@@ -2,18 +2,29 @@
 
 <h5>{{i18n folders.management}}</h5>
 
-<ul class="side-nav">
+<div class="folders-config">
 {{#each folder in controller}}
-<li>
-
-<i {{action "showToggle" folder}}{{bind-attr class=":fi-eye folder.notShown"}}></i>
-
-{{folder.name}}
-
-</li>
+<div class="row">
+  <div class="small-12 columns">
+    <i {{action "showToggle" folder}}{{bind-attr class=":fi-eye folder.isShown::disabled"}}></i>
+    <i {{action "inboxSet" folder}}{{bind-attr class=":fi-mail folder.isInbox::disabled"}}></i>
+    <i {{action "sentSet" folder}}{{bind-attr class=":fi-upload folder.isSent::disabled"}}></i>
+    <i {{action "trashSet" folder}}{{bind-attr class=":fi-trash folder.isTrash::disabled"}}></i>
+    <i {{action "draftSet" folder}}{{bind-attr class=":fi-pencil folder.isDraft::disabled"}}></i>
+    <i {{action "deleteFolder" folder}}{{bind-attr class=":fi-x folder.deleteConfirmed"}}></i>
+    <span class="labels">
+    <span class="label radius alert">{{folder.unseen}}</span>
+    /
+    <span class="label radius">{{folder.total}}</span>
+    </span>
+    {{folder.name}}
+  </div>
+</div>
 {{/each}}
-</ul>
+</div>
 
 <h5>{{i18n folders.create}}</h5>
+<p>
 {{input value=folderName}}
+</p>
 <button class="button radius small" {{action "createFolder"}}><i class="fi-plus"></i>{{i18n folders.to_create}}</button>

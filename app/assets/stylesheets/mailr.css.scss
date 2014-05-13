@@ -53,8 +53,24 @@ button, .button, .label, footer{
   font-size: 1.1rem;
 }
 
-i.not-shown {
-  color: lighten(#000,80%);
+.folders-config {
+  font-family: 'alegreya_sans_scmedium';
+  font-size: 1.4rem;
+}
+
+
+i {
+  &.disabled {
+    color: lighten(#000,80%);
+  }
+  &.delete-confirmed {
+    color: red;
+  }
+}
+
+.labels {
+  min-width: 70px;
+  display: inline-block;
 }
 
 .side-nav li {

@@ -2,7 +2,7 @@ Mailr.FoldersController = Em.ArrayController.extend({
 
   folderCount: (->
     return @get('content').length
-  ).property('content')
+  ).property('content.@each')
 
   shown: (->
     return @get('content').filterBy('show')
@@ -10,7 +10,7 @@ Mailr.FoldersController = Em.ArrayController.extend({
 
   system: (->
     return @get('shown').filterBy('isSystem')
-  ).property('shown')
+  ).property('shown.@each.system')
 
   systemCount: (->
     return @get('isSystem').length
@@ -18,7 +18,7 @@ Mailr.FoldersController = Em.ArrayController.extend({
 
   notSystem: (->
     return @get('shown').filterBy('isSystem', false)
-  ).property('shown')
+  ).property('shown.@each.system')
 
   notSystemCount: (->
     return @get('notSystem').length

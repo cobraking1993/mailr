@@ -25,27 +25,12 @@ Mailr.FolderItem = Em.Object.extend({
   total: 0,
   unseen: 0,
 
-  notShown: Ember.computed.equal('show', false)
-
-  isInbox: ( ->
-    return @get('system') == 'inbox'
-  ).property('system')
-
-  isSent: ( ->
-    return @get('system') == 'sent'
-  ).property('system')
-
-  isTrash: ( ->
-    return @get('system') == 'trash'
-  ).property('system')
-
-  isDraft: ( ->
-    return @get('system') == 'draft'
-  ).property('system')
-
-  hasUnseen: ( ->
-    return @get('unseen') > 0
-  ).property('unseen')
+  isShown: Ember.computed.equal('show', true)
+  isInbox: Ember.computed.equal('system','inbox')
+  isSent: Ember.computed.equal('system','sent')
+  isTrash: Ember.computed.equal('system','trash')
+  isDraft: Ember.computed.equal('system','draft')
+  hasUnseen: Em.computed.gte('unseen',0)
 
   isSystem: ( ->
     sys = @get('system')

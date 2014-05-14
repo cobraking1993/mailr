@@ -5,20 +5,34 @@
 <div class="folders-config">
 {{#each folder in controller}}
 <div class="row">
-  <div class="small-12 columns">
+  <div class="small-6 columns">
     <i {{action "showToggle" folder}}{{bind-attr class=":fi-eye folder.isShown::disabled"}}></i>
     <i {{action "inboxSet" folder}}{{bind-attr class=":fi-mail folder.isInbox::disabled"}}></i>
     <i {{action "sentSet" folder}}{{bind-attr class=":fi-upload folder.isSent::disabled"}}></i>
     <i {{action "trashSet" folder}}{{bind-attr class=":fi-trash folder.isTrash::disabled"}}></i>
     <i {{action "draftSet" folder}}{{bind-attr class=":fi-pencil folder.isDraft::disabled"}}></i>
     <i {{action "deleteFolder" folder}}{{bind-attr class=":fi-x :deleteFolder"}}></i>
+    <i {{action "sortDown" folder}}{{bind-attr class=":fi-arrow-down folder.isLast:disabled"}}></i>
+    <i {{action "sortUp" folder}}{{bind-attr class=":fi-arrow-up folder.isFirst:disabled"}}></i>
     <span class="labels">
     <span class="label radius alert">{{folder.unseen}}</span>
     /
     <span class="label radius">{{folder.total}}</span>
     </span>
-    {{folder.name}}
   </div>
+    {{#if folder.isEditing}}
+      <div class="small-4 columns">
+      {{input value=folder.name}}
+      </div>
+      <div class="small-2 columns">
+      <i {{action "editConfirm" folder}} class="fi-check confirm"}}></i>
+      <i {{action "editCancel" folder}} class="fi-x cancel"}}></i>
+      </div>
+    {{else}}
+      <div class="small-6 columns">
+      <span {{action "edit" folder}}>{{folder.name}}</span>
+      </div>
+    {{/if}}
 </div>
 {{/each}}
 </div>

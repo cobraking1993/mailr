@@ -63,8 +63,11 @@ i {
   &.disabled {
     color: lighten(#000,80%);
   }
-  &.deleteFolder {
+  &.deleteFolder, &.cancel {
     color: red;
+  }
+  &.confirm {
+    color: green;
   }
 }
 

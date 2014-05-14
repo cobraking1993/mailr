@@ -63,8 +63,17 @@ i {
   &.disabled {
     color: lighten(#000,80%);
   }
-  &.delete-confirmed {
+  &.deleteFolder {
     color: red;
+  }
+}
+
+.folders-config {
+  & .row {
+    line-height: 2;
+  }
+  & i {
+    margin-right: 15px;
   }
 }
 

@@ -1,9 +1,17 @@
 Mailr.FoldersConfigController = Em.ArrayController.extend({
+
+  folderName: ''
+
+  folderNameValid: ( ->
+    return @get('folderName').length > 0
+  ).property('folderName')
+
   actions: {
 
     createFolder: ->
-      Mailr.folders.pushObject(Mailr.FolderItem.create({ id: Mailr.folders.length, name: @get('folderName'), total: 0, unseen: 0}))
-      @set('folderName','')
+      if @get('folderNameValid')
+        Mailr.folders.pushObject(Mailr.FolderItem.create({ id: Mailr.folders.length, name: @get('folderName'), total: 0, unseen: 0}))
+        @set('folderName','')
       return false
 
     showToggle: (folder) ->
@@ -39,9 +47,9 @@ Mailr.FoldersConfigController = Em.ArrayController.extend({
       return false
 
     deleteFolder: (folder) ->
-      if folder.get('deleteConfirmed')
-      else
-        folder.set('deleteConfirmed', true)
+      confirmed = confirm(I18n.t('folders.delete_confirmation'))
+      if confirmed
+        alert('del')
       return false
   }
 })

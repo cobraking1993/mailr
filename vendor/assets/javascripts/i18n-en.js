@@ -13,7 +13,8 @@ I18n.translations.en = {
     create: 'Create folder',
     to_create: 'Create',
     management: 'Folders Management',
-    none_shown: 'None system folders shown. Check folders settings.'
+    none_shown: 'None system folders shown. Check folders settings.',
+    delete_confirmation: 'Are You sure to delete this folder?'
   },
   compose: {
     title: 'Compose',

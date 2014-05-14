@@ -11,7 +11,7 @@
     <i {{action "sentSet" folder}}{{bind-attr class=":fi-upload folder.isSent::disabled"}}></i>
     <i {{action "trashSet" folder}}{{bind-attr class=":fi-trash folder.isTrash::disabled"}}></i>
     <i {{action "draftSet" folder}}{{bind-attr class=":fi-pencil folder.isDraft::disabled"}}></i>
-    <i {{action "deleteFolder" folder}}{{bind-attr class=":fi-x folder.deleteConfirmed"}}></i>
+    <i {{action "deleteFolder" folder}}{{bind-attr class=":fi-x :deleteFolder"}}></i>
     <span class="labels">
     <span class="label radius alert">{{folder.unseen}}</span>
     /
@@ -27,4 +27,4 @@
 <p>
 {{input value=folderName}}
 </p>
-<button class="button radius small" {{action "createFolder"}}><i class="fi-plus"></i>{{i18n folders.to_create}}</button>
+<button {{bind-attr class=":button :radius :small folderNameValid::disabled"}}{{action "createFolder"}}><i class="fi-plus"></i>{{i18n folders.to_create}}</button>

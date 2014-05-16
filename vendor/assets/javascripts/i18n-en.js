@@ -14,6 +14,7 @@ I18n.translations.en = {
     to_create: 'Create',
     management: 'Folders Management',
     none_shown: 'None system folders shown. Check folders settings.',
+    no_folders: 'No folders. Create one.',
     delete_confirmation: 'Are You sure to delete this folder?'
   },
   compose: {

@@ -28,10 +28,11 @@ Mailr.FoldersConfigController = Em.ArrayController.extend({
       if @get('folderNameValid')
         sort = Mailr.folders.length
         id = sort + 1
-        previous = Mailr.folders.findBy('sort', sort - 1)
-        previous.toggleProperty('force')
         Mailr.folders.pushObject(Mailr.FolderItem.create({ id: id, sort: sort, name: @get('folderName'), total: 0, unseen: 0}))
         @set('folderName','')
+        for f in Mailr.folders
+          do (f) ->
+            f.toggleProperty('force')
       return false
 
     showToggle: (folder) ->
@@ -81,15 +82,15 @@ Mailr.FoldersConfigController = Em.ArrayController.extend({
       return false
 
     deleteFolder: (folder) ->
-      # confirmed = confirm(I18n.t('folders.delete_confirmation'))
-      # if confirmed
-      #   sort = folder.get('sort')
-      #   previous = Mailr.folders.findBy('sort', sort - 1)
-      #   if folder.First
-      #     to_update = Mailr.folders.findBy('sort', sort 
-
-      #   previous.toggleProperty('force')
-      #   Mailr.folders.removeObject(folder)
+      confirmed = confirm(I18n.t('folders.delete_confirmation'))
+      if confirmed
+        sort = folder.get('sort')
+        if Mailr.folders.length > 1
+          f.decrementProperty('sort') for f in Mailr.folders when f.sort > sort
+          for f in Mailr.folders
+            do (f) ->
+              f.toggleProperty('force')
+        Mailr.folders.removeObject(folder)
       return false
   }
 })

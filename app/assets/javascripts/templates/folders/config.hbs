@@ -7,11 +7,11 @@
 <div class="row">
   <div class="small-6 columns">
     <i {{action "showToggle" folder}}{{bind-attr class=":fi-eye folder.isShown::disabled"}}></i>
-    <i {{action "inboxSet" folder}}{{bind-attr class=":fi-mail folder.isInbox::disabled"}}></i>
+    <i {{action "inboxSet" folder}}{{bind-attr class=":fi-archive folder.isInbox::disabled"}}></i>
     <i {{action "sentSet" folder}}{{bind-attr class=":fi-upload folder.isSent::disabled"}}></i>
     <i {{action "trashSet" folder}}{{bind-attr class=":fi-trash folder.isTrash::disabled"}}></i>
     <i {{action "draftSet" folder}}{{bind-attr class=":fi-pencil folder.isDraft::disabled"}}></i>
-    <i {{action "deleteFolder" folder}}{{bind-attr class=":fi-x :deleteFolder"}}></i>
+    <i {{action "deleteFolder" folder}} class="fi-x deleteFolder"></i>
     <i {{action "sortDown" folder}}{{bind-attr class=":fi-arrow-down folder.isLast:disabled"}}></i>
     <i {{action "sortUp" folder}}{{bind-attr class=":fi-arrow-up folder.isFirst:disabled"}}></i>
     <span class="labels">
@@ -34,6 +34,10 @@
       </div>
     {{/if}}
 </div>
+{{else}}
+    <div data-alert class="alert-box warning radius">
+      {{i18n folders.no_folders}}
+    </div>
 {{/each}}
 </div>
 

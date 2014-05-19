@@ -20,19 +20,9 @@
     <span class="label radius">{{folder.total}}</span>
     </span>
   </div>
-    {{#if folder.isEditing}}
-      <div class="small-4 columns">
-      {{input value=folder.name}}
-      </div>
-      <div class="small-2 columns">
-      <i {{action "editConfirm" folder}} class="fi-check confirm"}}></i>
-      <i {{action "editCancel" folder}} class="fi-x cancel"}}></i>
-      </div>
-    {{else}}
-      <div class="small-6 columns">
-      <span {{action "edit" folder}}>{{folder.name}}</span>
-      </div>
-    {{/if}}
+  <div class="small-6 columns">
+    {{input-text object=folder}}
+  </div>
 </div>
 {{else}}
     <div data-alert class="alert-box warning radius">

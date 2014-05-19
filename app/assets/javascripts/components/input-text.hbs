@@ -1,0 +1,12 @@
+{{#if isEditing}}
+<div class="small-7 columns">
+{{input class="input-text" value=backupText}}
+</div>
+<div class="small-4 columns">
+<i {{action "confirm" object}} class="fi-check confirm"></i>
+<i {{action "cancel"}} class="fi-x cancel"></i>
+</div>
+{{else}}
+<span {{action edit object}}>{{object.name}}</span>
+{{/if}}
+

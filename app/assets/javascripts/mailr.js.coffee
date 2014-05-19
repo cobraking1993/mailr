@@ -27,7 +27,6 @@ Mailr.FolderItem = Em.Object.extend({
   total: 0
   unseen: 0
   force: false
-  editing: false
   name_backup: ''
 
   isShown: Ember.computed.equal('show', true)
@@ -36,7 +35,6 @@ Mailr.FolderItem = Em.Object.extend({
   isTrash: Ember.computed.equal('system','trash')
   isDraft: Ember.computed.equal('system','draft')
   hasUnseen: Em.computed.gte('unseen',0)
-  isEditing: Ember.computed.equal('editing', true)
 
   isSystem: ( ->
     sys = @get('system')

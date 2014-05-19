@@ -14,15 +14,19 @@ Mailr.FoldersConfigController = Em.ArrayController.extend({
     sortDown: (folder) ->
       length = Mailr.folders.length
       return if folder.sort == length - 1
-      console.log(length)
-      console.log(folder.sort)
-      index = Mailr.folders.indexOf(folder)
-      console.log(index)
+      sort = folder.get('sort')
+      next = Mailr.folders.findBy('sort',sort + 1)
+      nextSort = next.get('sort')
+      next.set('sort',sort)
+      folder.set('sort',nextSort)
 
     sortUp: (folder) ->
-      length = Mailr.folders.length
       return if folder.sort == 0
-      console.log(folder.sort)
+      sort = folder.get('sort')
+      previous = Mailr.folders.findBy('sort',sort - 1)
+      previousSort = previous.get('sort')
+      previous.set('sort',sort)
+      folder.set('sort',previousSort)
 
     createFolder: ->
       if @get('folderNameValid')
@@ -65,20 +69,6 @@ Mailr.FoldersConfigController = Em.ArrayController.extend({
         folder.set('system','')
       else
         folder.set('system','draft')
-      return false
-
-    edit: (folder) ->
-      folder.set('editing', true)
-      folder.set('name_backup', folder.get('name'))
-      return false
-
-    editCancel: (folder) ->
-      folder.set('name', folder.get('name_backup'))
-      folder.set('editing', false)
-      return false
-
-    editConfirm: (folder) ->
-      folder.set('editing', false)
       return false
 
     deleteFolder: (folder) ->

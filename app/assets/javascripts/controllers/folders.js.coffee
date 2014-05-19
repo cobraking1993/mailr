@@ -6,7 +6,7 @@ Mailr.FoldersController = Em.ArrayController.extend({
 
   shown: (->
     return @get('content').filterBy('show').sortBy('sort')
-  ).property('content.@each.show')
+  ).property('content.@each.show','content.@each.sort')
 
   system: (->
     return @get('shown').filterBy('isSystem')

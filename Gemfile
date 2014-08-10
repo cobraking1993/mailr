@@ -26,29 +26,31 @@ gem 'foundation-rails'
 
 gem 'quiet_assets'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'spring', group: :development
-gem 'sqlite3', :group => [:test, :development, :staging]
 
 group :test, :development, :staging do
-  gem 'sqlite3'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'formatador'
+  gem 'sqlite3'
 end
 
 group :test, :development do
-  gem 'webrick'
-  gem "rspec-rails"
+  gem "awesome_print"
+  gem 'better_errors'
+  gem 'brakeman', :require => false
   gem 'capybara'
+  gem "database_cleaner"
+  gem "email_spec"
+  gem "erd", :require => false
   gem "guard-rspec"
   gem "guard-spring"
-  gem 'rb-inotify'
-  gem 'brakeman', :require => false
   gem 'mina', :require => false
-  gem "email_spec"
-  gem "timecop"
-  gem 'simplecov', :require => false
-  gem "database_cleaner"
   gem "rails_best_practices", :require => false
+  gem 'rb-inotify'
+  gem "rspec-rails"
+  gem 'simplecov', :require => false
+  gem "spring"
+  gem "timecop"
+  gem 'webrick'
 end
 
